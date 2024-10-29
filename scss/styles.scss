@@ -630,6 +630,66 @@ footer {
     -------------------------------
 */
 
+.publication {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 4px;
+    display: flex; /* Add flex display */
+    align-items: center; /* Center the content vertically */
+    justify-content: center; /* Center the content horizontally */
+    padding: 20px; /* Add padding to create spacing */
+}
+
+.publication-image {
+    flex: 0 0 150px; /* Keep a fixed width for the image, adjust as needed */
+    margin-right: 20px; /* Space between image and text */
+}
+
+.publication-info {
+    flex: 1; /* Allow the info section to fill the rest of the space */
+    text-align: center; /* Center text content */
+    padding: 15px;
+
+    h3 {
+        font-size: 1.5em;
+        font-weight: 300;
+        color: $heading;
+        margin: 0 0 15px 0;
+    }
+
+    p {
+        color: $text;
+        margin: 0 0 15px 0;
+        font-size: 0.9em;
+    }
+}
+
+.no-image .publication-info {
+    position: relative;
+    margin: 0;
+    padding: 30px 15px;
+    transform: none;
+    flex: 1; /* Ensure full width usage when no image */
+}
+
+.no-image {
+    .publication-info {
+        position: relative;
+        margin: 0;
+        padding: 30px 15px;
+        transform: none;
+    }
+}
+
+#more-publications {
+    display: none;
+}
+
+
+
 #projects {
     padding: 50px 15px;
     border-bottom: 1px solid $border;
@@ -687,6 +747,8 @@ footer {
 #more-projects {
     display: none;
 }
+
+
 
 /*
     -------------------------------
