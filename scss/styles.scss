@@ -629,24 +629,80 @@ footer {
     ----- 8. Project Styles -----
     -------------------------------
 */
-
-
 #publications {
-        text-align: center;
+    padding: 50px 15px;
+    border-bottom: 1px solid $border;
+    text-align: center;
+
+    h2 {
+        color: $heading;
+        margin-bottom: 50px;
     }
 
-    #publications .container {
+    /* Ensure the entire container centers its content */
+    .container {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: column; /* Stack vertically */
+        align-items: center;    /* Horizontally center */
     }
 
-    #publications .row {
-        width: 100%;
+    .row {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column; /* Stack publications vertically */
+        width: 100%;            /* Make sure it takes full width */
+        align-items: center;    /* Center children horizontally */
     }
+}
+
+.publication {
+    display: flex;
+    flex-direction: row; /* Align image and info side-by-side */
+    position: relative;
+    max-width: 1000px; /* Adjust the width to your preference */
+    margin: 0 auto 30px auto;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.publication-image img {
+    float: left;
+}
+
+
+
+.publication-info {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 300px;
+    padding: 15px;
+
+    h3 {
+        font-size: 1.5em;
+        font-weight: 300;
+        color: $heading;
+        margin: 0 0 15px 0;
+    }
+
+    p {
+        color: $text;
+        margin: 0 0 15px 0;
+        font-size: 0.9em;
+    }
+}
+
+.no-image-publication {
+    .publication-info {
+        padding: 30px 15px;
+    }
+}
+
+#more-publications {
+    display: none;
+}
+
+
 #projects {
     padding: 50px 15px;
     border-bottom: 1px solid $border;
@@ -680,11 +736,17 @@ footer {
 
     h3 {
         font-size: 1.5em;
-        font-weight: 300;
+        font-weight: 350;
         color: $heading;
         margin: 0 0 15px 0;
     }
 
+    h4 {
+        font-size: 1em;
+        font-weight: 200;
+        color: black; /* Set the color of the authors' names to black */
+        margin: 0 0 15px 0; /* Add some spacing below h4 */
+    }
     p {
         color: $text;
         margin: 0 0 15px 0;
