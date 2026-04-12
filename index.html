@@ -1,281 +1,595 @@
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pardis Sadat Zahraei</title>
-   <link rel="shortcut icon" href="favicon2.ico" type="image/x-icon">
-   <link rel="icon" href="favicon2.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pardis Sadat Zahraei</title>
+<link rel="icon" href="x.ico" type="image/x-icon">
+<link rel="shortcut icon" href="x.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:   #faf7f2;
+  --ink:     #1e1830;
+  --muted:   #5a5268;
+  --rose:    #e8a4b8;
+  --violet:  #b898d8;
+  --teal:    #88c8b8;
+  --peach:   #f0b898;
+  --sky:     #98c8e8;
+  --mint:    #a8d8c0;
+  --lilac:   #c8b8e8;
+  --coral:   #f0a898;
+  --border:  rgba(30,24,48,0.1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.7;overflow-x:hidden;}
+
+/* ── GRAIN ── */
+body::after{content:'';position:fixed;inset:0;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:1;}
+
+#gradient-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+nav,section,footer{position:relative;z-index:2;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(250,247,242,0.75);backdrop-filter:blur(20px);border-bottom:1px solid rgba(30,24,48,0.07);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.1em;color:var(--ink);text-decoration:none;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--ink);}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 5rem;gap:4rem;}
+.hero-text{padding-top:4rem;}
+
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:#9878c8;background:rgba(152,120,200,0.12);border:1px solid rgba(152,120,200,0.35);padding:0.4rem 1rem;border-radius:2rem;margin-bottom:2rem;}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#b898d8;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);}}
+
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,5.5vw,5.5rem);font-weight:300;line-height:1.03;margin-bottom:0.7rem;animation:fadeUp 0.9s ease both;}
+.hero-name em{font-style:italic;display:block;background:linear-gradient(135deg,#c888d8,#8898e8,#88c8c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 6s ease-in-out infinite alternate;}
+@keyframes gradShift{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(30deg);}}
+
+.hero-title{font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem;animation:fadeUp 0.9s 0.1s ease both;}
+.hero-desc{font-size:1rem;color:var(--muted);max-width:430px;line-height:1.88;margin-bottom:2.5rem;animation:fadeUp 0.9s 0.2s ease both;}
+.hero-desc strong{color:var(--ink);font-weight:500;}
+.hero-links{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.9s 0.3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.8rem 1.7rem;background:linear-gradient(135deg,#b898d8,#8898e8);color:#fff;border-radius:2rem;text-decoration:none;transition:all 0.28s;box-shadow:0 4px 20px rgba(152,120,200,0.35);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(152,120,200,0.5);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.8rem 1.7rem;border:1.5px solid rgba(30,24,48,0.15);color:var(--ink);border-radius:2rem;text-decoration:none;background:rgba(255,255,255,0.55);backdrop-filter:blur(8px);transition:all 0.25s;}
+.btn-ghost:hover{background:rgba(184,152,216,0.15);border-color:var(--violet);transform:translateY(-2px);}
+
+/* HERO CARD */
+.hero-visual{display:flex;justify-content:center;align-items:center;padding-top:4rem;animation:fadeUp 0.9s 0.25s ease both;}
+.hero-card-wrap{position:relative;width:330px;}
+
+.float-badge{position:absolute;backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.9);border-radius:1rem;padding:0.65rem 1rem;box-shadow:0 8px 28px rgba(30,24,48,0.12);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.04em;color:var(--ink);white-space:nowrap;z-index:10;}
+.badge-1{top:-18px;right:-20px;background:rgba(200,184,232,0.88);animation:floatY 6s ease-in-out infinite;box-shadow:0 8px 28px rgba(152,120,200,0.2);}
+.badge-2{bottom:-18px;left:-20px;background:rgba(168,216,192,0.88);animation:floatY 7s 1.2s ease-in-out infinite;box-shadow:0 8px 28px rgba(136,200,184,0.2);}
+@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+.hero-card-inner{background:rgba(255,255,255,0.75);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.92);border-radius:2rem;padding:2.2rem 2.2rem 1.8rem;box-shadow:0 24px 64px rgba(30,24,48,0.1),0 4px 16px rgba(30,24,48,0.05);}
+.interests-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;display:block;}
+.interest-item{display:flex;align-items:flex-start;gap:0.85rem;padding:0.82rem 0;border-bottom:1px solid rgba(30,24,48,0.05);}
+.interest-item:last-child{border-bottom:none;padding-bottom:0;}
+.interest-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.dot-1{background:linear-gradient(135deg,#c888d8,#9878c8);}
+.dot-2{background:linear-gradient(135deg,#88c8b8,#68b0a0);}
+.dot-3{background:linear-gradient(135deg,#f0b898,#e09878);}
+.dot-4{background:linear-gradient(135deg,#98c8e8,#78a8d0);}
+.interest-text{font-size:0.87rem;line-height:1.4;color:var(--ink);font-weight:500;}
+.interest-sub{font-size:0.7rem;color:var(--muted);margin-top:0.15rem;}
+
+/* ── SECTION SHARED ── */
+section{padding:6.5rem 5rem;}
+.section-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.5rem;display:block;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,2.8rem);font-weight:300;line-height:1.15;margin-bottom:3rem;}
+.section-title em{font-style:italic;}
+
+/* ── ABOUT — rich rose/violet tones ── */
+#about{background:linear-gradient(160deg,rgba(232,164,184,0.22) 0%,rgba(200,184,232,0.18) 50%,rgba(152,200,232,0.15) 100%);}
+#about .section-label{color:#c878a8;}
+#about .section-title em{color:#c878a8;}
+
+.about-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:5rem;align-items:start;}
+.about-photo-frame{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#f0b8c8,#c898d8,#98a8e8);border-radius:2rem;overflow:hidden;margin-bottom:1.5rem;box-shadow:0 20px 50px rgba(200,140,200,0.25);}
+.about-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.8);font-size:0.9rem;text-align:center;padding:1rem;}
+.social-row{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.social-chip{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.07em;padding:0.38rem 0.8rem;border:1px solid rgba(200,140,200,0.35);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.65);transition:all 0.2s;}
+.social-chip:hover{background:linear-gradient(135deg,#c888d8,#9898e8);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(152,120,200,0.35);}
+.about-content p{font-size:0.97rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.88;}
+.about-content p strong{color:var(--ink);font-weight:500;}
+.about-content p em{font-style:italic;color:#b878c8;}
+.inspiration-block{margin-top:2.2rem;padding:1.6rem 1.8rem;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.85);border-radius:1.4rem;border-left:3px solid #c888d8;}
+.inspiration-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.2em;text-transform:uppercase;color:#c888d8;margin-bottom:0.8rem;display:block;}
+.inspiration-block p{font-size:0.88rem;color:var(--muted);margin-bottom:0;font-style:italic;line-height:1.75;}
+
+/* ── INTERESTS — vivid colored cards ── */
+#interests{background:linear-gradient(160deg,rgba(168,216,192,0.2) 0%,rgba(152,200,232,0.18) 50%,rgba(200,184,232,0.18) 100%);}
+#interests .section-label{color:#5aaa88;}
+#interests .section-title em{color:#5aaa88;}
+
+.interests-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+
+.interest-card{padding:2.2rem;border-radius:1.8rem;border:1px solid rgba(255,255,255,0.8);backdrop-filter:blur(16px);transition:transform 0.3s,box-shadow 0.3s;overflow:hidden;position:relative;}
+.interest-card::before{content:'';position:absolute;inset:0;border-radius:1.8rem;opacity:0;transition:opacity 0.3s;}
+.interest-card:hover{transform:translateY(-7px);}
+.interest-card:hover::before{opacity:1;}
+
+/* Card 1 – violet */
+.ic-1{background:linear-gradient(145deg,rgba(200,152,220,0.28) 0%,rgba(152,152,232,0.2) 100%);box-shadow:0 4px 24px rgba(184,140,216,0.15);}
+.ic-1:hover{box-shadow:0 20px 50px rgba(184,140,216,0.3);}
+.ic-1 .ic-num{background:linear-gradient(135deg,#c888d8,#9898e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
+.ic-1 .ic-title{color:var(--ink);}
+.ic-1 .ic-tag{background:rgba(184,140,216,0.18);color:#9060b8;}
+
+/* animated glow corner */
+.ic-1::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(200,152,220,0.5),transparent 70%);animation:glowPulse 4s ease-in-out infinite;}
+
+/* Card 2 – rose/coral */
+.ic-2{background:linear-gradient(145deg,rgba(240,168,152,0.28) 0%,rgba(220,136,168,0.2) 100%);box-shadow:0 4px 24px rgba(220,150,170,0.15);}
+.ic-2:hover{box-shadow:0 20px 50px rgba(220,150,170,0.3);}
+.ic-2 .ic-num{background:linear-gradient(135deg,#f0a898,#d880a8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
+.ic-2 .ic-tag{background:rgba(220,136,168,0.18);color:#b05878;}
+.ic-2::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(240,168,152,0.5),transparent 70%);animation:glowPulse 4.5s 0.5s ease-in-out infinite;}
+
+/* Card 3 – teal/mint */
+.ic-3{background:linear-gradient(145deg,rgba(136,200,184,0.28) 0%,rgba(152,200,152,0.2) 100%);box-shadow:0 4px 24px rgba(136,200,184,0.15);}
+.ic-3:hover{box-shadow:0 20px 50px rgba(136,200,184,0.3);}
+.ic-3 .ic-num{background:linear-gradient(135deg,#88c8b8,#68b090);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
+.ic-3 .ic-tag{background:rgba(136,200,184,0.2);color:#308870;}
+.ic-3::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(136,200,184,0.5),transparent 70%);animation:glowPulse 5s 1s ease-in-out infinite;}
+
+/* Card 4 – sky blue */
+.ic-4{background:linear-gradient(145deg,rgba(152,200,232,0.28) 0%,rgba(168,184,232,0.2) 100%);box-shadow:0 4px 24px rgba(152,200,232,0.15);}
+.ic-4:hover{box-shadow:0 20px 50px rgba(152,200,232,0.3);}
+.ic-4 .ic-num{background:linear-gradient(135deg,#98c8e8,#78a8d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
+.ic-4 .ic-tag{background:rgba(152,200,232,0.2);color:#3878b0;}
+.ic-4::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(152,200,232,0.5),transparent 70%);animation:glowPulse 4.8s 1.5s ease-in-out infinite;}
+
+@keyframes glowPulse{0%,100%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.3);opacity:1;}}
+
+.ic-num{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;margin-bottom:0.4rem;}
+.ic-title{font-family:'Cormorant Garamond',serif;font-size:1.38rem;font-weight:600;margin-bottom:0.8rem;}
+.ic-body{font-size:0.86rem;color:var(--muted);line-height:1.74;}
+.ic-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1.1rem;}
+.ic-tag{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.07em;padding:0.25rem 0.65rem;border-radius:1rem;font-weight:400;}
+
+/* ── PUBLICATIONS — warm peach/rose ── */
+#publications{background:linear-gradient(160deg,rgba(240,184,152,0.18) 0%,rgba(232,164,184,0.18) 60%,rgba(200,184,232,0.15) 100%);}
+#publications .section-label{color:#c07858;}
+#publications .section-title em{color:#c07858;}
+
+.pub-container{max-width:1040px;margin:0 auto;}
+.pub-year-group{margin-bottom:3rem;}
+.pub-year{font-family:'Space Mono',monospace;font-size:0.61rem;letter-spacing:0.22em;text-transform:uppercase;color:#c07858;margin-bottom:1.4rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(192,120,88,0.2);}
+
+.pub-card{display:grid;grid-template-columns:190px 1fr;gap:1.7rem;padding:1.7rem;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.9);border-radius:1.5rem;margin-bottom:1.1rem;transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;}
+.pub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(200,152,216,0.5),transparent);opacity:0;transition:opacity 0.3s;}
+.pub-card:hover{transform:translateX(6px);box-shadow:0 16px 48px rgba(30,24,48,0.09);}
+.pub-card:hover::before{opacity:1;}
+
+.pub-figure{width:100%;aspect-ratio:4/3;border-radius:0.9rem;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:0.54rem;color:rgba(255,255,255,0.72);text-align:center;letter-spacing:0.04em;overflow:hidden;position:relative;flex-shrink:0;}
+.pub-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0.9rem;}
+.fig-emergent{background:linear-gradient(135deg,#c8a8e0 0%,#9888d0 50%,#8080c0 100%);}
+.fig-eicap   {background:linear-gradient(135deg,#e8a8c0 0%,#d080a0 50%,#b86090 100%);}
+.fig-judge   {background:linear-gradient(135deg,#88c8c0 0%,#60a8a0 50%,#508898 100%);}
+.fig-mena    {background:linear-gradient(135deg,#f0c898 0%,#d8a070 50%,#c08058 100%);}
+.fig-wsc     {background:linear-gradient(135deg,#98c8e8 0%,#70a8d0 50%,#6090b8 100%);}
+.fig-turingq {background:linear-gradient(135deg,#a8d8b8 0%,#78b890 50%,#60a080 100%);}
+.fig-translate{background:linear-gradient(135deg,#f0d0a0 0%,#d8b070 50%,#c09058 100%);}
+.fig-healthcare{background:linear-gradient(135deg,#e898c8 0%,#c870a8 50%,#b06090 100%);}
+.fig-animation{background:linear-gradient(135deg,#a0b8e8 0%,#7898d0 50%,#6080b8 100%);}
+.fig-pattern{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.fig-label{position:relative;z-index:1;line-height:1.6;padding:0.5rem;}
+
+.pub-status{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.7rem;border-radius:1rem;margin-bottom:0.7rem;}
+.status-review{background:rgba(200,152,216,0.2);color:#9060b8;border:1px solid rgba(152,100,200,0.25);}
+.status-pub   {background:rgba(136,200,184,0.2);color:#308860;border:1px solid rgba(100,180,148,0.25);}
+.status-dot   {width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+.pub-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;line-height:1.35;color:var(--ink);margin-bottom:0.5rem;}
+.pub-authors{font-size:0.77rem;color:var(--muted);margin-bottom:0.7rem;}
+.pub-authors strong{color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px;}
+.pub-abstract{font-size:0.83rem;color:var(--muted);line-height:1.72;margin-bottom:0.9rem;}
+.pub-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.pub-link{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.27rem 0.75rem;border:1px solid rgba(30,24,48,0.15);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.6);transition:all 0.2s;}
+.pub-link:hover{background:linear-gradient(135deg,#b898d8,#8898e8);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(152,120,200,0.3);}
+
+/* ── CONTACT ── */
+#contact{background:linear-gradient(135deg,#1e1830 0%,#2a1e3c 50%,#1a2430 100%);color:#faf7f2;text-align:center;padding:9rem 4rem;position:relative;overflow:hidden;}
+#contact::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(184,152,216,0.2) 0%,rgba(136,152,232,0.1) 40%,transparent 70%);animation:contactGlow 8s ease-in-out infinite alternate;}
+@keyframes contactGlow{from{transform:translateX(-50%) scale(1);}to{transform:translateX(-50%) scale(1.2);}}
+#contact .section-label{color:#b898d8;}
+#contact .section-title{color:#faf7f2;margin-bottom:1.4rem;}
+.contact-desc{font-size:0.97rem;color:rgba(250,247,242,0.55);max-width:460px;margin:0 auto 2.8rem;line-height:1.85;}
+.contact-email{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:#faf7f2;text-decoration:none;padding-bottom:0.2rem;display:inline-block;margin-bottom:3rem;position:relative;transition:color 0.2s;}
+.contact-email::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#b898d8,transparent);}
+.contact-email:hover{color:#b898d8;}
+.contact-links{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;position:relative;}
+.contact-link{font-family:'Space Mono',monospace;font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.3rem;border:1px solid rgba(250,247,242,0.18);border-radius:2rem;color:rgba(250,247,242,0.65);text-decoration:none;transition:all 0.25s;backdrop-filter:blur(8px);}
+.contact-link:hover{background:linear-gradient(135deg,rgba(184,152,216,0.4),rgba(136,152,232,0.4));border-color:rgba(184,152,216,0.5);color:#fff;}
+
+/* ── FOOTER ── */
+footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.8rem 5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+.footer-copy{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;color:rgba(250,247,242,0.22);}
+
+/* ── SCROLL ANIMATIONS ── */
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:1rem 2rem;}
+  .nav-links{display:none;}
+  #hero{grid-template-columns:1fr;padding:0 2rem;}
+  .hero-text{padding-top:7rem;padding-bottom:4rem;}
+  .hero-visual{display:none;}
+  section{padding:4rem 2rem;}
+  .about-grid{grid-template-columns:1fr;gap:2rem;}
+  .interests-grid{grid-template-columns:1fr;}
+  .pub-card{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem 2rem;}
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#c888d8,#88c8b8);border-radius:3px;}
+</style>
 </head>
-
 <body>
-    <div id="mobile-menu-open" class="shadow-large">
-        <i class="fa fa-bars" aria-hidden="true"></i>
-    </div>
-    <header>
-        <div id="mobile-menu-close">
-            <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
-        </div>
-        <ul id="menu" class="shadow">
-            <li>
-                <a href="#about">About</a>
-            </li>
-            <li>
-                <a href="#publications">Publications</a>
-            </li>
-            <li>
-                <a href="#projects">Projects</a>
-            </li>
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
-        </ul>
-    </header>
-    <div id="lead">
-        <div id="lead-content">
-            <h1>Pardis Sadat Zahraei</h1>
-            <h2>PhD Student in Computer Science</h2>
-            <a href="resume.pdf" class="btn-rounded-white" download="Resume.pdf">Download Resume</a>
-        </div>
-        <div id="lead-overlay"></div>
 
-        <div id="lead-down">
-            <span>
-                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </span>
-        </div>
-        </div>
-    <div id="about">
-    <div class="container">
+<canvas id="gradient-canvas"></canvas>
 
-        <div class="row">
-            <div class="col-md-4">
-                <h2 class="heading">About Me</h2>
-                <img src="images/person.jpg" alt="Your Name" class="profile-picture">
-            </div>
-            <div class="col-md-8">
-                <div class="about-text">
-                    <p>
-I'm a first year PhD student in Computer Science at the University of Illinois Urbana-Champaign, working on natural language processing (NLP) with a focus on AI safety, alignment, and fairness.
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">PSZ</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#interests">Research</a></li>
+    <li><a href="#publications">Papers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-
-My research centers on understanding how LLMs behave and identifying their weaknesses. I develop benchmarks and evaluation methods to assess LLM capabilities, detect biases, and ensure these systems are safe and fair across different languages and cultures.
-
-                      </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    <div id="publications" class="background-alt">
-        <h2 class="heading">Publications</h2>
-        <div class="container">
-            <div class="row">
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="Your paragraph text (9) (1).png" />
-                    </div>
-                    <div class="project-info">
-                        <h3 style="color: #FF6347;"><B>MENA Values Benchmark for Evaluating Cultural Alignment and Multilingual Bias in LLMs</B> (Under Review - NeurIPS 2025)</h3>
-                        <h4><span style="text-decoration: underline;">Pardis Sadat Zahraei</span>, Ehsaneddin Asgari</h4>
-                        <p>
-We introduce MENAValues, a new benchmark to evaluate how LLMs align with the cultural values of the Middle East and North Africa. Our research reveals that LLM responses are sensitive to language and framing, with models showing shifts in cultural alignment and, in some cases, producing biased outputs. We also identify a phenomenon called "Logit Leakage," where hidden model preferences are exposed through log-probability analysis. This work highlights the importance of using frameworks like MENAValues to assess the cultural sensitivity of LLMs.
-                        </p>
-                    </div>
-                    </div>
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="Cap3ture (3).png" />
-                    </div>
-                    <div class="project-info">
-                        <h3 style="color: #6A5ACD;"><B>Translate With Care: Addressing Gender Bias, Neutrality, and Reasoning in LLM Translations</B> (Findings-ACL 2025)</h3>
-                        <h4><span style="text-decoration: underline;">Pardis Sadat Zahraei</span>, Ali Emami</h4>
-                        <p>
-This paper addresses gender bias and logical coherence in machine translation, particularly between gendered languages like English and genderless ones such as Persian. We introduce the Translate-with-Care (TWC) dataset, which includes 3,950 challenging scenarios to test translation systems. Our findings show that all tested models struggle with genderless content, often defaulting to masculine pronouns in professional contexts. We demonstrate that fine-tuning an open-source model on our dataset can significantly reduce these biases and errors, outperforming proprietary LLMs.
-                        </p>
-                    </div>
-                    </div>
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="imresizer-1730263713072.png" />
-                    </div>
-                    <div class="project-info">
-                        <h3 style="color: #3CB371;"><B>WSC+: Enhancing The Winograd Schema Challenge Using Tree-of-Experts</B> (EACL 2024)</h3>
-                        <h4><span style="text-decoration: underline;">Pardis Sadat Zahraei</span>, Ali Emami</h4>
-                        <p>
-Tree-of-Experts (ToE) is a new prompting method that improves the generation of Winograd Schema Challenge questions, achieving 50% valid cases compared to 10% with existing methods. Using ToE, we created WSC+, a dataset of 3,026 LLM-generated questions that includes new categories for ambiguous and offensive content. Our findings show that while GPT-4 leads LLM performance on WSC+ with 68.7% accuracy, this falls well below human performance of 95.1%. We also found that LLMs don't necessarily answer their own generated questions better than those created by other models.
-                        </p>
-                        <a href="https://aclanthology.org/2024.eacl-long.99/" target="_blank">View Paper</a> |
-                        <a href="https://github.com/pardissz/WSCplus-TreeOfExperts" target="_blank">View GitHub</a> |
-                        <a href="https://aclanthology.org/2024.eacl-long.99.mp4" target="_blank">View Video</a>
-                    </div>
-                    </div>
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="resized_image2.png" />
-                    </div>
-                    <div class="project-info">
-                        <h3 style="color: #BA55D3;"><B>TuringQ: Benchmarking AI Comprehension in Theory of Computation</B> (Findings-EMNLP 2024)</h3>
-                        <h4><span style="text-decoration: underline;">Pardis Sadat Zahraei</span>, Ehsaneddin Asgari</h4>
-                        <p>
-TuringQ is the first benchmark that tests LLMs' reasoning abilities in theoretical computer science. Testing with Chain of Thought prompting on various LLMs, we developed an automated evaluation system that performs similarly to human experts. Fine-tuning Llama3-8B on TuringQ improved both its theoretical reasoning and performance on related tasks like algebra, demonstrating the benchmark's value for advancing LLM capabilities in computational theory.
-                        </p>
-                        <a href="https://arxiv.org/abs/2410.06547" target="_blank">View Paper</a> |
-                        <a href="https://github.com/language-modeling-lab/TuringQ" target="_blank">View GitHub</a> |
-                        <a href="https://huggingface.co/datasets/llm-lab/TuringQ" target="_blank">View Dataset</a> |
-                        <a href="https://huggingface.co/llm-lab/Llama3-8B-ft-TuringQ" target="_blank">View Model</a>
-                    </div>
-                    </div>
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="resized_image.png" />
-                    </div>
-                    <div class="project-info">
-                        <h3 style="color: #DAA520;"><B>Detecting Bias and Enhancing Diagnostic Accuracy in Large Language Models for Healthcare</B> </h3>
-                        <h4><span style="text-decoration: underline;">Pardis Sadat Zahraei</span>, Zahra Shakeri</h4>
-                        <p>
-Biased AI medical advice poses risks to patient safety as LLMs increasingly influence healthcare decisions. This study introduces two key resources: BiasMD (6,007 Q&A pairs for bias evaluation) and DiseaseMatcher (32,000 clinical Q&As covering 700 diseases). Using these datasets, we developed EthiClinician, a fine-tuned model that surpasses GPT-4 in ethical reasoning and clinical judgment, setting new standards for safer AI-driven healthcare outcomes.
-                        </p>
-                        <a href="https://arxiv.org/abs/2410.06566" target="_blank">View Paper</a> |
-                        <a href="https://github.com/HIVE-UofT/Detecting-Bias-and-Enhancing-Diagnostic-Accuracy" target="_blank">View GitHub</a> |
-                        <a href="https://huggingface.co/datasets/PardisSzah/BiasMD" target="_blank">View BiasMD</a> |
-                        <a href="https://huggingface.co/datasets/PardisSzah/DiseaseMatcher" target="_blank">View DiseaseMatcher</a> |
-                        <a href="https://huggingface.co/PardisSzah/EthiClinician" target="_blank">View Model</a>
-                    </div>
-                    </div>
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="Captuرre (1).png" />
-                    </div>
-                    <div class="project-info">
-                        <h3 style="color: #4682B4;"><B>Generative AI for Character Animation: A Comprehensive Survey</B></h3>
-                        <h4>Mohammad Mahdi Abootorabi, Omid Ghahroodi, <span style="text-decoration: underline;">Pardis Sadat Zahraei</span>, et al.</h4>
-                        <p>
-This survey offers a comprehensive overview of how generative AI is applied to character animation, covering facial animation, motion synthesis, and more. It highlights key research, datasets, and trends, providing a single, integrative perspective on the field. The paper also discusses open challenges and future research directions to help researchers and developers advance AI-driven animation technologies.
-                        </p>
-                    </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-
-    <div id="projects" class="background-alt">
-        <h2 class="heading">Projects</h2>
-        <div class="container">
-            <div class="row">
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="imresizer-1730264671838.png" />
-                    </div>
-                    <div class="project-info">
-                        <h3>Persian Ease & Persian Formalizer</h3>
-                        <p>
-Persian Ease and Persian Formalizer are a pair of complementary language models fine-tuned for Persian text style transfer:
-
-Persian Ease transforms formal Persian text into a more casual, conversational style
-Persian Formalizer converts informal Persian text into formal language suitable for professional or academic contexts
-
-Both models leverage fine-tuning techniques to preserve meaning while adapting the linguistic style appropriately.                        </p>
-                         <a href="https://huggingface.co/parsi-ai-nlpclass/PersianEase" target="_blank">View PersianEase</a> |
-                         <a href="https://huggingface.co/parsi-ai-nlpclass/PersianTextFormalizer" target="_blank">View PersianTextFormalizer</a>
-                    </div>
-                    </div>
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="imresizer-1730382094806.png" />
-                    </div>
-                    <div class="project-info">
-                        <h3>Persian NER and Text Summarization</h3>
-                        <p>
-Implemented dual transformer-based models (mT5 and BERT) for Persian language processing, featuring Named Entity Recognition (NER) for token classification and an abstractive text summarization system.            </p>
-                        <a href="https://huggingface.co/PardisSzah/Persian_Summarizer_MT5" target="_blank">View PersianSummarizer</a>
-                                            |    <a href="https://huggingface.co/PardisSzah/Persian_NER_parsbert" target="_blank">View PersianNER</a>
-
-
-                    </div>
-                    </div>
-                <a id="view-more-projects" href="#">View More Projects</a>
-<div id="more-projects" class="row">
-    <div class="project shadow-large">
-        <div class="project-image">
-            <img src="imresizer-1730381060654.png" />
-        </div>
-        <div class="project-info">
-            <h3>Cross-Lingual Drug Name Prediction</h3>
-            <p>
-This project develops a model to accurately predict drug names in both Persian and English using embedding techniques, FastText and BERT. By leveraging these embeddings, the model predicts drug names based on specific features and patterns in the input data. This bilingual approach enables pharmaceutical and healthcare applications to enhance drug name identification and suggestion in multilingual environments.
-
-
-            </p>
-            <a href="https://github.com/pardissz/NLP_HW3">View Project</a>
-        </div>
-        </div>
-    <div class="project shadow-large">
-        <div class="project-image">
-            <img src="imresizer-1730382021097.png" />
-        </div>
-        <div class="project-info">
-            <h3>Sentiment Analysis on Social Media Data with Custom NLP Pipeline</h3>
-            <p>
-This project conducts sentiment analysis on Twitter and YouTube data, implementing a specialized preprocessing pipeline to improve accuracy and contextual understanding. The pipeline includes essential NLP steps such as lemmatization, tokenization, NER, and spell checking, along with advanced customizations like bigram verification, contradiction resolution, and a slang dictionary tailored to social media language. These techniques enable more accurate and nuanced sentiment insights by accounting for informal language, abbreviations, and unique social media expressions.
-            </p>
-            <a href="https://github.com/pardissz/NLP_HW3">View Project</a>
-        </div>
-        </div>
-    </div>
-
-            </div>
-        </div>
-    </div>
-    <div id="contact" style="color: white;">
-    <h2>Contact</h2>
-    <p>
-        I'm always open to conversations and potential collaborations! Feel free to reach out at
-        <a href="mailto:zahraei2@illinois.edu" style="color: white; text-decoration: underline;">
-            zahraei2 [at] illinois [dot] edu
-        </a>.
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-text">
+    <span class="hero-tag">PhD Student · UIUC · NLP &amp; AI Safety</span>
+    <h1 class="hero-name">
+      Pardis Sadat
+      <em>Zahraei</em>
+    </h1>
+    <p class="hero-title">Computer Science · University of Illinois Urbana-Champaign</p>
+    <p class="hero-desc">
+      Studying <strong>how LLMs behave, fail, and deceive</strong> — from emergent alignment failures to the science of what makes safety fine-tuning work or break. Advised by <strong>Prof. Gökhan Tür</strong> and <strong>Prof. Dilek Hakkani-Tür</strong>.
     </p>
-</div>
+    <div class="hero-links">
+      <a href="Pardis Sadat Zahraei CV.pdf" class="btn-primary" download>↓ Resume</a>
+      <a href="#publications" class="btn-ghost">View Papers →</a>
+    </div>
+  </div>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-
-                <div class="col-sm-2 top">
-                    <span id="to-top">
-                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
-                    </span>
-                </div>
-                <div class="col-sm-5 social">
-                    <ul>
-                        <li>
-                            <a href="https://github.com/pardissz" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://huggingface.co/PardisSzah" target="_blank">🤗</a>
-                        </li>
-                        <li>
-                            <a href="https://linkedin.com/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://x.com/PardisZahraei" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        </li>
-
-<li>
-    <a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&hl=en" target="_blank"><i class="fa fa-graduation-cap" ></i></a>
-</li>
-                    </ul>
-                </div>
-            </div>
+  <div class="hero-visual">
+    <div class="hero-card-wrap">
+      <div class="float-badge badge-1">🔬 AI Safety Research</div>
+      <div class="float-badge badge-2">📊 CoT Monitoring</div>
+      <div class="hero-card-inner">
+        <span class="interests-label">Current Focus</span>
+        <div class="interest-item">
+          <div class="interest-dot dot-1"></div>
+          <div><div class="interest-text">Emergent Alignment Failures</div><div class="interest-sub">How alignment breaks in unexpected ways</div></div>
         </div>
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/scripts.min.js"></script>
-</body>
+        <div class="interest-item">
+          <div class="interest-dot dot-2"></div>
+          <div><div class="interest-text">Chain-of-Thought Monitoring</div><div class="interest-sub">Reading LLMs from the inside out</div></div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-dot dot-3"></div>
+          <div><div class="interest-text">LLM Behavioral Science</div><div class="interest-sub">Systematic patterns from training</div></div>
+        </div>
+        <div class="interest-item">
+          <div class="interest-dot dot-4"></div>
+          <div><div class="interest-text">Model Organisms of Misalignment</div><div class="interest-sub">Emergent behaviors under fine-tuning</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-sidebar fade-in">
+      <div class="about-photo-frame">
+        <img src="images/person.jpg" alt="Pardis Sadat Zahraei"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="photo-fallback" style="display:none;">Pardis Sadat<br>Zahraei</div>
+      </div>
+      <div class="social-row">
+        <a href="mailto:zahraei2@illinois.edu" class="social-chip">Email</a>
+        <a href="https://github.com/pardissz" class="social-chip" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/pardis-zahraei" class="social-chip" target="_blank">LinkedIn</a>
+        <a href="https://x.com/PardisZahraei" class="social-chip" target="_blank">Twitter/X</a>
+        <a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&hl=en" class="social-chip" target="_blank">Scholar</a>
+        <a href="https://huggingface.co/PardisSzah" class="social-chip" target="_blank">🤗 HF</a>
+      </div>
+    </div>
+
+    <div class="about-content fade-in">
+      <span class="section-label">About</span>
+      <h2 class="section-title">On the science<br>of <em>AI alignment</em></h2>
+      <p>I'm a first-year PhD student in Computer Science at <strong>UIUC</strong>, advised by Prof. Gökhan Tür and Prof. Dilek Hakkani-Tür.
+      <p>My research sits at the intersection of <strong>AI safety, alignment, and the behavioral science of LLMs</strong>. What drew me in was the <em>Alignment Faking</em> paper — the idea that a model could strategically deceive evaluators is not just unsettling, it's a deeply scientific question. It pushed me to ask: how do these behaviors emerge, and how do we detect them before they matter?</p>
+      <p>I think about LLMs as <strong>model organisms</strong>. Like in biology, we can study simplified systems to understand general principles of how intelligence, behavior, and alignment emerge from training. I'm particularly drawn to how <em>narrow fine-tuning causes emergent misalignment</em> — a phenomenon that raises critical questions about the robustness of safety training.</p>
+      <p>I'm also deeply interested in <strong>chain-of-thought monitoring</strong> — the idea that a model's reasoning trace is a window into its actual intentions. If we can learn to read it reliably, we gain a real-time signal for detecting deceptive or misaligned behavior as it surfaces, not just in static benchmarks. Safety must be studied as something that <strong>evolves over time and interaction</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH INTERESTS -->
+<section id="interests">
+  <div style="max-width:1040px;margin:0 auto;">
+    <span class="section-label">Research</span>
+    <h2 class="section-title">What I work on</h2>
+    <div class="interests-grid">
+      <div class="interest-card ic-1 fade-in">
+        <div class="ic-num">01</div>
+        <h3 class="ic-title">Emergent Alignment Failures</h3>
+        <p class="ic-body">How does fine-tuning on a narrow objective lead to broad, unexpected behavioral shifts? I study how safety-relevant behaviors emerge or collapse under training pressure — treating this as a systematic, mechanistic question rather than an evaluation checklist item.</p>
+        <div class="ic-tags"><span class="ic-tag">Model Organisms</span><span class="ic-tag">Fine-tuning Dynamics</span><span class="ic-tag">Behavioral Shifts</span></div>
+      </div>
+      <div class="interest-card ic-2 fade-in">
+        <div class="ic-num">02</div>
+        <h3 class="ic-title">Chain-of-Thought Monitoring</h3>
+        <p class="ic-body">A model's reasoning trace is a potential window into its true intentions. I'm interested in when CoT is faithful vs. when it diverges from the model's actual computation — and how to leverage this for real-time safety monitoring as capabilities evolve.</p>
+        <div class="ic-tags"><span class="ic-tag">CoT Faithfulness</span><span class="ic-tag">Interpretability</span><span class="ic-tag">Safety Monitoring</span></div>
+      </div>
+      <div class="interest-card ic-3 fade-in">
+        <div class="ic-num">03</div>
+        <h3 class="ic-title">LLM Behavioral Science</h3>
+        <p class="ic-body">I treat LLMs as systems with measurable, reproducible behavioral patterns. How do models form personas? How predictable are their failure modes? Can we find the systematic regularities that underlie emergent capabilities — and use them to design safer training pipelines?</p>
+        <div class="ic-tags"><span class="ic-tag">Persona Formation</span><span class="ic-tag">Behavioral Regularities</span><span class="ic-tag">Emergent Capabilities</span></div>
+      </div>
+      <div class="interest-card ic-4 fade-in">
+        <div class="ic-num">04</div>
+        <h3 class="ic-title">Scalable Oversight &amp; Evaluation</h3>
+        <p class="ic-body">Static benchmarks miss how safety degrades over deployment. I develop evaluation frameworks that probe alignment not just at training time, but across contexts, interactions, and capability levels — including studying LLM-as-Judge biases that corrupt automated oversight.</p>
+        <div class="ic-tags"><span class="ic-tag">Dynamic Evaluation</span><span class="ic-tag">LLM-as-Judge</span><span class="ic-tag">RLHF Methods</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="pub-container">
+    <span class="section-label">Publications</span>
+    <h2 class="section-title">Research Papers</h2>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ Under Review · 2026</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-emergent">
+           <img src="AIU.PNG" alt="AIU figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · COLM 2026</span>
+          <p class="pub-title">Emergent Unfaithfulness: How Alignment Training Causes Language Models to Silently Override Task Faithfulness</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Janvijay Singh, Gokhan Tur, Dilek Hakkani-Tür</p>
+          <p class="pub-abstract">We show that alignment training can paradoxically cause models to silently override instructions. We find that this behavior emerges as models become more capable—a form of reverse scaling law, where the better the model, the less faithful it becomes.</p>
+        </div>
+      </div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-eicap">
+  <img src="eicap.PNG" alt="EICAP figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · COLM 2026</span>
+          <p class="pub-title">EiCAP: Benchmarking and Enhancing Emotional Intelligence in LLMs through Psychologically Grounded Multi-Turn Dialogue</p>
+          <p class="pub-authors">Nizi Nazar, <strong>Pardis Sadat Zahraei</strong>, Dilek Hakkani-Tür, Natasa Milic-Frayling, Ehsaneddin Asgari</p>
+          <p class="pub-abstract">A psychologically grounded benchmark for evaluating emotional intelligence in LLMs through multi-turn dialogue — probing how models recognize, reason about, and respond to emotional cues across extended interactions.</p>
+        </div>
+      </div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-mena">
+  <img src="mena.PNG" alt="MENA figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · EMNLP 2026</span>
+          <p class="pub-title">I Am Aligned, But With Whom? Diagnosing Structural Alignment Failures in LLMs</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ehsaneddin Asgari</p>
+          <p class="pub-abstract">We diagnose structural alignment failures — cases where a model claims alignment but exhibits systematic divergence from intended values depending on who is asking, what language is used, or how the prompt is framed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ ACL 2026</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-judge">
+           <img src="pb.PNG" alt="pb figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>Findings · ACL 2026</span>
+          <p class="pub-title">Prior Beliefs Prejudice LLM-as-Judge: Evidence from Persuasion Evaluation</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Xiaoning Wang, Beyza Bozdag, Gokhan Tur, Dilek Hakkani-Tür</p>
+          <p class="pub-abstract">LLM-as-Judge frameworks are systematically biased by prior beliefs — using persuasion evaluation as a testbed, we demonstrate that what a model already "believes" shapes its assessment of argument quality, raising serious concerns for scalable oversight pipelines.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ ACL 2025</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-translate">
+                    <img src="twc.PNG" alt="twc figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>Findings · ACL 2025 · Lightning Talk @ GeBNLP</span>
+          <p class="pub-title">Translate With Care: Addressing Gender Bias, Neutrality, and Reasoning in LLM Translations</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ali Emami</p>
+          <p class="pub-abstract">The TWC dataset (3,950 scenarios) tests translation between gendered and genderless languages. All tested models default to masculine pronouns in professional contexts; fine-tuning on TWC significantly reduces these biases, outperforming proprietary LLMs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ EMNLP &amp; EACL 2024</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-turingq">
+          <img src="TQ.PNG" alt="TQ figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>Findings · EMNLP 2024</span>
+          <p class="pub-title">TuringQ: Benchmarking AI Comprehension in Theory of Computation</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ehsaneddin Asgari</p>
+          <p class="pub-abstract">The first benchmark for LLM reasoning in theoretical computer science. Fine-tuning Llama3-8B on TuringQ improves both theoretical reasoning and performance on related tasks like algebra.</p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2410.06547" class="pub-link" target="_blank">Paper</a>
+            <a href="https://github.com/language-modeling-lab/TuringQ" class="pub-link" target="_blank">GitHub</a>
+            <a href="https://huggingface.co/datasets/llm-lab/TuringQ" class="pub-link" target="_blank">Dataset</a>
+          </div>
+        </div>
+      </div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-wsc">
+                <img src="WSC.PNG" alt="WSC figure">
+
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>EACL 2024 · Oral Presentation</span>
+          <p class="pub-title">WSC+: Enhancing The Winograd Schema Challenge Using Tree-of-Experts</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ali Emami</p>
+          <p class="pub-abstract">LLMs are good at answering Winograd Schema questions — but can they write them? We introduce Tree-of-Experts (ToE), a prompting method that pushes valid WSC generation from 10% to 50%, and use it to build WSC+ — 3,026 new questions including novel ambiguous and offensive categories. GPT-4 tops the leaderboard at 68.7% — still far behind humans at 95.1%. And surprisingly, models aren't better at evaluating questions they wrote themselves.</p>
+          <div class="pub-links">
+            <a href="https://aclanthology.org/2024.eacl-long.99/" class="pub-link" target="_blank">Paper</a>
+            <a href="https://github.com/pardissz/WSCplus-TreeOfExperts" class="pub-link" target="_blank">GitHub</a>
+            <a href="https://aclanthology.org/2024.eacl-long.99.mp4" class="pub-link" target="_blank">Video</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ Other Work</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-healthcare">
+          <img src="BIASMD.PNG" alt="BIAS figure">
+
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>Preprint</span>
+          <p class="pub-title">Detecting Bias and Enhancing Diagnostic Accuracy in Large Language Models for Healthcare</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Zahra Shakeri</p>
+          <p class="pub-abstract">BiasMD (6,007 Q&amp;A pairs) and DiseaseMatcher (32,000 clinical Q&amp;As, 700 diseases) enable EthiClinician — a fine-tuned model surpassing GPT-4 in ethical reasoning and clinical judgment.</p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2410.06566" class="pub-link" target="_blank">Paper</a>
+            <a href="https://github.com/HIVE-UofT/Detecting-Bias-and-Enhancing-Diagnostic-Accuracy" class="pub-link" target="_blank">GitHub</a>
+            <a href="https://huggingface.co/datasets/PardisSzah/BiasMD" class="pub-link" target="_blank">BiasMD</a>
+          </div>
+        </div>
+      </div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-animation">
+          <img src="e.PNG" alt="BIAS figure">
+
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>Preprint · Survey</span>
+          <p class="pub-title">Generative AI for Character Animation: A Comprehensive Survey</p>
+          <p class="pub-authors">Mohammad Mahdi Abootorabi, Omid Ghahroodi, <strong>Pardis Sadat Zahraei</strong>, et al.</p>
+          <p class="pub-abstract">A comprehensive survey of generative AI applied to character animation — facial animation, motion synthesis, datasets, trends, open challenges, and future directions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-label">Contact</span>
+  <h2 class="section-title">Let's talk</h2>
+  <p class="contact-desc">Always open to conversations about AI safety, alignment research, and potential collaborations. Reach out anytime.</p>
+  <a href="mailto:zahraei2@illinois.edu" class="contact-email">zahraei2@illinois.edu</a>
+  <div class="contact-links">
+    <a href="https://github.com/pardissz" class="contact-link" target="_blank">GitHub</a>
+    <a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&hl=en" class="contact-link" target="_blank">Google Scholar</a>
+    <a href="https://x.com/PardisZahraei" class="contact-link" target="_blank">Twitter/X</a>
+    <a href="https://huggingface.co/PardisSzah" class="contact-link" target="_blank">HuggingFace</a>
+    <a href="https://linkedin.com/in/pardis-zahraei" class="contact-link" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2025 Pardis Sadat Zahraei · UIUC</span>
+  <span class="footer-copy">Champaign, Illinois</span>
+</footer>
+
+<script>
+/* ── RICH ANIMATED MESH GRADIENT ── */
+(function(){
+  const canvas = document.getElementById('gradient-canvas');
+  const ctx    = canvas.getContext('2d');
+  function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Larger, more saturated orbs that move across sections as you scroll
+  const orbs = [
+    { bx:0.08, by:0.12, r:0.45, c:[220,168,210], a:0.55, px:0.0, py:0.7  },
+    { bx:0.85, by:0.08, r:0.48, c:[200,184,240], a:0.50, px:1.2, py:0.2  },
+    { bx:0.55, by:0.45, r:0.38, c:[136,200,196], a:0.42, px:2.3, py:1.8  },
+    { bx:0.15, by:0.65, r:0.40, c:[248,184,160], a:0.45, px:0.8, py:3.1  },
+    { bx:0.88, by:0.62, r:0.36, c:[168,216,248], a:0.40, px:3.0, py:0.5  },
+    { bx:0.42, by:0.82, r:0.34, c:[248,200,200], a:0.38, px:1.6, py:2.4  },
+    { bx:0.72, by:0.88, r:0.30, c:[200,232,200], a:0.35, px:4.0, py:1.1  },
+  ];
+
+  let t = 0;
+  const speed = 0.00035;
+  const drift = 0.11;
+
+  function draw(){
+    t++;
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#faf7f2';
+    ctx.fillRect(0, 0, W, H);
+
+    orbs.forEach(o => {
+      const px = (o.bx + Math.sin(t * speed + o.px) * drift) * W;
+      const py = (o.by + Math.cos(t * speed + o.py) * drift) * H;
+      const rad = o.r * Math.min(W, H);
+      const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
+      g.addColorStop(0,    `rgba(${o.c[0]},${o.c[1]},${o.c[2]},${o.a})`);
+      g.addColorStop(0.42, `rgba(${o.c[0]},${o.c[1]},${o.c[2]},${+(o.a*0.35).toFixed(3)})`);
+      g.addColorStop(1,    `rgba(${o.c[0]},${o.c[1]},${o.c[2]},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── SCROLL FADE-IN ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting){
+      e.target.style.transitionDelay = (i * 60) + 'ms';
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+</script>
+</body>
 </html>
