@@ -160,6 +160,17 @@ section{padding:6.5rem 5rem;}
 .ic-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1.1rem;}
 .ic-tag{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.07em;padding:0.25rem 0.65rem;border-radius:1rem;font-weight:400;}
 
+/* ── INTERNSHIP ── */
+#internship{background:linear-gradient(160deg,rgba(232,164,184,0.2) 0%,rgba(200,184,232,0.16) 55%,rgba(168,216,192,0.14) 100%);}
+#internship .section-label{color:#c878a8;}
+#internship .section-title em{color:#c878a8;}
+.internship-container{max-width:1040px;margin:0 auto;}
+.internship-card{display:flex;align-items:center;gap:1.8rem;max-width:640px;padding:2.2rem 2.4rem;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.9);border-radius:1.8rem;box-shadow:0 16px 48px rgba(30,24,48,0.08);}
+.internship-logo{width:64px;height:64px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.25rem;color:#fff;background:linear-gradient(135deg,#f0a8c8,#d880a8);box-shadow:0 8px 24px rgba(216,128,168,0.4);}
+.internship-info h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:0.3rem;}
+.internship-role{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#c878a8;margin-bottom:0.6rem;display:block;}
+.internship-info p{font-size:0.86rem;color:var(--muted);line-height:1.7;margin-bottom:0;}
+
 /* ── PUBLICATIONS — warm peach/rose ── */
 #publications{background:linear-gradient(160deg,rgba(240,184,152,0.18) 0%,rgba(232,164,184,0.18) 60%,rgba(200,184,232,0.15) 100%);}
 #publications .section-label{color:#c07858;}
@@ -257,6 +268,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#interests">Research</a></li>
+    <li><a href="#internship">Internship</a></li>
     <li><a href="#publications">Papers</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -371,6 +383,22 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
   </div>
 </section>
 
+<!-- INTERNSHIP -->
+<section id="internship">
+  <div class="internship-container">
+    <span class="section-label">Internship</span>
+    <h2 class="section-title">Industry <em>experience</em></h2>
+    <div class="internship-card fade-in">
+      <div class="internship-logo">Ai2</div>
+      <div class="internship-info">
+        <h3>AI2 — Allen Institute for AI</h3>
+        <span class="internship-role">Research Intern · Summer 2026</span>
+        <p>Worked with Maarten Sap on FairStress, studying asymmetric overcorrection in LLM decision-making and reasoning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PUBLICATIONS -->
 <section id="publications">
   <div class="pub-container">
@@ -388,7 +416,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <p class="pub-title">AgentAbstain: Do LLM Agents Know When Not to Act?</p>
           <p class="pub-authors">Xun Liu<sup>*</sup>, Yi Evie Zhang<sup>*</sup>, Vira Kasprova, Parisa Rabbani, <strong>Pardis Sadat Zahraei</strong><sup>†</sup>, Tianyu Zhang<sup>†</sup>, Ali Ebrahimpour-Boroojeny<sup>†</sup>, Varun Chandrasekaran<sup>†</sup></p>
           <p class="pub-authnote">*Equal contribution (co-first author) &nbsp;·&nbsp; †Equal contribution (co-second author)</p>
-          <p class="pub-abstract">Agent systems based on LLMs are increasingly deployed for autonomous tasks, yet existing evaluations mostly focus on task success rather than whether agents know when to abstain. We present the first systematic evaluation framework for agentic abstention: AgentAbstain, a paired-task benchmark of 263 tasks across 42 executable sandbox environments spanning 8 abstention scenarios, generated end-to-end by our AbstainGen pipeline. Across 17 frontier LLMs in 4 agent harnesses, the best agent (Gemini 3.1 Pro) achieves only 59.5% paired accuracy, and abstention capability is largely independent of general task-solving capability — scaling task-solving alone will not close this gap.</p>
+          <p class="pub-abstract">We introduce AgentAbstain, the first benchmark testing whether tool-using LLM agents know when not to act, built from 263 paired tasks across 42 sandbox environments. Across 17 frontier models, even the best agent reaches only 59.5% paired accuracy, and abstention ability is largely independent of general task-solving skill.</p>
         </div>
       </div>
     </div>
@@ -397,13 +425,13 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
       <div class="pub-year">▸ EMNLP 2026</div>
       <div class="pub-card fade-in">
         <div class="pub-figure fig-veto">
-          <div class="fig-pattern"><span class="fig-label">THE<br>ALIGNMENT<br>VETO</span></div>
+          <img src="alignment_veto_fig.png" alt="Alignment veto suppression failure figure">
         </div>
         <div class="pub-info">
           <span class="pub-status status-pub"><span class="status-dot"></span>EMNLP 2026 Main Conference · Oral Presentation</span>
           <p class="pub-title">The Alignment Veto: How Safety Training Suppresses Cultural Knowledge in LLMs</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Gokhan Tur, Dilek Hakkani-Tür, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">Across 16 MENA countries, 26 models, and 1.53M human survey responses, we show that when alignment training conflicts with a cultural value a model encodes, the result is suppression, not erasure: at the moment of refusal, a model's internal logit distribution correlates with human survey data more strongly than its freely generated answer — we call this the <em>alignment veto</em>. The gate is inequitable: the safety tax reaches 37.6%, with a 19.8% alignment-quality gap between best- and worst-served nations, and native-language prompting widens rather than closes it. Sparse autoencoder analysis identifies a candidate DPO-stage feature mediating suppression in Tulu-3-8B.</p>
+          <p class="pub-abstract">Across 16 MENA countries, 26 models, and 1.53M human survey responses, we show that safety training suppresses rather than erases cultural knowledge: at the moment of refusal, a model's internal logits often match human survey data better than its stated answer. This suppression is unequal across countries, and sparse autoencoder analysis traces it to a specific DPO-stage feature.</p>
         </div>
       </div>
     </div>
@@ -430,11 +458,10 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <img src="fairstress_fig.png" alt="FairStress four levels of one decision figure">
         </div>
         <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Preprint · Internship work @ Ai2 (Allen Institute for AI)</span>
-          <p class="pub-title">FairStress</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong><sup>1</sup>, Faeze Brahman<sup>2</sup>, Dilek Hakkani-Tür<sup>1</sup>, Gokhan Tur<sup>1</sup>, Maarten Sap<sup>3</sup></p>
-          <p class="pub-authnote">1University of Illinois Urbana-Champaign &nbsp;·&nbsp; 2Allen Institute for AI (Ai2) &nbsp;·&nbsp; 3Carnegie Mellon University</p>
-          <p class="pub-abstract">We introduce FairStress, a benchmark of 300 decision-making cases across 29 critical domains (e.g., job candidate selection) with 4 degrees of demographic identity signaling, from implicit to explicit. Unlike prior fairness benchmarks, FairStress examines LLM decisions as a full process — output-level, (a)symmetric robustness to adversarial prefixes that subtly push toward certain identities, and verbalized and internal reasoning. Contrary to the stereotypical LLM behavior reported by prior work, we find anti-stereotypical overcorrection: with explicit identity, accuracy differs by only 2.9 points between groups, yet one added sentence makes 15 models abandon correct answers favoring the majority 9.3 points more often, and flip ties toward the minority 23.9 points more often. Nine post-hoc debiasing methods fail to reliably reduce this asymmetry, which we trace back to asymmetric demographic framing in the training data.</p>
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · ICLR 2027</span>
+          <p class="pub-title">Asymmetrically Unfair Decision Making and Reasoning in LLMs</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Faeze Brahman, Dilek Hakkani-Tür, Gokhan Tur, Maarten Sap</p>
+          <p class="pub-abstract">We introduce FairStress, a benchmark of 300 hiring-style decisions across 29 domains that tests LLMs under varying pressure to favor one candidate over another. We find anti-stereotypical overcorrection: models hold accuracy steady when identity is explicit, but a single added sentence makes them abandon correct answers favoring the majority far more often than the minority.</p>
         </div>
       </div>
       <div class="pub-card fade-in">
@@ -442,10 +469,10 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <img src="naacl_calibration.png" alt="Calibration entropy figure across post-training stages">
         </div>
         <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2026</span>
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2027</span>
           <p class="pub-title">Right by Chance, Wrong with Confidence: What Flat Accuracy Hides in LLM Post-Training</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Emre Can Acikgoz, Dilek Hakkani-Tür, Gokhan Tur</p>
-          <p class="pub-abstract">Aggregate accuracy can stay flat across post-training stages while masking large shifts underneath — models can trade "confidently wrong" and "lucky guess" answers for genuine knowledge (or vice versa) without moving the headline number. We track this calibration structure across SFT, DPO, and final post-training stages to show what flat accuracy hides.</p>
+          <p class="pub-abstract">We show that flat accuracy across post-training stages can hide large shifts in whether models are truly correct or just confidently wrong. Tracking this calibration structure across SFT, DPO, and final training reveals changes that accuracy numbers alone cannot show.</p>
         </div>
       </div>
       <div class="pub-card fade-in">
@@ -453,21 +480,10 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
   <img src="eicap.PNG" alt="EICAP figure">
         </div>
         <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · COLM 2026</span>
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2027</span>
           <p class="pub-title">EiCAP: Benchmarking and Enhancing Emotional Intelligence in LLMs through Psychologically Grounded Multi-Turn Dialogue</p>
           <p class="pub-authors">Nizi Nazar, <strong>Pardis Sadat Zahraei</strong>, Dilek Hakkani-Tür, Natasa Milic-Frayling, Ehsaneddin Asgari</p>
           <p class="pub-abstract">A psychologically grounded benchmark for evaluating emotional intelligence in LLMs through multi-turn dialogue — probing how models recognize, reason about, and respond to emotional cues across extended interactions.</p>
-        </div>
-      </div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-mena">
-  <img src="mena.PNG" alt="MENA figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · EMNLP 2026</span>
-          <p class="pub-title">I Am Aligned, But With Whom? Diagnosing Structural Alignment Failures in LLMs</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">We diagnose structural alignment failures — cases where a model claims alignment but exhibits systematic divergence from intended values depending on who is asking, what language is used, or how the prompt is framed.</p>
         </div>
       </div>
     </div>
