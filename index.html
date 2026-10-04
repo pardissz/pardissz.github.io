@@ -185,17 +185,23 @@ section{padding:6.5rem 5rem;}
 .fig-translate{background:linear-gradient(135deg,#f0d0a0 0%,#d8b070 50%,#c09058 100%);}
 .fig-healthcare{background:linear-gradient(135deg,#e898c8 0%,#c870a8 50%,#b06090 100%);}
 .fig-animation{background:linear-gradient(135deg,#a0b8e8 0%,#7898d0 50%,#6080b8 100%);}
+.fig-agentabstain{background:linear-gradient(135deg,#98b8f0 0%,#7098d8 50%,#5878b8 100%);}
+.fig-veto    {background:linear-gradient(135deg,#f0a0a0 0%,#d87878 50%,#b85858 100%);}
+.fig-fairstress{background:linear-gradient(135deg,#f0b8c8 0%,#d890a8 50%,#b87090 100%);}
+.fig-naacl   {background:linear-gradient(135deg,#f0c888 0%,#d8a860 50%,#b88440 100%);}
 .fig-pattern{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
 .fig-label{position:relative;z-index:1;line-height:1.6;padding:0.5rem;}
 
 .pub-status{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.7rem;border-radius:1rem;margin-bottom:0.7rem;}
 .status-review{background:rgba(200,152,216,0.2);color:#9060b8;border:1px solid rgba(152,100,200,0.25);}
 .status-pub   {background:rgba(136,200,184,0.2);color:#308860;border:1px solid rgba(100,180,148,0.25);}
+.status-award {background:rgba(224,168,32,0.22);color:#9c7a0a;border:1px solid rgba(200,150,20,0.32);}
 .status-dot   {width:5px;height:5px;border-radius:50%;background:currentColor;}
 
 .pub-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;line-height:1.35;color:var(--ink);margin-bottom:0.5rem;}
-.pub-authors{font-size:0.77rem;color:var(--muted);margin-bottom:0.7rem;}
+.pub-authors{font-size:0.77rem;color:var(--muted);margin-bottom:0.3rem;}
 .pub-authors strong{color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px;}
+.pub-authnote{font-size:0.65rem;color:var(--muted);opacity:0.75;margin-bottom:0.7rem;font-family:'Space Mono',monospace;letter-spacing:0.02em;}
 .pub-abstract{font-size:0.83rem;color:var(--muted);line-height:1.72;margin-bottom:0.9rem;}
 .pub-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
 .pub-link{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.27rem 0.75rem;border:1px solid rgba(30,24,48,0.15);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.6);transition:all 0.2s;}
@@ -372,16 +378,74 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
     <h2 class="section-title">Research Papers</h2>
 
     <div class="pub-year-group">
-      <div class="pub-year">▸ Under Review · 2026</div>
+      <div class="pub-year">▸ NeurIPS 2026</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-agentabstain">
+          <img src="agentabstain_scatter.png" alt="AgentAbstain act vs. abstain accuracy figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>NeurIPS 2026 · Oral Presentation</span>
+          <p class="pub-title">AgentAbstain: Do LLM Agents Know When Not to Act?</p>
+          <p class="pub-authors">Xun Liu<sup>*</sup>, Yi Evie Zhang<sup>*</sup>, Vira Kasprova, Parisa Rabbani, <strong>Pardis Sadat Zahraei</strong><sup>†</sup>, Tianyu Zhang<sup>†</sup>, Ali Ebrahimpour-Boroojeny<sup>†</sup>, Varun Chandrasekaran<sup>†</sup></p>
+          <p class="pub-authnote">*Equal contribution (co-first author) &nbsp;·&nbsp; †Equal contribution (co-second author)</p>
+          <p class="pub-abstract">Agent systems based on LLMs are increasingly deployed for autonomous tasks, yet existing evaluations mostly focus on task success rather than whether agents know when to abstain. We present the first systematic evaluation framework for agentic abstention: AgentAbstain, a paired-task benchmark of 263 tasks across 42 executable sandbox environments spanning 8 abstention scenarios, generated end-to-end by our AbstainGen pipeline. Across 17 frontier LLMs in 4 agent harnesses, the best agent (Gemini 3.1 Pro) achieves only 59.5% paired accuracy, and abstention capability is largely independent of general task-solving capability — scaling task-solving alone will not close this gap.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ EMNLP 2026</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-veto">
+          <div class="fig-pattern"><span class="fig-label">THE<br>ALIGNMENT<br>VETO</span></div>
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-pub"><span class="status-dot"></span>EMNLP 2026 Main Conference · Oral Presentation</span>
+          <p class="pub-title">The Alignment Veto: How Safety Training Suppresses Cultural Knowledge in LLMs</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Gokhan Tur, Dilek Hakkani-Tür, Ehsaneddin Asgari</p>
+          <p class="pub-abstract">Across 16 MENA countries, 26 models, and 1.53M human survey responses, we show that when alignment training conflicts with a cultural value a model encodes, the result is suppression, not erasure: at the moment of refusal, a model's internal logit distribution correlates with human survey data more strongly than its freely generated answer — we call this the <em>alignment veto</em>. The gate is inequitable: the safety tax reaches 37.6%, with a 19.8% alignment-quality gap between best- and worst-served nations, and native-language prompting widens rather than closes it. Sparse autoencoder analysis identifies a candidate DPO-stage feature mediating suppression in Tulu-3-8B.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ COLM 2026</div>
       <div class="pub-card fade-in">
         <div class="pub-figure fig-emergent">
            <img src="AIU.PNG" alt="AIU figure">
         </div>
         <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · COLM 2026</span>
+          <span class="pub-status status-award"><span class="status-dot"></span>🏆 Outstanding Paper · COLM 2026 &amp; ACL 2026 KnowFM Workshop</span>
           <p class="pub-title">Emergent Unfaithfulness: How Alignment Training Causes Language Models to Silently Override Task Faithfulness</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Janvijay Singh, Gokhan Tur, Dilek Hakkani-Tür</p>
           <p class="pub-abstract">We show that alignment training can paradoxically cause models to silently override instructions. We find that this behavior emerges as models become more capable—a form of reverse scaling law, where the better the model, the less faithful it becomes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-year-group">
+      <div class="pub-year">▸ Under Review · 2026</div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-fairstress">
+          <img src="fairstress_fig.png" alt="FairStress four levels of one decision figure">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-review"><span class="status-dot"></span>Preprint · Internship work @ Ai2 (Allen Institute for AI)</span>
+          <p class="pub-title">FairStress</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong><sup>1</sup>, Faeze Brahman<sup>2</sup>, Dilek Hakkani-Tür<sup>1</sup>, Gokhan Tur<sup>1</sup>, Maarten Sap<sup>3</sup></p>
+          <p class="pub-authnote">1University of Illinois Urbana-Champaign &nbsp;·&nbsp; 2Allen Institute for AI (Ai2) &nbsp;·&nbsp; 3Carnegie Mellon University</p>
+          <p class="pub-abstract">We introduce FairStress, a benchmark of 300 decision-making cases across 29 critical domains (e.g., job candidate selection) with 4 degrees of demographic identity signaling, from implicit to explicit. Unlike prior fairness benchmarks, FairStress examines LLM decisions as a full process — output-level, (a)symmetric robustness to adversarial prefixes that subtly push toward certain identities, and verbalized and internal reasoning. Contrary to the stereotypical LLM behavior reported by prior work, we find anti-stereotypical overcorrection: with explicit identity, accuracy differs by only 2.9 points between groups, yet one added sentence makes 15 models abandon correct answers favoring the majority 9.3 points more often, and flip ties toward the minority 23.9 points more often. Nine post-hoc debiasing methods fail to reliably reduce this asymmetry, which we trace back to asymmetric demographic framing in the training data.</p>
+        </div>
+      </div>
+      <div class="pub-card fade-in">
+        <div class="pub-figure fig-naacl">
+          <img src="naacl_calibration.png" alt="Calibration entropy figure across post-training stages">
+        </div>
+        <div class="pub-info">
+          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2026</span>
+          <p class="pub-title">Right by Chance, Wrong with Confidence: What Flat Accuracy Hides in LLM Post-Training</p>
+          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Emre Can Acikgoz, Dilek Hakkani-Tür, Gokhan Tur</p>
+          <p class="pub-abstract">Aggregate accuracy can stay flat across post-training stages while masking large shifts underneath — models can trade "confidently wrong" and "lucky guess" answers for genuine knowledge (or vice versa) without moving the headline number. We track this calibration structure across SFT, DPO, and final post-training stages to show what flat accuracy hides.</p>
         </div>
       </div>
       <div class="pub-card fade-in">
