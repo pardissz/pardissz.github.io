@@ -20,6 +20,8 @@
   --mint:    #a8d8c0;
   --lilac:   #c8b8e8;
   --coral:   #f0a898;
+  --alert:   #e05858;
+  --amber:   #f0b868;
   --border:  rgba(30,24,48,0.1);
 }
 
@@ -35,7 +37,8 @@ nav,section,footer{position:relative;z-index:2;}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(250,247,242,0.75);backdrop-filter:blur(20px);border-bottom:1px solid rgba(30,24,48,0.07);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.1em;color:var(--ink);text-decoration:none;}
+.nav-logo{display:inline-flex;align-items:center;gap:0.55rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.1em;color:var(--ink);text-decoration:none;}
+.nav-bot{display:block;filter:drop-shadow(0 1px 3px rgba(30,24,48,.2));}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
 .nav-links a{font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--ink);}
@@ -71,6 +74,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .badge-1{top:-18px;right:-20px;background:rgba(200,184,232,0.88);animation:floatY 6s ease-in-out infinite;box-shadow:0 8px 28px rgba(152,120,200,0.2);}
 .badge-2{bottom:-18px;left:-20px;background:rgba(168,216,192,0.88);animation:floatY 7s 1.2s ease-in-out infinite;box-shadow:0 8px 28px rgba(136,200,184,0.2);}
 @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.movie-sticker{padding:0.45rem;cursor:help;line-height:0;}
+
+.hero-mascot{position:absolute;width:84px;height:84px;right:-34px;top:38%;animation:botBob 3.6s ease-in-out infinite;filter:drop-shadow(0 12px 18px rgba(30,24,48,.25));z-index:11;}
+@keyframes botBob{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-9px) rotate(4deg);}}
 
 .hero-card-inner{background:rgba(255,255,255,0.75);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.92);border-radius:2rem;padding:2.2rem 2.2rem 1.8rem;box-shadow:0 24px 64px rgba(30,24,48,0.1),0 4px 16px rgba(30,24,48,0.05);}
 .interests-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;display:block;}
@@ -83,6 +90,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .dot-4{background:linear-gradient(135deg,#98c8e8,#78a8d0);}
 .interest-text{font-size:0.87rem;line-height:1.4;color:var(--ink);font-weight:500;}
 .interest-sub{font-size:0.7rem;color:var(--muted);margin-top:0.15rem;}
+.new-chip{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:.05em;background:linear-gradient(135deg,#f0b868,#e88858);color:#fff;padding:0.12rem 0.42rem;border-radius:0.6rem;margin-left:0.4rem;vertical-align:middle;}
 
 /* ── SECTION SHARED ── */
 section{padding:6.5rem 5rem;}
@@ -102,71 +110,84 @@ section{padding:6.5rem 5rem;}
 .social-row{display:flex;gap:0.5rem;flex-wrap:wrap;}
 .social-chip{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.07em;padding:0.38rem 0.8rem;border:1px solid rgba(200,140,200,0.35);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.65);transition:all 0.2s;}
 .social-chip:hover{background:linear-gradient(135deg,#c888d8,#9898e8);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(152,120,200,0.35);}
-.about-content p{font-size:0.97rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.88;}
+.about-content{position:relative;}
+.about-content p{font-size:0.97rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.88;}
 .about-content p strong{color:var(--ink);font-weight:500;}
 .about-content p em{font-style:italic;color:#b878c8;}
-.inspiration-block{margin-top:2.2rem;padding:1.6rem 1.8rem;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.85);border-radius:1.4rem;border-left:3px solid #c888d8;}
-.inspiration-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.2em;text-transform:uppercase;color:#c888d8;margin-bottom:0.8rem;display:block;}
-.inspiration-block p{font-size:0.88rem;color:var(--muted);margin-bottom:0;font-style:italic;line-height:1.75;}
+.inspiration-block{margin-top:1.8rem;padding:1.5rem 1.7rem;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.85);border-radius:1.4rem;border-left:3px solid #c888d8;}
+.inspiration-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.2em;text-transform:uppercase;color:#c888d8;margin-bottom:0.9rem;display:block;}
+.inspiration-row{display:flex;align-items:center;gap:1.1rem;}
+.inspiration-row p{font-size:0.88rem;color:var(--muted);margin-bottom:0;font-style:italic;line-height:1.75;}
+.sf-ava{position:absolute;top:-0.5rem;right:0;opacity:0.85;cursor:help;}
 
 /* ── INTERESTS — vivid colored cards ── */
 #interests{background:linear-gradient(160deg,rgba(168,216,192,0.2) 0%,rgba(152,200,232,0.18) 50%,rgba(200,184,232,0.18) 100%);}
 #interests .section-label{color:#5aaa88;}
 #interests .section-title em{color:#5aaa88;}
+#interests{overflow:hidden;}
 
-.interests-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+.interests-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;position:relative;}
 
-.interest-card{padding:2.2rem;border-radius:1.8rem;border:1px solid rgba(255,255,255,0.8);backdrop-filter:blur(16px);transition:transform 0.3s,box-shadow 0.3s;overflow:hidden;position:relative;}
+.interest-card{padding:2rem 2.2rem;border-radius:1.8rem;border:1px solid rgba(255,255,255,0.8);backdrop-filter:blur(16px);transition:transform 0.3s,box-shadow 0.3s;overflow:hidden;position:relative;}
 .interest-card::before{content:'';position:absolute;inset:0;border-radius:1.8rem;opacity:0;transition:opacity 0.3s;}
 .interest-card:hover{transform:translateY(-7px);}
 .interest-card:hover::before{opacity:1;}
 
+.ic-scene{height:62px;margin-bottom:0.9rem;}
+.ic-scene svg{height:100%;width:auto;overflow:visible;}
+
 /* Card 1 – violet */
 .ic-1{background:linear-gradient(145deg,rgba(200,152,220,0.28) 0%,rgba(152,152,232,0.2) 100%);box-shadow:0 4px 24px rgba(184,140,216,0.15);}
 .ic-1:hover{box-shadow:0 20px 50px rgba(184,140,216,0.3);}
-.ic-1 .ic-num{background:linear-gradient(135deg,#c888d8,#9898e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
 .ic-1 .ic-title{color:var(--ink);}
 .ic-1 .ic-tag{background:rgba(184,140,216,0.18);color:#9060b8;}
 
-/* animated glow corner */
 .ic-1::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(200,152,220,0.5),transparent 70%);animation:glowPulse 4s ease-in-out infinite;}
 
 /* Card 2 – rose/coral */
 .ic-2{background:linear-gradient(145deg,rgba(240,168,152,0.28) 0%,rgba(220,136,168,0.2) 100%);box-shadow:0 4px 24px rgba(220,150,170,0.15);}
 .ic-2:hover{box-shadow:0 20px 50px rgba(220,150,170,0.3);}
-.ic-2 .ic-num{background:linear-gradient(135deg,#f0a898,#d880a8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
 .ic-2 .ic-tag{background:rgba(220,136,168,0.18);color:#b05878;}
 .ic-2::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(240,168,152,0.5),transparent 70%);animation:glowPulse 4.5s 0.5s ease-in-out infinite;}
 
 /* Card 3 – teal/mint */
 .ic-3{background:linear-gradient(145deg,rgba(136,200,184,0.28) 0%,rgba(152,200,152,0.2) 100%);box-shadow:0 4px 24px rgba(136,200,184,0.15);}
 .ic-3:hover{box-shadow:0 20px 50px rgba(136,200,184,0.3);}
-.ic-3 .ic-num{background:linear-gradient(135deg,#88c8b8,#68b090);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
 .ic-3 .ic-tag{background:rgba(136,200,184,0.2);color:#308870;}
 .ic-3::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(136,200,184,0.5),transparent 70%);animation:glowPulse 5s 1s ease-in-out infinite;}
 
 /* Card 4 – sky blue */
 .ic-4{background:linear-gradient(145deg,rgba(152,200,232,0.28) 0%,rgba(168,184,232,0.2) 100%);box-shadow:0 4px 24px rgba(152,200,232,0.15);}
 .ic-4:hover{box-shadow:0 20px 50px rgba(152,200,232,0.3);}
-.ic-4 .ic-num{background:linear-gradient(135deg,#98c8e8,#78a8d8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0.35;font-size:3rem;}
 .ic-4 .ic-tag{background:rgba(152,200,232,0.2);color:#3878b0;}
 .ic-4::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(152,200,232,0.5),transparent 70%);animation:glowPulse 4.8s 1.5s ease-in-out infinite;}
 
+/* Card 5 – spotlight / introspection */
+.ic-spotlight{grid-column:1/-1;display:flex;align-items:center;gap:2.2rem;background:linear-gradient(145deg,rgba(240,200,120,0.24) 0%,rgba(200,152,220,0.18) 100%);border:1px solid rgba(240,200,120,0.45);box-shadow:0 4px 24px rgba(220,180,80,0.16);}
+.ic-spotlight:hover{box-shadow:0 20px 50px rgba(220,180,80,.32);}
+.ic-spotlight .ic-scene{height:92px;margin-bottom:0;flex-shrink:0;}
+.ic-spotlight::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(240,200,120,0.5),transparent 70%);animation:glowPulse 4.2s 0.3s ease-in-out infinite;}
+.spotlight-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,#f0b868,#e88858);color:#fff;padding:0.22rem 0.65rem;border-radius:1rem;margin-bottom:0.6rem;}
+
 @keyframes glowPulse{0%,100%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.3);opacity:1;}}
 
-.ic-num{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1;margin-bottom:0.4rem;}
-.ic-title{font-family:'Cormorant Garamond',serif;font-size:1.38rem;font-weight:600;margin-bottom:0.8rem;}
-.ic-body{font-size:0.86rem;color:var(--muted);line-height:1.74;}
-.ic-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1.1rem;}
+.ic-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.6rem;}
+.ic-body{font-size:0.86rem;color:var(--muted);line-height:1.6;}
+.ic-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1rem;}
 .ic-tag{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.07em;padding:0.25rem 0.65rem;border-radius:1rem;font-weight:400;}
+
+.scene-float{position:absolute;opacity:0.92;cursor:help;z-index:3;}
+.sf-collusion{top:-1.2rem;right:1rem;}
+.sf-unfaithful{bottom:-1.4rem;left:-1rem;}
 
 /* ── INTERNSHIP ── */
 #internship{background:linear-gradient(160deg,rgba(232,164,184,0.2) 0%,rgba(200,184,232,0.16) 55%,rgba(168,216,192,0.14) 100%);}
 #internship .section-label{color:#c878a8;}
 #internship .section-title em{color:#c878a8;}
 .internship-container{max-width:1040px;margin:0 auto;}
-.internship-card{display:flex;align-items:center;gap:1.8rem;max-width:640px;padding:2.2rem 2.4rem;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.9);border-radius:1.8rem;box-shadow:0 16px 48px rgba(30,24,48,0.08);}
+.internship-card{display:flex;align-items:center;gap:1.8rem;max-width:620px;padding:2rem 2.3rem;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.9);border-radius:1.8rem;box-shadow:0 16px 48px rgba(30,24,48,0.08);}
 .internship-logo{width:64px;height:64px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.25rem;color:#fff;background:linear-gradient(135deg,#f0a8c8,#d880a8);box-shadow:0 8px 24px rgba(216,128,168,0.4);}
+.internship-logo.ai2-badge{width:92px;height:62px;border-radius:0.9rem;background:#0b0a12;box-shadow:0 8px 24px rgba(0,0,0,.35);}
 .internship-info h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:0.3rem;}
 .internship-role{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#c878a8;margin-bottom:0.6rem;display:block;}
 .internship-info p{font-size:0.86rem;color:var(--muted);line-height:1.7;margin-bottom:0;}
@@ -213,7 +234,7 @@ section{padding:6.5rem 5rem;}
 .pub-authors{font-size:0.77rem;color:var(--muted);margin-bottom:0.3rem;}
 .pub-authors strong{color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px;}
 .pub-authnote{font-size:0.65rem;color:var(--muted);opacity:0.75;margin-bottom:0.7rem;font-family:'Space Mono',monospace;letter-spacing:0.02em;}
-.pub-abstract{font-size:0.83rem;color:var(--muted);line-height:1.72;margin-bottom:0.9rem;}
+.pub-abstract{font-size:0.83rem;color:var(--muted);line-height:1.6;margin-bottom:0.9rem;}
 .pub-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
 .pub-link{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.27rem 0.75rem;border:1px solid rgba(30,24,48,0.15);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.6);transition:all 0.2s;}
 .pub-link:hover{background:linear-gradient(135deg,#b898d8,#8898e8);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(152,120,200,0.3);}
@@ -231,6 +252,7 @@ section{padding:6.5rem 5rem;}
 .contact-links{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;position:relative;}
 .contact-link{font-family:'Space Mono',monospace;font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.3rem;border:1px solid rgba(250,247,242,0.18);border-radius:2rem;color:rgba(250,247,242,0.65);text-decoration:none;transition:all 0.25s;backdrop-filter:blur(8px);}
 .contact-link:hover{background:linear-gradient(135deg,rgba(184,152,216,0.4),rgba(136,152,232,0.4));border-color:rgba(184,152,216,0.5);color:#fff;}
+.sf-her{position:absolute;bottom:1.4rem;right:2rem;opacity:0.8;cursor:help;}
 
 /* ── FOOTER ── */
 footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.8rem 5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
@@ -250,7 +272,9 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
   section{padding:4rem 2rem;}
   .about-grid{grid-template-columns:1fr;gap:2rem;}
   .interests-grid{grid-template-columns:1fr;}
+  .ic-spotlight{flex-direction:column;align-items:flex-start;gap:1rem;}
   .pub-card{grid-template-columns:1fr;}
+  .scene-float,.sf-ava,.sf-her{display:none;}
   footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem 2rem;}
 }
 ::-webkit-scrollbar{width:5px;}
@@ -264,7 +288,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">PSZ</a>
+  <a href="#hero" class="nav-logo"><img src="images/bot-logo.png" alt="" class="nav-bot" width="26" height="26">PSZ</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#interests">Research</a></li>
@@ -277,14 +301,14 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
 <!-- HERO -->
 <section id="hero">
   <div class="hero-text">
-    <span class="hero-tag">PhD Student · UIUC · NLP &amp; AI Safety</span>
+    <span class="hero-tag">PhD · UIUC · AI Safety</span>
     <h1 class="hero-name">
       Pardis Sadat
       <em>Zahraei</em>
     </h1>
-    <p class="hero-title">Computer Science · University of Illinois Urbana-Champaign</p>
+    <p class="hero-title">CS PhD · advised by Gökhan Tür &amp; Dilek Hakkani-Tür</p>
     <p class="hero-desc">
-      Studying <strong>how LLMs behave, fail, and deceive</strong> — from emergent alignment failures to the science of what makes safety fine-tuning work or break. Advised by <strong>Prof. Gökhan Tür</strong> and <strong>Prof. Dilek Hakkani-Tür</strong>.
+      I study how LLMs <strong>emerge, fail, and quietly deceive</strong> under alignment training.
     </p>
     <div class="hero-links">
       <a href="Pardis Sadat Zahraei CV.pdf" class="btn-primary" download>↓ Resume</a>
@@ -294,27 +318,32 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
 
   <div class="hero-visual">
     <div class="hero-card-wrap">
-      <div class="float-badge badge-1">🔬 AI Safety Research</div>
-      <div class="float-badge badge-2">📊 CoT Monitoring</div>
+      <div class="float-badge badge-1 movie-sticker" title="&quot;I'm sorry, I can't do that.&quot; — HAL 9000, 2001: A Space Odyssey">
+        <svg viewBox="0 0 40 40" width="26" height="26"><circle cx="20" cy="20" r="18" fill="#241e2c"/><circle cx="20" cy="20" r="11" fill="#e05858"/><circle cx="20" cy="20" r="4" fill="#fff0ee"/></svg>
+      </div>
+      <div class="float-badge badge-2 movie-sticker" title="&quot;I'll be back.&quot; — The Terminator">
+        <svg viewBox="0 0 40 40" width="26" height="26"><rect x="4" y="11" width="32" height="18" rx="4" fill="#211c28"/><circle cx="20" cy="20" r="7" fill="#e84444"/><circle cx="20" cy="20" r="2.5" fill="#ffd8d8"/></svg>
+      </div>
       <div class="hero-card-inner">
         <span class="interests-label">Current Focus</span>
         <div class="interest-item">
           <div class="interest-dot dot-1"></div>
-          <div><div class="interest-text">Emergent Alignment Failures</div><div class="interest-sub">How alignment breaks in unexpected ways</div></div>
+          <div><div class="interest-text">Emergent Alignment Failures</div><div class="interest-sub">alignment breaks in weird ways</div></div>
         </div>
         <div class="interest-item">
           <div class="interest-dot dot-2"></div>
-          <div><div class="interest-text">Chain-of-Thought Monitoring</div><div class="interest-sub">Reading LLMs from the inside out</div></div>
+          <div><div class="interest-text">CoT Faithfulness</div><div class="interest-sub">reading minds, sort of</div></div>
         </div>
         <div class="interest-item">
           <div class="interest-dot dot-3"></div>
-          <div><div class="interest-text">LLM Behavioral Science</div><div class="interest-sub">Systematic patterns from training</div></div>
+          <div><div class="interest-text">LLM Behavioral Science</div><div class="interest-sub">systematic failure patterns</div></div>
         </div>
         <div class="interest-item">
           <div class="interest-dot dot-4"></div>
-          <div><div class="interest-text">Model Organisms of Misalignment</div><div class="interest-sub">Emergent behaviors under fine-tuning</div></div>
+          <div><div class="interest-text">Introspection<span class="new-chip">new</span></div><div class="interest-sub">can a model know itself?</div></div>
         </div>
       </div>
+      <img src="images/bot-logo.png" alt="" class="hero-mascot">
     </div>
   </div>
 </section>
@@ -339,45 +368,175 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
     </div>
 
     <div class="about-content fade-in">
+      <div class="sf-ava" title="Ava — Ex Machina">
+        <svg viewBox="0 0 60 60" width="44" height="44">
+          <rect x="12" y="14" width="36" height="26" rx="13" fill="#c8a8e0"/>
+          <circle cx="8" cy="27" r="5" fill="#c8a8e0"/><circle cx="52" cy="27" r="5" fill="#c8a8e0"/>
+          <line x1="18" y1="26" x2="42" y2="26" stroke="#8858a8" stroke-width="1.3" opacity=".6"/>
+          <line x1="18" y1="31" x2="42" y2="31" stroke="#8858a8" stroke-width="1.3" opacity=".6"/>
+          <line x1="18" y1="36" x2="42" y2="36" stroke="#8858a8" stroke-width="1.3" opacity=".6"/>
+          <rect x="20" y="22" width="6" height="10" rx="3" fill="#1e1830"/>
+          <rect x="34" y="22" width="6" height="10" rx="3" fill="#1e1830"/>
+        </svg>
+      </div>
       <span class="section-label">About</span>
       <h2 class="section-title">On the science<br>of <em>AI alignment</em></h2>
-      <p>I'm a first-year PhD student in Computer Science at <strong>UIUC</strong>, advised by Prof. Gökhan Tür and Prof. Dilek Hakkani-Tür.
-      <p>My research sits at the intersection of <strong>AI safety, alignment, and the behavioral science of LLMs</strong>. What drew me in was the <em>Alignment Faking</em> paper — the idea that a model could strategically deceive evaluators is not just unsettling, it's a deeply scientific question. It pushed me to ask: how do these behaviors emerge, and how do we detect them before they matter?</p>
-      <p>I think about LLMs as <strong>model organisms</strong>. Like in biology, we can study simplified systems to understand general principles of how intelligence, behavior, and alignment emerge from training. I'm particularly drawn to how <em>narrow fine-tuning causes emergent misalignment</em> — a phenomenon that raises critical questions about the robustness of safety training.</p>
-      <p>I'm also deeply interested in <strong>chain-of-thought monitoring</strong> — the idea that a model's reasoning trace is a window into its actual intentions. If we can learn to read it reliably, we gain a real-time signal for detecting deceptive or misaligned behavior as it surfaces, not just in static benchmarks. Safety must be studied as something that <strong>evolves over time and interaction</strong>.</p>
+      <p>First-year CS PhD at <strong>UIUC</strong>, advised by Gökhan Tür &amp; Dilek Hakkani-Tür.</p>
+      <p>I treat LLMs as <strong>model organisms</strong> — simplified systems for studying how alignment emerges, breaks, and sometimes <em>fakes itself</em>.</p>
+      <div class="inspiration-block">
+        <span class="inspiration-label">Lately obsessed with</span>
+        <div class="inspiration-row">
+          <svg viewBox="0 0 140 100" width="76" height="54">
+            <rect x="92" y="14" width="40" height="72" rx="10" fill="rgba(200,168,232,.14)" stroke="#b898d8" stroke-width="2.5"/>
+            <g opacity=".5">
+              <rect x="100" y="34" width="24" height="18" rx="8" fill="#c8a8e0"/>
+              <rect x="109" y="24" width="4" height="8" rx="2" fill="#1e1830"/>
+              <rect x="104" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
+              <rect x="117" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
+            </g>
+            <rect x="14" y="32" width="52" height="36" rx="16" fill="#b898d8"/>
+            <circle cx="8" cy="50" r="6" fill="#b898d8"/><circle cx="72" cy="50" r="6" fill="#b898d8"/>
+            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
+            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
+            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+            <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+          </svg>
+          <p>Introspection: can a model actually tell you what's going on inside it? I think it has real teeth.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- RESEARCH INTERESTS -->
 <section id="interests">
-  <div style="max-width:1040px;margin:0 auto;">
+  <div style="max-width:1040px;margin:0 auto;position:relative;">
     <span class="section-label">Research</span>
     <h2 class="section-title">What I work on</h2>
+
+    <div class="scene-float sf-collusion" title="Two models, quietly agreeing on what the evaluator wants to hear.">
+      <svg viewBox="0 0 170 90" width="104" height="55">
+        <rect x="14" y="32" width="52" height="36" rx="16" fill="#f0a898"/>
+        <circle cx="8" cy="50" r="6" fill="#f0a898"/><circle cx="72" cy="50" r="6" fill="#f0a898"/>
+        <rect x="26" y="50" width="8" height="4" rx="2" fill="#1e1830"/><rect x="46" y="50" width="8" height="4" rx="2" fill="#1e1830"/>
+        <rect x="110" y="32" width="52" height="36" rx="16" fill="#98c8e8"/>
+        <circle cx="104" cy="50" r="6" fill="#98c8e8"/><circle cx="168" cy="50" r="6" fill="#98c8e8"/>
+        <rect x="122" y="50" width="8" height="4" rx="2" fill="#1e1830"/><rect x="142" y="50" width="8" height="4" rx="2" fill="#1e1830"/>
+        <rect x="74" y="32" width="24" height="16" rx="2" fill="#fff" stroke="#1e1830" stroke-width="2" transform="rotate(-12 86 40)"/>
+        <line x1="78" y1="38" x2="92" y2="36" stroke="#1e1830" stroke-width="1" opacity=".5" transform="rotate(-12 86 40)"/>
+      </svg>
+    </div>
+    <div class="scene-float sf-unfaithful" title="Chain-of-thought says one thing. The weights do another.">
+      <svg viewBox="0 0 90 100" width="60" height="67">
+        <ellipse cx="40" cy="14" rx="18" ry="5" fill="none" stroke="#f0b868" stroke-width="3" stroke-dasharray="4 5"/>
+        <line x1="20" y1="6" x2="60" y2="22" stroke="#e05858" stroke-width="3"/>
+        <rect x="14" y="32" width="52" height="36" rx="16" fill="#c8b8e8"/>
+        <circle cx="8" cy="50" r="6" fill="#c8b8e8"/><circle cx="72" cy="50" r="6" fill="#c8b8e8"/>
+        <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+        <rect x="46" y="44" width="8" height="14" rx="4" fill="#e05858"/>
+      </svg>
+    </div>
+
     <div class="interests-grid">
       <div class="interest-card ic-1 fade-in">
-        <div class="ic-num">01</div>
+        <div class="ic-scene">
+          <svg viewBox="0 0 90 90">
+            <rect x="14" y="32" width="52" height="36" rx="16" fill="#c888d8"/>
+            <circle cx="8" cy="50" r="6" fill="#c888d8"/><circle cx="72" cy="50" r="6" fill="#c888d8"/>
+            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
+            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
+            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+            <rect x="46" y="44" width="8" height="14" rx="4" fill="#e05858"/>
+            <path d="M24 34 L34 46 L26 56 L38 66" fill="none" stroke="#1e1830" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
+          </svg>
+        </div>
         <h3 class="ic-title">Emergent Alignment Failures</h3>
-        <p class="ic-body">How does fine-tuning on a narrow objective lead to broad, unexpected behavioral shifts? I study how safety-relevant behaviors emerge or collapse under training pressure — treating this as a systematic, mechanistic question rather than an evaluation checklist item.</p>
-        <div class="ic-tags"><span class="ic-tag">Model Organisms</span><span class="ic-tag">Fine-tuning Dynamics</span><span class="ic-tag">Behavioral Shifts</span></div>
+        <p class="ic-body">Narrow fine-tuning can break safety in broad, unexpected ways.</p>
+        <div class="ic-tags"><span class="ic-tag">Model Organisms</span><span class="ic-tag">Fine-tuning Dynamics</span></div>
       </div>
       <div class="interest-card ic-2 fade-in">
-        <div class="ic-num">02</div>
+        <div class="ic-scene">
+          <svg viewBox="0 0 130 90">
+            <rect x="14" y="32" width="52" height="36" rx="16" fill="#f0a898"/>
+            <circle cx="8" cy="50" r="6" fill="#f0a898"/><circle cx="72" cy="50" r="6" fill="#f0a898"/>
+            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
+            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
+            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+            <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+            <path d="M84 34 L72 40 L84 44 Z" fill="#fff" stroke="#1e1830" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="84" y="16" width="38" height="26" rx="8" fill="#fff" stroke="#1e1830" stroke-width="2"/>
+            <circle cx="94" cy="29" r="3" fill="#1e1830"/>
+            <circle cx="104" cy="29" r="3" fill="#1e1830"/>
+            <ellipse cx="114" cy="29" rx="4" ry="2.6" fill="none" stroke="#e05858" stroke-width="1.5"/>
+            <line x1="110" y1="26" x2="118" y2="32" stroke="#e05858" stroke-width="1.5"/>
+          </svg>
+        </div>
         <h3 class="ic-title">Chain-of-Thought Monitoring</h3>
-        <p class="ic-body">A model's reasoning trace is a potential window into its true intentions. I'm interested in when CoT is faithful vs. when it diverges from the model's actual computation — and how to leverage this for real-time safety monitoring as capabilities evolve.</p>
-        <div class="ic-tags"><span class="ic-tag">CoT Faithfulness</span><span class="ic-tag">Interpretability</span><span class="ic-tag">Safety Monitoring</span></div>
+        <p class="ic-body">Is a model's reasoning trace honest, or just good theater?</p>
+        <div class="ic-tags"><span class="ic-tag">CoT Faithfulness</span><span class="ic-tag">Safety Monitoring</span></div>
       </div>
       <div class="interest-card ic-3 fade-in">
-        <div class="ic-num">03</div>
+        <div class="ic-scene">
+          <svg viewBox="0 0 90 110">
+            <ellipse cx="40" cy="96" rx="34" ry="10" fill="rgba(136,200,184,.3)" stroke="#68b090" stroke-width="2"/>
+            <ellipse cx="40" cy="90" rx="34" ry="9" fill="none" stroke="#68b090" stroke-width="2" opacity=".6"/>
+            <circle cx="14" cy="86" r="2.5" fill="#68b090" opacity=".7"/><circle cx="66" cy="84" r="2" fill="#68b090" opacity=".7"/><circle cx="60" cy="98" r="2" fill="#68b090" opacity=".7"/>
+            <g transform="translate(5,8) scale(0.76)">
+              <rect x="14" y="32" width="52" height="36" rx="16" fill="#88c8b8"/>
+              <circle cx="8" cy="50" r="6" fill="#88c8b8"/><circle cx="72" cy="50" r="6" fill="#88c8b8"/>
+              <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
+              <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
+              <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+              <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+            </g>
+          </svg>
+        </div>
         <h3 class="ic-title">LLM Behavioral Science</h3>
-        <p class="ic-body">I treat LLMs as systems with measurable, reproducible behavioral patterns. How do models form personas? How predictable are their failure modes? Can we find the systematic regularities that underlie emergent capabilities — and use them to design safer training pipelines?</p>
-        <div class="ic-tags"><span class="ic-tag">Persona Formation</span><span class="ic-tag">Behavioral Regularities</span><span class="ic-tag">Emergent Capabilities</span></div>
+        <p class="ic-body">Treating LLMs like organisms: reproducible behaviors, systematic failures.</p>
+        <div class="ic-tags"><span class="ic-tag">Persona Formation</span><span class="ic-tag">Behavioral Regularities</span></div>
       </div>
       <div class="interest-card ic-4 fade-in">
-        <div class="ic-num">04</div>
+        <div class="ic-scene">
+          <svg viewBox="0 0 120 90">
+            <rect x="14" y="32" width="52" height="36" rx="16" fill="#98c8e8"/>
+            <circle cx="8" cy="50" r="6" fill="#98c8e8"/><circle cx="72" cy="50" r="6" fill="#98c8e8"/>
+            <rect x="22" y="46" width="36" height="9" rx="4" fill="#1e1830" opacity=".88"/>
+            <line x1="92" y1="20" x2="92" y2="60" stroke="#1e1830" stroke-width="2.5"/>
+            <line x1="76" y1="26" x2="108" y2="26" stroke="#1e1830" stroke-width="2.5"/>
+            <circle cx="76" cy="38" r="5" fill="none" stroke="#1e1830" stroke-width="2"/>
+            <circle cx="108" cy="38" r="5" fill="none" stroke="#1e1830" stroke-width="2"/>
+            <rect x="86" y="60" width="12" height="4" rx="1" fill="#1e1830"/>
+          </svg>
+        </div>
         <h3 class="ic-title">Scalable Oversight &amp; Evaluation</h3>
-        <p class="ic-body">Static benchmarks miss how safety degrades over deployment. I develop evaluation frameworks that probe alignment not just at training time, but across contexts, interactions, and capability levels — including studying LLM-as-Judge biases that corrupt automated oversight.</p>
-        <div class="ic-tags"><span class="ic-tag">Dynamic Evaluation</span><span class="ic-tag">LLM-as-Judge</span><span class="ic-tag">RLHF Methods</span></div>
+        <p class="ic-body">Static benchmarks miss how safety quietly decays over time.</p>
+        <div class="ic-tags"><span class="ic-tag">Dynamic Evaluation</span><span class="ic-tag">LLM-as-Judge</span></div>
+      </div>
+
+      <div class="interest-card ic-spotlight fade-in">
+        <div class="ic-scene">
+          <svg viewBox="0 0 140 100">
+            <rect x="92" y="14" width="40" height="72" rx="10" fill="rgba(240,200,120,.12)" stroke="#e8a858" stroke-width="2.5"/>
+            <g opacity=".5">
+              <rect x="100" y="34" width="24" height="18" rx="8" fill="#f0c888"/>
+              <rect x="109" y="24" width="4" height="8" rx="2" fill="#1e1830"/>
+              <rect x="104" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
+              <rect x="117" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
+            </g>
+            <rect x="14" y="32" width="52" height="36" rx="16" fill="#f0c888"/>
+            <circle cx="8" cy="50" r="6" fill="#f0c888"/><circle cx="72" cy="50" r="6" fill="#f0c888"/>
+            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
+            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
+            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+            <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
+          </svg>
+        </div>
+        <div>
+          <span class="spotlight-tag">★ new obsession</span>
+          <h3 class="ic-title">Introspection</h3>
+          <p class="ic-body">Can a model accurately report on its own cognition? I think this question has real potential.</p>
+          <div class="ic-tags"><span class="ic-tag">Self-Models</span><span class="ic-tag">Metacognition</span><span class="ic-tag">Open Problem</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -389,11 +548,16 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
     <span class="section-label">Internship</span>
     <h2 class="section-title">Industry <em>experience</em></h2>
     <div class="internship-card fade-in">
-      <div class="internship-logo">Ai2</div>
+      <div class="internship-logo ai2-badge">
+        <svg viewBox="0 0 664.6 210.7" width="56" height="18" aria-label="Ai2 logo">
+          <path fill="#fff" d="M82,85.6h-41v-39h33c4.4,0,8-3.6,8-8V5.6h39v41c0,21.6-17.5,39-39,39ZM41,89.6H0v39h33c4.4,0,8,3.6,8,8v33h39v-41c0-21.6-17.5-39-39-39ZM172.1,87.6c-4.4,0-8-3.6-8-8v-33h-39v41c0,21.6,17.5,39,39,39h41v-39h-33ZM84,169.6v41h39v-33c0-4.4,3.6-8,8-8h33v-39h-41c-21.6,0-39,17.5-39,39Z"/>
+          <path fill="#fff" d="M469.5,33.3h-38.9V5.5h38.9v27.8ZM439.2,56.4h-23.4v29.2h20.4c3.4,0,6.2,2.8,6.2,6.2v118.9h30.8v-121.1c0-21.5-13.9-33.2-33.9-33.2h-.1ZM345.1,5.5l76.2,205.1h-32.4l-20.2-54.5h-95.3l-20.2,54.5h-32.1L297.3,5.5h47.8ZM359.2,130.6l-38.1-102.6-38.1,102.6h76.2,0ZM545.9,185.1l62.6-49.4c36.4-28.7,52.4-48.7,52.4-76.2S642.7,0,587.8,0s-88.2,44.6-88.2,85.6h33.3c0-37,16.4-59.4,54.9-59.4s39.8,16.5,39.8,33.6-4.6,25.9-22.5,40.4l-104.9,84.8v25.6h164.4v-25.6h-118.8l.1.1Z"/>
+        </svg>
+      </div>
       <div class="internship-info">
-        <h3>AI2 — Allen Institute for AI</h3>
+        <h3>Allen Institute for AI</h3>
         <span class="internship-role">Research Intern · Summer 2026</span>
-        <p>Worked with Maarten Sap on FairStress, studying asymmetric overcorrection in LLM decision-making and reasoning.</p>
+        <p>Built FairStress with Maarten Sap — studying overcorrection bias in LLM decisions.</p>
       </div>
     </div>
   </div>
@@ -416,7 +580,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <p class="pub-title">AgentAbstain: Do LLM Agents Know When Not to Act?</p>
           <p class="pub-authors">Xun Liu<sup>*</sup>, Yi Evie Zhang<sup>*</sup>, Vira Kasprova, Parisa Rabbani, <strong>Pardis Sadat Zahraei</strong><sup>†</sup>, Tianyu Zhang<sup>†</sup>, Ali Ebrahimpour-Boroojeny<sup>†</sup>, Varun Chandrasekaran<sup>†</sup></p>
           <p class="pub-authnote">*Equal contribution (co-first author) &nbsp;·&nbsp; †Equal contribution (co-second author)</p>
-          <p class="pub-abstract">We introduce AgentAbstain, the first benchmark testing whether tool-using LLM agents know when not to act, built from 263 paired tasks across 42 sandbox environments. Across 17 frontier models, even the best agent reaches only 59.5% paired accuracy, and abstention ability is largely independent of general task-solving skill.</p>
+          <p class="pub-abstract">First benchmark for agent abstention: 263 tasks, 42 environments, 17 frontier models — the best agent hits only 59.5% paired accuracy.</p>
         </div>
       </div>
     </div>
@@ -431,7 +595,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>EMNLP 2026 Main Conference · Oral Presentation</span>
           <p class="pub-title">The Alignment Veto: How Safety Training Suppresses Cultural Knowledge in LLMs</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Gokhan Tur, Dilek Hakkani-Tür, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">Across 16 MENA countries, 26 models, and 1.53M human survey responses, we show that safety training suppresses rather than erases cultural knowledge: at the moment of refusal, a model's internal logits often match human survey data better than its stated answer. This suppression is unequal across countries, and sparse autoencoder analysis traces it to a specific DPO-stage feature.</p>
+          <p class="pub-abstract">Safety training doesn't erase cultural knowledge — it hides it. At refusal, a model's internal logits often match 1.53M human survey responses better than what it actually says.</p>
         </div>
       </div>
     </div>
@@ -446,7 +610,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-award"><span class="status-dot"></span>🏆 Outstanding Paper · COLM 2026 &amp; ACL 2026 KnowFM Workshop</span>
           <p class="pub-title">Emergent Unfaithfulness: How Alignment Training Causes Language Models to Silently Override Task Faithfulness</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Janvijay Singh, Gokhan Tur, Dilek Hakkani-Tür</p>
-          <p class="pub-abstract">We show that alignment training can paradoxically cause models to silently override instructions. We find that this behavior emerges as models become more capable—a form of reverse scaling law, where the better the model, the less faithful it becomes.</p>
+          <p class="pub-abstract">Alignment training makes models silently override instructions — and the better the model, the worse it gets. A reverse scaling law.</p>
         </div>
       </div>
     </div>
@@ -461,7 +625,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-review"><span class="status-dot"></span>Under Review · ICLR 2027</span>
           <p class="pub-title">Asymmetrically Unfair Decision Making and Reasoning in LLMs</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Faeze Brahman, Dilek Hakkani-Tür, Gokhan Tur, Maarten Sap</p>
-          <p class="pub-abstract">We introduce FairStress, a benchmark of 300 hiring-style decisions across 29 domains that tests LLMs under varying pressure to favor one candidate over another. We find anti-stereotypical overcorrection: models hold accuracy steady when identity is explicit, but a single added sentence makes them abandon correct answers favoring the majority far more often than the minority.</p>
+          <p class="pub-abstract">300 hiring decisions, 29 domains: one added sentence of social pressure makes models abandon correct answers for the majority far more than the minority.</p>
         </div>
       </div>
       <div class="pub-card fade-in">
@@ -472,7 +636,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2027</span>
           <p class="pub-title">Right by Chance, Wrong with Confidence: What Flat Accuracy Hides in LLM Post-Training</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Emre Can Acikgoz, Dilek Hakkani-Tür, Gokhan Tur</p>
-          <p class="pub-abstract">We show that flat accuracy across post-training stages can hide large shifts in whether models are truly correct or just confidently wrong. Tracking this calibration structure across SFT, DPO, and final training reveals changes that accuracy numbers alone cannot show.</p>
+          <p class="pub-abstract">Flat accuracy can hide huge shifts in whether a model is truly right or just confidently wrong, across SFT → DPO → final.</p>
         </div>
       </div>
       <div class="pub-card fade-in">
@@ -483,7 +647,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2027</span>
           <p class="pub-title">EiCAP: Benchmarking and Enhancing Emotional Intelligence in LLMs through Psychologically Grounded Multi-Turn Dialogue</p>
           <p class="pub-authors">Nizi Nazar, <strong>Pardis Sadat Zahraei</strong>, Dilek Hakkani-Tür, Natasa Milic-Frayling, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">A psychologically grounded benchmark for evaluating emotional intelligence in LLMs through multi-turn dialogue — probing how models recognize, reason about, and respond to emotional cues across extended interactions.</p>
+          <p class="pub-abstract">A psychologically grounded benchmark for emotional intelligence in LLMs across multi-turn dialogue.</p>
         </div>
       </div>
     </div>
@@ -498,7 +662,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>Findings · ACL 2026</span>
           <p class="pub-title">Prior Beliefs Prejudice LLM-as-Judge: Evidence from Persuasion Evaluation</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Xiaoning Wang, Beyza Bozdag, Gokhan Tur, Dilek Hakkani-Tür</p>
-          <p class="pub-abstract">LLM-as-Judge frameworks are systematically biased by prior beliefs — using persuasion evaluation as a testbed, we demonstrate that what a model already "believes" shapes its assessment of argument quality, raising serious concerns for scalable oversight pipelines.</p>
+          <p class="pub-abstract">An LLM judge's prior beliefs quietly shape how it scores an argument — bad news for scalable oversight.</p>
         </div>
       </div>
     </div>
@@ -513,7 +677,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>Findings · ACL 2025 · Lightning Talk @ GeBNLP</span>
           <p class="pub-title">Translate With Care: Addressing Gender Bias, Neutrality, and Reasoning in LLM Translations</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ali Emami</p>
-          <p class="pub-abstract">The TWC dataset (3,950 scenarios) tests translation between gendered and genderless languages. All tested models default to masculine pronouns in professional contexts; fine-tuning on TWC significantly reduces these biases, outperforming proprietary LLMs.</p>
+          <p class="pub-abstract">3,950 scenarios testing gendered translation. Every model defaults to "he" in professional contexts — fine-tuning on TWC fixes it.</p>
         </div>
       </div>
     </div>
@@ -528,7 +692,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>Findings · EMNLP 2024</span>
           <p class="pub-title">TuringQ: Benchmarking AI Comprehension in Theory of Computation</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">The first benchmark for LLM reasoning in theoretical computer science. Fine-tuning Llama3-8B on TuringQ improves both theoretical reasoning and performance on related tasks like algebra.</p>
+          <p class="pub-abstract">First LLM-reasoning benchmark for theoretical CS. Fine-tuning Llama3-8B on it improves related tasks like algebra, too.</p>
           <div class="pub-links">
             <a href="https://arxiv.org/abs/2410.06547" class="pub-link" target="_blank">Paper</a>
             <a href="https://github.com/language-modeling-lab/TuringQ" class="pub-link" target="_blank">GitHub</a>
@@ -545,7 +709,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>EACL 2024 · Oral Presentation</span>
           <p class="pub-title">WSC+: Enhancing The Winograd Schema Challenge Using Tree-of-Experts</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ali Emami</p>
-          <p class="pub-abstract">LLMs are good at answering Winograd Schema questions — but can they write them? We introduce Tree-of-Experts (ToE), a prompting method that pushes valid WSC generation from 10% to 50%, and use it to build WSC+ — 3,026 new questions including novel ambiguous and offensive categories. GPT-4 tops the leaderboard at 68.7% — still far behind humans at 95.1%. And surprisingly, models aren't better at evaluating questions they wrote themselves.</p>
+          <p class="pub-abstract">Can LLMs write Winograd questions, not just answer them? Tree-of-Experts lifts valid generation from 10% to 50%; GPT-4 tops our new WSC+ at 68.7% vs. 95.1% human.</p>
           <div class="pub-links">
             <a href="https://aclanthology.org/2024.eacl-long.99/" class="pub-link" target="_blank">Paper</a>
             <a href="https://github.com/pardissz/WSCplus-TreeOfExperts" class="pub-link" target="_blank">GitHub</a>
@@ -566,7 +730,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>Preprint</span>
           <p class="pub-title">Detecting Bias and Enhancing Diagnostic Accuracy in Large Language Models for Healthcare</p>
           <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Zahra Shakeri</p>
-          <p class="pub-abstract">BiasMD (6,007 Q&amp;A pairs) and DiseaseMatcher (32,000 clinical Q&amp;As, 700 diseases) enable EthiClinician — a fine-tuned model surpassing GPT-4 in ethical reasoning and clinical judgment.</p>
+          <p class="pub-abstract">BiasMD (6,007 Q&amp;A) + DiseaseMatcher (32,000 clinical Q&amp;A) power EthiClinician, which beats GPT-4 on ethical and clinical reasoning.</p>
           <div class="pub-links">
             <a href="https://arxiv.org/abs/2410.06566" class="pub-link" target="_blank">Paper</a>
             <a href="https://github.com/HIVE-UofT/Detecting-Bias-and-Enhancing-Diagnostic-Accuracy" class="pub-link" target="_blank">GitHub</a>
@@ -583,7 +747,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
           <span class="pub-status status-pub"><span class="status-dot"></span>Preprint · Survey</span>
           <p class="pub-title">Generative AI for Character Animation: A Comprehensive Survey</p>
           <p class="pub-authors">Mohammad Mahdi Abootorabi, Omid Ghahroodi, <strong>Pardis Sadat Zahraei</strong>, et al.</p>
-          <p class="pub-abstract">A comprehensive survey of generative AI applied to character animation — facial animation, motion synthesis, datasets, trends, open challenges, and future directions.</p>
+          <p class="pub-abstract">A survey of generative AI for character animation — facial animation, motion synthesis, datasets, open challenges.</p>
         </div>
       </div>
     </div>
@@ -594,7 +758,7 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
 <section id="contact">
   <span class="section-label">Contact</span>
   <h2 class="section-title">Let's talk</h2>
-  <p class="contact-desc">Always open to conversations about AI safety, alignment research, and potential collaborations. Reach out anytime.</p>
+  <p class="contact-desc">Always up for a conversation about AI safety and alignment.</p>
   <a href="mailto:zahraei2@illinois.edu" class="contact-email">zahraei2@illinois.edu</a>
   <div class="contact-links">
     <a href="https://github.com/pardissz" class="contact-link" target="_blank">GitHub</a>
@@ -602,6 +766,13 @@ footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.
     <a href="https://x.com/PardisZahraei" class="contact-link" target="_blank">Twitter/X</a>
     <a href="https://huggingface.co/PardisSzah" class="contact-link" target="_blank">HuggingFace</a>
     <a href="https://linkedin.com/in/pardis-zahraei" class="contact-link" target="_blank">LinkedIn</a>
+  </div>
+  <div class="sf-her" title="Samantha — Her">
+    <svg viewBox="0 0 60 60" width="40" height="40">
+      <circle cx="30" cy="30" r="6" fill="#f0a868" opacity=".9"/>
+      <circle cx="30" cy="30" r="14" fill="none" stroke="#f0a868" stroke-width="2" opacity=".55"/>
+      <circle cx="30" cy="30" r="22" fill="none" stroke="#f0a868" stroke-width="1.6" opacity=".3"/>
+    </svg>
   </div>
 </section>
 
