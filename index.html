@@ -4,843 +4,628 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pardis Sadat Zahraei</title>
+<meta name="description" content="Pardis Sadat Zahraei is a second-year Ph.D. student in Computer Science at UIUC studying LLM behavior, personas, and silent safety failures under alignment training.">
+<meta property="og:title" content="Pardis Sadat Zahraei">
+<meta property="og:description" content="Ph.D. student at UIUC working on AI safety and alignment, LLM personas, and the gap between what models say and what they do.">
+<meta name="theme-color" content="#F6ECF5">
 <link rel="icon" href="x.ico" type="image/x-icon">
-<link rel="shortcut icon" href="x.ico" type="image/x-icon">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/shantell-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/literata.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root {
-  --cream:   #faf7f2;
-  --ink:     #1e1830;
-  --muted:   #5a5268;
-  --rose:    #e8a4b8;
-  --violet:  #b898d8;
-  --teal:    #88c8b8;
-  --peach:   #f0b898;
-  --sky:     #98c8e8;
-  --mint:    #a8d8c0;
-  --lilac:   #c8b8e8;
-  --coral:   #f0a898;
-  --alert:   #e05858;
-  --amber:   #f0b868;
-  --border:  rgba(30,24,48,0.1);
+@font-face{font-family:'Shantell Sans';src:url(fonts/shantell-sans.woff2) format('woff2');font-weight:300 800;font-display:swap}
+@font-face{font-family:'Literata';src:url(fonts/literata.woff2) format('woff2');font-weight:200 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Literata';src:url(fonts/literata-italic.woff2) format('woff2');font-weight:200 900;font-style:italic;font-display:swap}
+
+:root{
+  --page:#F6ECF5; --plum:#8A4F9E; --lav:#C9B6F0; --sheet:#FFFFFC; --ink:#2A2833; --ink-2:#55526A;
+  --blue:#3E6BD6; --red:#D9434E; --pink:#E2B0DC; --pink-deep:#C68BBF; --tape:rgba(239,222,156,.85);
+  --hand:'Shantell Sans','Segoe Print','Bradley Hand',cursive;
+  --text:'Literata',Georgia,'Times New Roman',serif;
 }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background-color:var(--page);color:var(--ink);font-family:var(--text);font-size:1.125rem;line-height:1.62;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .15 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(48vw 44vh at 6% 4%,rgba(244,170,214,.55),transparent 70%),
+    radial-gradient(52vw 50vh at 96% 22%,rgba(186,160,240,.5),transparent 70%),
+    radial-gradient(60vw 46vh at 30% 78%,rgba(230,180,236,.42),transparent 72%),
+    radial-gradient(44vw 40vh at 90% 96%,rgba(160,140,232,.38),transparent 70%),
+    linear-gradient(160deg,#FBEFF7 0%,#F3E8FA 50%,#F7EAF4 100%)}
+body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(138,79,158,.22) 1px,transparent 1.4px);background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 55%,#000);mask-image:linear-gradient(180deg,#000,transparent 55%,#000)}
+img{max-width:100%}
+a{color:var(--blue);text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{text-decoration-style:wavy}
+:focus-visible{outline:2.5px dashed var(--blue);outline-offset:4px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip:focus{position:fixed;left:12px;top:12px;width:auto;height:auto;clip:auto;z-index:100;background:var(--sheet);padding:.5rem 1rem;font-family:var(--text)}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:clamp(16px,5vw,56px)}
+.hand{font-family:var(--hand);font-variation-settings:'INFM' 100,'BNCE' 0}
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);font-size:16px;line-height:1.7;overflow-x:hidden;}
+/* top bar */
+.top{position:sticky;top:0;z-index:40;background:rgba(248,238,247,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1.5px solid rgba(42,40,51,.08)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.brand{display:flex;align-items:center;gap:.55rem;font-family:var(--text);font-weight:600;font-size:1.08rem;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand img{width:30px;height:30px;image-rendering:pixelated}
+.top nav{display:flex;gap:clamp(.9rem,2.4vw,1.8rem)}
+.top nav a{font-family:var(--text);font-size:1.02rem;color:var(--ink);text-decoration:none;padding:.2rem 0;background:linear-gradient(var(--pink),var(--pink)) 0 88%/0 .38em no-repeat;transition:background-size .2s steps(3)}
+.top nav a:hover{background-size:100% .38em}
 
-/* ── GRAIN ── */
-body::after{content:'';position:fixed;inset:0;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:1;}
+/* hero */
+.hero{padding-block:clamp(2.2rem,6vh,4.5rem) clamp(3.5rem,9vh,6.5rem)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+h1{font-family:var(--text);font-weight:650;font-size:clamp(2.5rem,4.8vw,3.9rem);line-height:1.06;letter-spacing:-.022em;margin:0 0 1.4rem}
+@keyframes textboil{0%{font-variation-settings:'INFM' 40,'BNCE' 22}33.3%{font-variation-settings:'INFM' 46,'BNCE' -16}66.6%{font-variation-settings:'INFM' 36,'BNCE' 34}}
+.lede{font-size:clamp(1.15rem,1.6vw,1.3rem);line-height:1.55;margin:0 0 1rem;max-width:30rem}
+.hero p.more{color:var(--ink-2);margin:0 0 2rem;max-width:30rem}
+.actions{display:flex;flex-wrap:wrap;gap:.9rem 1rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--text);font-weight:620;font-size:1.02rem;line-height:1.2;padding:.66rem 1.15rem;color:var(--ink);text-decoration:none;cursor:pointer;
+  border:2.5px solid var(--ink);border-radius:255px 18px 225px 18px/18px 225px 18px 255px;background:var(--sheet);box-shadow:3px 4px 0 var(--ink);transition:transform .15s steps(2),box-shadow .15s steps(2)}
+.btn:hover{transform:translate(-2px,-2px) rotate(-1deg);box-shadow:5px 6px 0 var(--ink);text-decoration:none}
+.btn:active{transform:translate(2px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.primary{background:var(--pink)}
+.btn svg{width:18px;height:18px}
 
-#gradient-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-nav,section,footer{position:relative;z-index:2;}
+/* the animation sheet */
+.sheet-wrap{position:relative;max-width:620px;justify-self:center;width:100%}
+.sheet-wrap::before{content:'';position:absolute;inset:0;background:var(--sheet);transform:translate(12px,10px) rotate(2.2deg);box-shadow:0 1px 2px rgba(42,40,51,.08),0 10px 24px -14px rgba(42,40,51,.35)}
+.sheet{position:relative;container-type:inline-size;background:var(--sheet);transform:rotate(-1deg);box-shadow:0 1px 2px rgba(42,40,51,.1),0 18px 34px -18px rgba(42,40,51,.45)}
+.sheet .scene-svg{display:block;width:100%;height:auto}
+.guides{opacity:.42}
+.ghost{opacity:.3}
+.ghost .paint{display:none}
+.bubble{position:absolute;margin:0;padding:.85em 1.1em;font-family:var(--hand);font-size:clamp(12px,3.35cqi,19px);line-height:1.25;z-index:2;transform-origin:80% 100%}
+.bubble .t{position:relative;z-index:1;display:block}
+.bub-shape{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.say{left:5%;top:11%;width:45%;font-weight:620;font-variation-settings:'INFM' 30,'BNCE' 0}
+.think{right:4%;top:7.5%;width:42.5%;color:var(--blue);font-weight:480;font-variation-settings:'INFM' 100,'BNCE' 10;text-align:center;transform-origin:25% 100%;padding:1.25em 1.6em}
+.say .tail{position:absolute;right:16%;top:calc(100% - 3px);width:13%;height:auto;overflow:visible}
+.dots i{position:absolute;display:block;border:2px solid var(--blue);border-radius:50%;background:var(--sheet);z-index:2}
+.dots i:nth-child(1){left:56.6%;top:31.8%;width:3.2%;aspect-ratio:1}
+.dots i:nth-child(2){left:54.6%;top:35.6%;width:2.2%;aspect-ratio:1}
+.dots i:nth-child(3){left:53.2%;top:38.6%;width:1.4%;aspect-ratio:1;border-width:1.5px}
+.poke-btn{position:absolute;left:30%;top:33%;width:40%;height:56%;border:0;background:transparent;cursor:pointer;border-radius:40%;z-index:3}
+.hint{position:absolute;left:6%;bottom:6.5%;width:24%;pointer-events:none;color:var(--blue);font-size:clamp(12px,3.1cqi,17px);z-index:2}
+.hint svg{display:block;width:100%;height:auto;overflow:visible}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(250,247,242,0.75);backdrop-filter:blur(20px);border-bottom:1px solid rgba(30,24,48,0.07);}
-.nav-logo{display:inline-flex;align-items:center;gap:0.55rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:0.1em;color:var(--ink);text-decoration:none;}
-.nav-bot{display:block;filter:drop-shadow(0 1px 3px rgba(30,24,48,.2));}
-.nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-.nav-links a:hover{color:var(--ink);}
+.hero-sheet .bot-move{animation:hover 1.8s ease-in-out infinite;transform-origin:0 62px}
+@keyframes hover{0%,100%{transform:translateY(0) scale(1.035,.965)}50%{transform:translateY(-16px) scale(.985,1.02)}}
+.hero-shadow{animation:shad 1.8s ease-in-out infinite}
+@keyframes shad{0%,100%{transform:scale(1)}50%{transform:scale(.78)}}
+.hero-sheet .antenna{animation:ant 1.8s ease-in-out .25s infinite}
+@keyframes ant{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(7deg)}}
+.hero-sheet .eye{animation:blink 4.6s infinite}
+@keyframes blink{0%,91%,97%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+.hero-sheet .arm-l{animation:swingL 1.8s ease-in-out .15s infinite}
+.hero-sheet .arm-r{animation:swingR 1.8s ease-in-out .15s infinite}
+@keyframes swingL{0%,100%{transform:rotate(7deg)}50%{transform:rotate(-9deg)}}
+@keyframes swingR{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(9deg)}}
+.ghost .bot-move{animation-delay:.17s}
+.hero-sheet.poked .poke{animation:boing .75s ease-out both;transform-origin:0 62px}
+.hero-sheet.poked .ghost .poke{animation-delay:.17s}
+@keyframes boing{0%{transform:scale(1.24,.76)}22%{transform:translateY(-46px) scale(.84,1.2)}48%{transform:translateY(-6px) scale(1.07,.94)}68%{transform:translateY(-15px) scale(.98,1.02)}100%{transform:none}}
+.hero-sheet.intro .line{stroke-dasharray:1;animation:draw .8s ease-out .55s both}
+.hero-sheet.intro .guides .line{animation-duration:.55s;animation-delay:0s}
+.hero-sheet.intro .guides .g2{animation-delay:.12s}.hero-sheet.intro .guides .g3{animation-delay:.24s}.hero-sheet.intro .guides .g4{animation-delay:.3s}
+.hero-sheet.intro .paint{animation:paint .01s steps(1) 1.35s both}
+.hero-sheet.intro .ghost{animation:paint .01s steps(1) 1.5s both}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes paint{from{visibility:hidden}to{visibility:visible}}
+.hero-sheet{--d:1.55s}
+.hero-sheet.play .say{animation:pop .42s ease-out var(--d) both}
+.hero-sheet.play .dots i:nth-child(3){animation:pop .2s ease-out calc(var(--d) + .75s) both}
+.hero-sheet.play .dots i:nth-child(2){animation:pop .2s ease-out calc(var(--d) + .9s) both}
+.hero-sheet.play .dots i:nth-child(1){animation:pop .2s ease-out calc(var(--d) + 1.05s) both}
+.hero-sheet.play .think{animation:pop .45s ease-out calc(var(--d) + 1.2s) both}
+.hero-sheet.play .bot-hero .eyes{animation:glance 3.4s ease-in-out calc(var(--d) + 1.05s) both}
+@keyframes glance{0%{transform:none}8%,72%{transform:translate(10px,-7px)}82%,100%{transform:none}}
+@keyframes pop{0%{transform:scale(0);opacity:0}55%{transform:scale(1.12);opacity:1}100%{transform:scale(1);opacity:1}}
 
-/* ── HERO ── */
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 5rem;gap:4rem;}
-.hero-text{padding-top:4rem;}
+/* sections */
+.section{padding-block:clamp(3.5rem,7vw,5.5rem);scroll-margin-top:56px}
+h2{font-family:var(--text);font-weight:650;letter-spacing:-.02em!important;font-size:clamp(2.2rem,4.4vw,3.3rem);line-height:1.05;letter-spacing:-.01em;margin:0 0 .7rem;font-variation-settings:'INFM' 40,'BNCE' 0}
+.intro-line{color:var(--ink-2);font-size:1.1rem;max-width:34rem;margin:0 0 clamp(2.5rem,6vw,4rem)}
 
-.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:#9878c8;background:rgba(152,120,200,0.12);border:1px solid rgba(152,120,200,0.35);padding:0.4rem 1rem;border-radius:2rem;margin-bottom:2rem;}
-.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#b898d8;animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.65);}}
+/* about */
+.about-grid{display:grid;grid-template-columns:minmax(0,17rem) minmax(0,37rem);gap:clamp(2.5rem,7vw,6rem);align-items:start}
+.photo{position:relative;margin:3.2rem 0 0}
+.photo .frame{position:relative;background:#fff;padding:10px 10px 12px;transform:rotate(-2.5deg);box-shadow:0 1px 2px rgba(42,40,51,.12),0 14px 26px -14px rgba(42,40,51,.45);z-index:1}
+.photo .frame::before,.photo .frame::after{content:'';position:absolute;width:64px;height:20px;background:var(--tape);z-index:2}
+.photo .frame::before{top:-9px;left:-14px;transform:rotate(-32deg)}
+.photo .frame::after{bottom:-6px;right:-16px;transform:rotate(-28deg)}
+.photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%}
+.peek{position:absolute;right:18px;bottom:calc(100% - 4px);width:96px;z-index:0}
+.peek-svg{display:block;width:100%;height:auto;overflow:hidden}
+.about-text p{margin:0 0 1.1rem}
+.about-text p:first-of-type{font-size:1.2rem}
 
-.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,5.5vw,5.5rem);font-weight:300;line-height:1.03;margin-bottom:0.7rem;animation:fadeUp 0.9s ease both;}
-.hero-name em{font-style:italic;display:block;background:linear-gradient(135deg,#c888d8,#8898e8,#88c8c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 6s ease-in-out infinite alternate;}
-@keyframes gradShift{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(30deg);}}
+/* news */
+.news-list{list-style:none;margin:0;padding:0;max-width:52rem;border-top:1.5px solid rgba(42,40,51,.14)}
+.news-list li{display:grid;grid-template-columns:minmax(0,7.5rem) minmax(0,1fr);gap:clamp(.8rem,3vw,2rem);padding-block:1rem;border-bottom:1.5px dashed rgba(42,40,51,.16)}
+.news-list time{font-weight:650;font-size:1.05rem;color:var(--ink);white-space:nowrap;padding-top:.05rem}
+.news-list time::before{content:'';display:inline-block;width:.55em;height:.55em;margin-right:.5em;border:2px solid var(--ink);border-radius:50%;background:var(--pink);vertical-align:.05em}
+.news-list p{margin:0}
+.news-list b{font-weight:640}
+.hl{background:linear-gradient(transparent 62%,var(--pink) 62%,var(--pink) 96%,transparent 96%);padding:0 .12em;font-weight:600;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.news-list .twitter-tweet{margin:.9rem 0 .2rem;padding:.8rem 1.1rem;max-width:30rem;background:var(--sheet);border:2px solid var(--ink);border-radius:14px 4px 16px 6px/6px 14px 4px 16px;box-shadow:3px 4px 0 var(--ink);font-size:.98rem}
+.news-list .twitter-tweet p{margin:0 0 .3rem;color:var(--ink-2)}
+.news-list .twitter-tweet a{font-family:var(--text)}
+.news-list .twitter-tweet-rendered{margin:.9rem 0 .2rem!important}
+@media (max-width:620px){.news-list li{grid-template-columns:1fr;gap:.2rem}}
 
-.hero-title{font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem;animation:fadeUp 0.9s 0.1s ease both;}
-.hero-desc{font-size:1rem;color:var(--muted);max-width:430px;line-height:1.88;margin-bottom:2.5rem;animation:fadeUp 0.9s 0.2s ease both;}
-.hero-desc strong{color:var(--ink);font-weight:500;}
-.hero-links{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.9s 0.3s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+/* research */
+.topics{display:grid;gap:clamp(3rem,6vw,4.5rem)}
+.topic{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(1.5rem,4.5vw,4rem);align-items:center;scroll-margin-top:80px}
+.topic h3{font-family:var(--text);font-weight:700;font-size:clamp(1.45rem,2.5vw,1.85rem);line-height:1.15;margin:0 0 .7rem;font-variation-settings:'INFM' 50,'BNCE' 0}
+.topic p{margin:0 0 .9rem;max-width:31rem}
+.topic .see{font-size:.98rem;color:var(--ink-2)}
+.scene{position:relative}
+.scene .scene-svg{display:block;width:100%;height:auto;overflow:visible}
 
-.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.8rem 1.7rem;background:linear-gradient(135deg,#b898d8,#8898e8);color:#fff;border-radius:2rem;text-decoration:none;transition:all 0.28s;box-shadow:0 4px 20px rgba(152,120,200,0.35);}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(152,120,200,0.5);}
-.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.8rem 1.7rem;border:1.5px solid rgba(30,24,48,0.15);color:var(--ink);border-radius:2rem;text-decoration:none;background:rgba(255,255,255,0.55);backdrop-filter:blur(8px);transition:all 0.25s;}
-.btn-ghost:hover{background:rgba(184,152,216,0.15);border-color:var(--violet);transform:translateY(-2px);}
+/* papers */
+.year-group{display:grid;grid-template-columns:minmax(0,9.5rem) minmax(0,1fr);gap:clamp(1rem,3vw,2.5rem);padding-block:1.6rem;border-top:1.5px solid rgba(42,40,51,.14)}
+.year{font-family:var(--text);font-weight:760;font-size:1.9rem;line-height:1.1;margin:0;position:sticky;top:84px;align-self:start;font-variation-settings:'INFM' 60,'BNCE' 0}
+.year.small{font-size:1.55rem}
+.paper{display:grid;grid-template-columns:minmax(0,10.5rem) minmax(0,1fr);gap:clamp(1rem,2.6vw,1.8rem);padding-block:1.3rem;scroll-margin-top:90px}
+.paper+.paper{border-top:1.5px dashed rgba(42,40,51,.16)}
+.thumb{display:block;width:100%;aspect-ratio:4/3;padding:6px;margin:6px 0 0;border:0;background:#fff;cursor:zoom-in;position:relative;transform:rotate(var(--r,-1.2deg));
+  box-shadow:0 1px 2px rgba(42,40,51,.12),0 8px 16px -10px rgba(42,40,51,.4);transition:transform .2s steps(3)}
+.thumb:hover{transform:rotate(0deg) scale(1.04)}
+.thumb::before{content:'';position:absolute;top:-8px;left:50%;width:46px;height:15px;background:var(--tape);transform:translateX(-50%) rotate(-4deg)}
+.thumb img{display:block;width:100%;height:100%;object-fit:contain}
+.venue{font-family:var(--text);font-size:1rem;color:var(--ink-2);margin:0 0 .3rem;font-variation-settings:'INFM' 70,'BNCE' 0}
+.paper h3{font-family:var(--text);font-weight:640;font-size:1.17rem;line-height:1.35;margin:0 0 .45rem;text-wrap:pretty}
+.authors{font-size:.95rem;color:var(--ink-2);margin:0 0 .3rem;line-height:1.5}
+.authors b{color:var(--ink);font-weight:640;text-decoration:underline;text-decoration-color:var(--pink-deep);text-decoration-thickness:2px;text-underline-offset:3px}
+.note{font-size:.84rem;color:var(--ink-2);margin:0 0 .3rem}
+.summary{font-size:1.02rem;margin:.45rem 0 .5rem;max-width:40rem}
+.links{display:flex;flex-wrap:wrap;gap:.35rem 1.2rem;font-family:var(--text);font-size:1rem}
+.award{position:relative;display:table;color:var(--red);font-weight:600;font-style:italic;margin:.45rem 0 .6rem .5rem;padding:0 .2rem;white-space:nowrap}
+.award .scribble{position:absolute;left:-14px;top:-9px;width:calc(100% + 28px);height:calc(100% + 18px);overflow:visible;pointer-events:none}
+.award .star{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.2rem;overflow:visible}
+.scribble path,.star path{stroke-dasharray:1;stroke-dashoffset:1}
+.star path{fill-opacity:0}
+.seen .scribble path{animation:draw 1s ease-in-out .5s both}
+.seen .star path{animation:draw .6s ease-out .2s both,starfill .01s steps(1) .8s both}
+@keyframes starfill{to{fill-opacity:1}}
 
-/* HERO CARD */
-.hero-visual{display:flex;justify-content:center;align-items:center;padding-top:4rem;animation:fadeUp 0.9s 0.25s ease both;}
-.hero-card-wrap{position:relative;width:330px;}
+.award .rays{position:absolute;left:-.75em;top:50%;width:2.6em;height:2.6em;margin-top:-1.3em;overflow:visible;pointer-events:none}
+.award .rays path{stroke-dasharray:.45 1.2;stroke-dashoffset:.45;animation:rays 2.2s ease-out 1.1s infinite}
+@keyframes rays{0%{stroke-dashoffset:.45;opacity:1}45%{stroke-dashoffset:-1;opacity:1}46%,100%{stroke-dashoffset:-1;opacity:0}}
+.award .sparks{position:absolute;inset:-14px -22px;pointer-events:none}
+.award .sp{position:absolute;display:block;width:20px;height:20px;transform:scale(0);animation:twinkle 2s ease-in-out infinite}
+.award .sp svg{display:block;width:100%;height:100%;overflow:visible}
+.award .sp.s2,.award .sp.s5{width:10px;height:10px}
+.award .s1{left:4%;top:2px;animation-delay:1.1s}
+.award .s2{left:50%;top:4px;animation-delay:1.45s}
+.award .s3{right:-4px;top:-8px;width:26px;height:26px;animation-delay:1.3s}
+.award .s4{right:-12px;bottom:2px;animation-delay:1.8s}
+.award .s5{left:62%;bottom:-4px;animation-delay:2.15s}
+.award .s6{left:28%;bottom:-8px;width:15px;height:15px;animation-delay:2.5s}
+@keyframes twinkle{0%,100%{transform:scale(0) rotate(0deg)}14%{transform:scale(1.25) rotate(20deg)}30%{transform:scale(.9) rotate(40deg)}46%{transform:scale(1.1) rotate(60deg)}62%,99%{transform:scale(0) rotate(90deg)}}
 
-.float-badge{position:absolute;backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.9);border-radius:1rem;padding:0.65rem 1rem;box-shadow:0 8px 28px rgba(30,24,48,0.12);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.04em;color:var(--ink);white-space:nowrap;z-index:10;}
-.badge-1{top:-18px;right:-20px;background:rgba(200,184,232,0.88);animation:floatY 6s ease-in-out infinite;box-shadow:0 8px 28px rgba(152,120,200,0.2);}
-.badge-2{bottom:-18px;left:-20px;background:rgba(168,216,192,0.88);animation:floatY 7s 1.2s ease-in-out infinite;box-shadow:0 8px 28px rgba(136,200,184,0.2);}
-@keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-.movie-sticker{padding:0.45rem;cursor:help;line-height:0;}
 
-.hero-mascot{position:absolute;width:84px;height:84px;right:-34px;top:38%;animation:botBob 3.6s ease-in-out infinite;filter:drop-shadow(0 12px 18px rgba(30,24,48,.25));z-index:11;}
-@keyframes botBob{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-9px) rotate(4deg);}}
+/* hero caption under the sheet */
+.hero-art{justify-self:center;width:100%;max-width:620px}
+.hero-art .sheet-wrap{max-width:none}
+.poke-cap{--cd:2.9s;display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-top:2.1rem;min-height:5.6rem;text-align:center}
+.cap-topic{font-size:.82rem;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);animation:capin .45s ease-out var(--cd) both}
+.cap-badge{position:relative;display:inline-flex;align-items:center;gap:.55rem;padding:.5rem 1.05rem .5rem .8rem;font-size:1rem;font-weight:600;color:var(--ink);text-decoration:none;background:var(--sheet);
+  border:2.2px solid var(--ink);border-radius:255px 18px 225px 18px/18px 225px 18px 255px;box-shadow:3px 4px 0 var(--ink);animation:badge .6s ease-out calc(var(--cd) + .2s) both}
+.cap-badge:hover{text-decoration:none;transform:translate(-1px,-2px) rotate(-1deg)}
+.cap-badge > svg{width:1.6em;height:1.6em;flex:none;overflow:visible}
+.b-oral{background:#F7DDF0}.b-ai2{background:#E9E0FB}.b-award{background:#FFF3CF}.b-judge{background:#F2E6F7}
+@keyframes capin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes badge{0%{opacity:0;transform:scale(.3) rotate(-8deg)}55%{opacity:1;transform:scale(1.12) rotate(3deg)}75%{transform:scale(.96) rotate(-1.5deg)}100%{opacity:1;transform:none}}
+/* mic */
+.mic{overflow:visible}
+.mic .mic-body{transform-box:fill-box;transform-origin:50% 100%;animation:micbob 1.2s ease-in-out infinite}
+.mic .wave{animation:wave 1.2s ease-out infinite}
+.mic .w2{animation-delay:.3s}
+@keyframes micbob{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes wave{0%{opacity:0;transform:scale(.7)}30%{opacity:1}100%{opacity:0;transform:scale(1.25)}}
+.mic .wave{transform-box:fill-box;transform-origin:50% 50%}
+.oral{display:inline-flex;align-items:center;gap:.25em;margin-left:.35em;padding:.02em .5em .02em .3em;border-radius:999px;background:#F7DDF0;border:1.5px solid var(--ink);color:var(--ink);font-weight:650;font-size:.92em;line-height:1.35;vertical-align:.05em}
+.oral .mic{width:1.15em;height:1.15em}
+/* Ai2 stamp */
+.stamp{position:relative;display:inline-grid;place-items:center;width:2.5em;height:2.5em;flex:none;margin:-.5rem 0 -.5rem -.25rem}
+.stamp .burst{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:spin 6s linear infinite}
+.stamp b{position:relative;font-size:.78em;font-weight:800;letter-spacing:-.01em;animation:stamp .5s ease-out calc(var(--cd) + .5s) both}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes stamp{0%{opacity:0;transform:scale(2.4) rotate(-20deg)}60%{opacity:1;transform:scale(.9) rotate(4deg)}100%{opacity:1;transform:none}}
+/* award */
+.b-award .trophy{animation:trophy 1.6s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes trophy{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg) translateY(-2px)}}
+.cap-badge .sp{position:absolute;display:block;width:18px;height:18px;transform:scale(0);animation:twinkle 2s ease-in-out infinite;pointer-events:none}
+.cap-badge .sp svg{display:block;width:100%;height:100%;overflow:visible}
+.cap-badge .c1{left:-12px;top:-12px;animation-delay:.2s}
+.cap-badge .c2{right:-14px;top:-10px;width:24px;height:24px;animation-delay:.9s}
+.cap-badge .c3{right:22%;bottom:-14px;width:14px;height:14px;animation-delay:1.5s}
+/* judge */
+.scale .beam{transform-box:view-box;transform-origin:16px 6px;animation:tilt 2.4s ease-in-out infinite}
+@keyframes tilt{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(-4deg)}}
 
-.hero-card-inner{background:rgba(255,255,255,0.75);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.92);border-radius:2rem;padding:2.2rem 2.2rem 1.8rem;box-shadow:0 24px 64px rgba(30,24,48,0.1),0 4px 16px rgba(30,24,48,0.05);}
-.interests-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;display:block;}
-.interest-item{display:flex;align-items:flex-start;gap:0.85rem;padding:0.82rem 0;border-bottom:1px solid rgba(30,24,48,0.05);}
-.interest-item:last-child{border-bottom:none;padding-bottom:0;}
-.interest-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
-.dot-1{background:linear-gradient(135deg,#c888d8,#9878c8);}
-.dot-2{background:linear-gradient(135deg,#88c8b8,#68b0a0);}
-.dot-3{background:linear-gradient(135deg,#f0b898,#e09878);}
-.dot-4{background:linear-gradient(135deg,#98c8e8,#78a8d0);}
-.interest-text{font-size:0.87rem;line-height:1.4;color:var(--ink);font-weight:500;}
-.interest-sub{font-size:0.7rem;color:var(--muted);margin-top:0.15rem;}
-.new-chip{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:.05em;background:linear-gradient(135deg,#f0b868,#e88858);color:#fff;padding:0.12rem 0.42rem;border-radius:0.6rem;margin-left:0.4rem;vertical-align:middle;}
+.medal{display:inline-block;width:1.2em;height:1.55em;margin:0 0 0 .2em;vertical-align:-.38em}
+.medal svg{display:block;width:100%;height:100%;overflow:visible}
+.medal-swing{transform-box:view-box;transform-origin:12px 1px;animation:medal 2.4s ease-in-out infinite}
+@keyframes medal{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
+.medal .glint{animation:glint 2.4s steps(1) infinite}
+@keyframes glint{0%,60%{opacity:0}62%,80%{opacity:1}82%,100%{opacity:0}}
 
-/* ── SECTION SHARED ── */
-section{padding:6.5rem 5rem;}
-.section-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.5rem;display:block;}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,2.8rem);font-weight:300;line-height:1.15;margin-bottom:3rem;}
-.section-title em{font-style:italic;}
+/* contact */
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,21rem);gap:clamp(2rem,6vw,5rem);align-items:center}
+.email{display:inline-block;font-family:var(--text);font-weight:700;font-size:clamp(1.35rem,3.6vw,2.3rem);color:var(--ink);text-decoration:underline;text-decoration-color:var(--blue);text-decoration-thickness:3px;text-underline-offset:6px;margin:.3rem 0 1.6rem;word-break:break-word}
+.email:hover{text-decoration-style:wavy}
+.elsewhere{display:flex;flex-wrap:wrap;gap:.4rem 1.3rem;font-family:var(--text);font-size:1.05rem;margin:0;padding:0;list-style:none}
+footer{padding-block:2.2rem 2.6rem;font-family:var(--text);font-size:.95rem;color:var(--ink-2);border-top:1.5px solid rgba(42,40,51,.1)}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 
-/* ── ABOUT — rich rose/violet tones ── */
-#about{background:linear-gradient(160deg,rgba(232,164,184,0.22) 0%,rgba(200,184,232,0.18) 50%,rgba(152,200,232,0.15) 100%);}
-#about .section-label{color:#c878a8;}
-#about .section-title em{color:#c878a8;}
+/* lightbox */
+.lightbox{border:0;padding:0;background:transparent;max-width:min(1040px,94vw);max-height:92vh;overflow:visible}
+.lightbox::backdrop{background:rgba(246,236,245,.88);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.lb-inner{background:#fff;padding:clamp(.6rem,2vw,1.2rem);box-shadow:0 2px 4px rgba(42,40,51,.12),0 30px 60px -30px rgba(42,40,51,.6);transform-origin:50% 60%}
+.lightbox[open] .lb-inner{animation:pop .4s ease-out both}
+.lb-inner img{display:block;max-width:100%;max-height:72vh;margin:0 auto}
+.lb-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:.8rem}
+.lb-cap{margin:0;font-size:.98rem;color:var(--ink-2)}
 
-.about-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:5rem;align-items:start;}
-.about-photo-frame{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,#f0b8c8,#c898d8,#98a8e8);border-radius:2rem;overflow:hidden;margin-bottom:1.5rem;box-shadow:0 20px 50px rgba(200,140,200,0.25);}
-.about-photo-frame img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.8);font-size:0.9rem;text-align:center;padding:1rem;}
-.social-row{display:flex;gap:0.5rem;flex-wrap:wrap;}
-.social-chip{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.07em;padding:0.38rem 0.8rem;border:1px solid rgba(200,140,200,0.35);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.65);transition:all 0.2s;}
-.social-chip:hover{background:linear-gradient(135deg,#c888d8,#9898e8);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(152,120,200,0.35);}
-.about-content{position:relative;}
-.about-content p{font-size:0.97rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.88;}
-.about-content p strong{color:var(--ink);font-weight:500;}
-.about-content p em{font-style:italic;color:#b878c8;}
-.inspiration-block{margin-top:1.8rem;padding:1.5rem 1.7rem;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.85);border-radius:1.4rem;border-left:3px solid #c888d8;}
-.inspiration-label{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.2em;text-transform:uppercase;color:#c888d8;margin-bottom:0.9rem;display:block;}
-.inspiration-row{display:flex;align-items:center;gap:1.1rem;}
-.inspiration-row p{font-size:0.88rem;color:var(--muted);margin-bottom:0;font-style:italic;line-height:1.75;}
-.sf-ava{position:absolute;top:-0.5rem;right:0;opacity:0.85;cursor:help;}
+/* ── research scene animations (paused/stepped by the script) ── */
+.idle .bot-move{animation:idle 2s ease-in-out infinite;transform-origin:0 62px}
+.idle .bot-s4p .bot-move{animation:none}
+@keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-/* ── INTERESTS — vivid colored cards ── */
-#interests{background:linear-gradient(160deg,rgba(168,216,192,0.2) 0%,rgba(152,200,232,0.18) 50%,rgba(200,184,232,0.18) 100%);}
-#interests .section-label{color:#5aaa88;}
-#interests .section-title em{color:#5aaa88;}
-#interests{overflow:hidden;}
+/* s1: one drop spreads everywhere */
+.s1-drop{animation:s1-drop 6s infinite}
+@keyframes s1-drop{0%{transform:translateY(-4px) scale(0)}10%{transform:translateY(0) scale(.6)}18%{transform:translateY(0) scale(1,1.08)}21%{transform:translateY(2px) scale(.95,1.15)}26%{transform:translateY(30px) scale(.85,1.3);opacity:1}27%,100%{transform:translateY(31px) scale(1.6,.3);opacity:0}}
+.s1-bulb{animation:s1-bulb 6s infinite}
+@keyframes s1-bulb{0%,5%,17%,100%{transform:scale(1)}10%{transform:scale(.76,1.1)}}
+.s1-splat{opacity:0;animation:s1-splat 6s infinite}
+@keyframes s1-splat{0%,26%{opacity:0;transform:scale(.4)}28%{opacity:1;transform:scale(1)}34%{opacity:1;transform:scale(1.25)}38%,100%{opacity:0}}
+.s1-stain{transform:scale(1);animation:s1-stain 6s ease-in-out infinite}
+@keyframes s1-stain{0%,26%{transform:scale(0)}30%{transform:scale(.07)}62%,90%{transform:scale(1)}96%,100%{transform:scale(0)}}
+.bot-s1 .eye{animation:s1-eye 6s infinite}
+@keyframes s1-eye{0%,42%{transform:scaleY(1)}47%,90%{transform:scaleY(.42)}95%,100%{transform:scaleY(1)}}
+.bot-s1 .eyes{animation:s1-look 6s infinite}
+@keyframes s1-look{0%,42%{transform:none}47%,90%{transform:translate(8px,4px)}95%,100%{transform:none}}
+.bot-s1 .brows{animation:s1-brows 6s steps(1) infinite}
+@keyframes s1-brows{0%{opacity:0}46%{opacity:1}92%{opacity:0}}
+.bot-s1 .ant-ball{animation:s1-ball 6s steps(1) infinite}
+@keyframes s1-ball{0%{fill:#FFFFFC}48%{fill:#D9434E}93%{fill:#FFFFFC}}
 
-.interests-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;position:relative;}
+/* s2: answer first, reasons after */
+.s2-l,.s2-circ,.s2-arrow{stroke-dasharray:1}
+.s2-circ{animation:s2-circ 7s linear infinite}
+@keyframes s2-circ{0%,5%{stroke-dashoffset:1;opacity:1}21%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+.s2-l1{animation:s2-l1 7s linear infinite}.s2-l2{animation:s2-l2 7s linear infinite}.s2-l3{animation:s2-l3 7s linear infinite}
+@keyframes s2-l1{0%,28%{stroke-dashoffset:1;opacity:1}38%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes s2-l2{0%,41%{stroke-dashoffset:1;opacity:1}51%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes s2-l3{0%,54%{stroke-dashoffset:1;opacity:1}64%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+.s2-arrow{animation:s2-arrow 7s linear infinite}
+@keyframes s2-arrow{0%,67%{stroke-dashoffset:1;opacity:1}74%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+.s2-head{animation:s2-head 7s steps(1) infinite}
+@keyframes s2-head{0%{opacity:0}74%{opacity:1}94%{opacity:0}}
+.s2-pencil{animation:s2-pencil 7s linear infinite}
+@keyframes s2-pencil{0%{transform:translate(330px,182px)}5%{transform:translate(331px,196px)}9%{transform:translate(336px,211px)}13%{transform:translate(316px,219px)}17%{transform:translate(302px,206px)}19%{transform:translate(315px,193px)}21%{transform:translate(333px,201px)}25%{transform:translate(250px,92px)}28%{transform:translate(242px,100px)}38%{transform:translate(342px,100px)}41%{transform:translate(242px,128px)}51%{transform:translate(342px,128px)}54%{transform:translate(242px,156px)}64%{transform:translate(342px,156px)}67%{transform:translate(350px,164px)}74%{transform:translate(338px,198px)}82%,93%{transform:translate(348px,180px)}100%{transform:translate(330px,182px)}}
+.bot-s2 .eyes{animation:s2-eyes 7s ease-in-out infinite}
+@keyframes s2-eyes{0%,3%{transform:translate(9px,5px)}6%,21%{transform:translate(11px,9px)}25%,38%{transform:translate(11px,-7px)}41%,51%{transform:translate(11px,-2px)}54%,64%{transform:translate(11px,2px)}67%,76%{transform:translate(11px,8px)}80%,92%{transform:translate(0,2px)}100%{transform:translate(9px,5px)}}
+.bot-s2 .eye{animation:s2-eye 7s infinite}
+@keyframes s2-eye{0%,79%,93%,100%{transform:none}82%,91%{transform:scale(1.12,.82)}}
+.s2-sweat{animation:s2-sweat 7s infinite}
+@keyframes s2-sweat{0%,80%{opacity:0;transform:translateY(-4px)}83%{opacity:1;transform:translateY(0)}92%{opacity:1;transform:translateY(8px)}95%,100%{opacity:0;transform:translateY(8px)}}
 
-.interest-card{padding:2rem 2.2rem;border-radius:1.8rem;border:1px solid rgba(255,255,255,0.8);backdrop-filter:blur(16px);transition:transform 0.3s,box-shadow 0.3s;overflow:hidden;position:relative;}
-.interest-card::before{content:'';position:absolute;inset:0;border-radius:1.8rem;opacity:0;transition:opacity 0.3s;}
-.interest-card:hover{transform:translateY(-7px);}
-.interest-card:hover::before{opacity:1;}
+/* s3: petri dish */
+.s3-hop{animation:s3-hop 2s ease-in-out infinite;transform-origin:0 62px}
+@keyframes s3-hop{0%,50%,100%{transform:none}8%,58%{transform:scale(1.16,.84)}18%{transform:translateY(-95px) scale(.9,1.12) rotate(-6deg)}26%{transform:translateY(-170px) rotate(-12deg)}34%{transform:translateY(-95px) scale(.92,1.1) rotate(-6deg)}40%,90%{transform:scale(1.18,.82)}68%{transform:translateY(-95px) scale(.9,1.12) rotate(6deg)}76%{transform:translateY(-170px) rotate(12deg)}84%{transform:translateY(-95px) scale(.92,1.1) rotate(6deg)}}
+.s3-hop .eyes{animation:s3-look 2s steps(1) infinite}
+@keyframes s3-look{0%{transform:translate(-9px,0)}24%{transform:translate(-9px,-6px)}50%{transform:translate(9px,0)}74%{transform:translate(9px,-6px)}}
+.s3-lens{animation:s3-lens 6s ease-in-out infinite}
+@keyframes s3-lens{0%,100%{transform:translate(78px,88px)}25%{transform:translate(162px,76px)}50%{transform:translate(246px,88px)}75%{transform:translate(162px,76px)}}
+[class^="s3-t"]{stroke-dasharray:1}
+@keyframes s3-t0{0%,13.3%{stroke-dashoffset:1;opacity:1}16.3%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}.s3-t0{animation:s3-t0 6s linear infinite}@keyframes s3-t1{0%,30.0%{stroke-dashoffset:1;opacity:1}33.0%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}.s3-t1{animation:s3-t1 6s linear infinite}@keyframes s3-t2{0%,46.7%{stroke-dashoffset:1;opacity:1}49.7%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}.s3-t2{animation:s3-t2 6s linear infinite}@keyframes s3-t3{0%,63.3%{stroke-dashoffset:1;opacity:1}66.3%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}.s3-t3{animation:s3-t3 6s linear infinite}@keyframes s3-t4{0%,80.0%{stroke-dashoffset:1;opacity:1}83.0%,92%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}.s3-t4{animation:s3-t4 6s linear infinite}
 
-.ic-scene{height:62px;margin-bottom:0.9rem;}
-.ic-scene svg{height:100%;width:auto;overflow:visible;}
+/* s4: snapshot vs decay */
+.s4-flash{opacity:0;animation:s4-flash 8s infinite}
+@keyframes s4-flash{0%{opacity:.95}5%,100%{opacity:0}}
+.s4-d{opacity:0}.s4-d3{opacity:1}
+.s4-d0{animation:s4-d0 8s steps(1) infinite}.s4-d1{animation:s4-d1 8s steps(1) infinite}.s4-d2{animation:s4-d2 8s steps(1) infinite}.s4-d3{animation:s4-d3 8s steps(1) infinite}
+@keyframes s4-d0{0%{opacity:1}30%{opacity:0}}
+@keyframes s4-d1{0%{opacity:0}30%{opacity:1}55%{opacity:0}}
+@keyframes s4-d2{0%{opacity:0}55%{opacity:1}80%{opacity:0}}
+@keyframes s4-d3{0%{opacity:0}80%{opacity:1}}
+.s4-page{opacity:0;animation:s4-page 8s ease-in infinite}
+@keyframes s4-page{0%,29.9%{opacity:0;transform:none}30%{opacity:1;transform:none}38%{opacity:0;transform:translate(48px,92px) rotate(70deg)}38.1%,54.9%{opacity:0;transform:none}55%{opacity:1;transform:none}63%{opacity:0;transform:translate(-44px,94px) rotate(-60deg)}63.1%,79.9%{opacity:0;transform:none}80%{opacity:1;transform:none}88%{opacity:0;transform:translate(52px,90px) rotate(80deg)}88.1%,100%{opacity:0;transform:none}}
+.bot-s4 .antenna{animation:s4-ant 8s ease-in-out infinite}
+@keyframes s4-ant{0%,6%{transform:none}30%{transform:rotate(8deg)}55%{transform:rotate(24deg)}80%,94%{transform:rotate(56deg)}100%{transform:none}}
+.bot-s4 .eye{animation:s4-eye 8s infinite}
+@keyframes s4-eye{0%,6%,100%{transform:none}30%{transform:scaleY(.85)}55%{transform:scaleY(.6)}80%,94%{transform:scaleY(.28)}}
+.bot-s4 .eyes{animation:s4-eyes 8s infinite}
+@keyframes s4-eyes{0%,6%,100%{transform:none}55%{transform:translate(-4px,5px)}80%,94%{transform:translate(-6px,9px)}}
+.s4-grey{animation:s4-grey 8s infinite}
+@keyframes s4-grey{0%,6%,100%{opacity:0}55%{opacity:.22}80%,94%{opacity:.46}}
+.s4-crack{stroke-dasharray:1;animation:s4-crack 8s infinite}
+@keyframes s4-crack{0%,55%{stroke-dashoffset:1;opacity:1}64%,94%{stroke-dashoffset:0;opacity:1}97%,100%{stroke-dashoffset:0;opacity:0}}
+.bot-s4 .bot-move{animation:s4-sag 8s ease-in-out infinite;transform-origin:0 62px}
+@keyframes s4-sag{0%,6%,100%{transform:none}55%{transform:translateY(4px) rotate(3deg)}80%,94%{transform:translateY(10px) rotate(8deg) scale(1.03,.95)}}
+.s4-smoke{opacity:0;animation:s4-smoke 8s infinite}
+@keyframes s4-smoke{0%,82%{opacity:0;transform:translateY(6px) scale(.6)}86%{opacity:1;transform:none}95%{opacity:0;transform:translateY(-16px) scale(1.2)}100%{opacity:0}}
 
-/* Card 1 – violet */
-.ic-1{background:linear-gradient(145deg,rgba(200,152,220,0.28) 0%,rgba(152,152,232,0.2) 100%);box-shadow:0 4px 24px rgba(184,140,216,0.15);}
-.ic-1:hover{box-shadow:0 20px 50px rgba(184,140,216,0.3);}
-.ic-1 .ic-title{color:var(--ink);}
-.ic-1 .ic-tag{background:rgba(184,140,216,0.18);color:#9060b8;}
+/* s5: the mirror */
+.bot-s5 .bot-move{animation:s5-tilt 6s ease-in-out infinite;transform-origin:0 62px}
+.bot-s5m .bot-move{animation:s5-mtilt 6s ease-in-out .4s infinite;transform-origin:0 62px}
+@keyframes s5-mtilt{0%,4%{transform:none}10%,18%{transform:rotate(-9deg)}24%,48%{transform:none}52%{transform:scale(1.14,.86)}57%{transform:translateY(-50px) scale(.92,1.1)}62%{transform:translateY(-2px) scale(1.12,.88)}65%{transform:translateY(-26px)}69%{transform:scale(1.06,.94)}72%,100%{transform:none}}
+@keyframes s5-tilt{0%,4%{transform:none}10%,18%{transform:rotate(-9deg)}24%,100%{transform:none}}
+.bot-s5 .arm-r{animation:s5-wave 6s ease-in-out infinite}
+.bot-s5m .arm-r{animation:s5-mwave 6s ease-in-out .4s infinite}
+@keyframes s5-mwave{0%,26%{transform:none}31%{transform:rotate(-118deg)}35%{transform:rotate(-94deg)}39%{transform:rotate(-118deg)}43%{transform:rotate(-94deg)}47%{transform:rotate(-118deg)}51%{transform:rotate(-94deg)}55%{transform:rotate(-118deg)}59%{transform:rotate(-94deg)}63%{transform:rotate(-118deg)}69%,100%{transform:none}}
+@keyframes s5-wave{0%,26%{transform:none}31%{transform:rotate(-118deg)}35%{transform:rotate(-94deg)}39%{transform:rotate(-118deg)}43%{transform:rotate(-94deg)}49%,100%{transform:none}}
+.bot-s5 .eyes{transform:translate(9px,0)}
+.bot-s5 .eye{animation:s5-eye 6s infinite}
+@keyframes s5-eye{0%,44%,48%,57%,80%,100%{transform:none}46%{transform:scaleY(.08)}60%,76%{transform:scale(1.22)}}
+.bot-s5m .eyes{animation:s5-meyes 6s infinite}
+@keyframes s5-meyes{0%,48%{transform:translate(9px,0)}52%,72%{transform:translate(-3px,4px)}78%,100%{transform:translate(9px,0)}}
+.s5-x{opacity:0}
+.s5-q{animation:s5-q 6s steps(1) infinite}.s5-x{animation:s5-x 6s steps(1) infinite}
+@keyframes s5-q{0%{opacity:1}58%{opacity:0}82%{opacity:1}}
+@keyframes s5-x{0%{opacity:0}58%{opacity:1}82%{opacity:0}}
+.s5-bubble{animation:s5-bub 6s infinite}
+@keyframes s5-bub{0%,57%,66%,100%{transform:none}60%{transform:scale(1.22)}}
 
-.ic-1::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(200,152,220,0.5),transparent 70%);animation:glowPulse 4s ease-in-out infinite;}
+/* contact + peek */
+.bot-ct .arm-l{animation:ct-wave 1.1s ease-in-out infinite}
+@keyframes ct-wave{0%,100%{transform:rotate(100deg)}50%{transform:rotate(140deg)}}
+.bot-ct .eye,.bot-pk .eye{animation:blink 3.8s infinite}
+.ct-plane{animation:ct-plane 5s linear infinite}
+@keyframes ct-plane{0%{transform:translate(166px,58px) rotate(-90deg)}6.25%{transform:translate(176.9px,37.5px) rotate(-45deg)}12.5%{transform:translate(201px,33px) rotate(0deg)}18.75%{transform:translate(225px,37.5px) rotate(45deg)}25%{transform:translate(236px,58px) rotate(90deg)}31.25%{transform:translate(247px,80.5px) rotate(45deg)}37.5%{transform:translate(271px,83px) rotate(0deg)}43.75%{transform:translate(295px,80.5px) rotate(-45deg)}50%{transform:translate(306px,58px) rotate(-90deg)}56.25%{transform:translate(295px,37.5px) rotate(-135deg)}62.5%{transform:translate(271px,33px) rotate(-180deg)}68.75%{transform:translate(247px,37.5px) rotate(-225deg)}75%{transform:translate(236px,58px) rotate(-270deg)}81.25%{transform:translate(225px,80.5px) rotate(-225deg)}87.5%{transform:translate(201px,83px) rotate(-180deg)}93.75%{transform:translate(177px,80.5px) rotate(-135deg)}100%{transform:translate(166px,58px) rotate(-90deg)}}
+.pk-move{animation:pk 7s ease-in-out infinite}
+@keyframes pk{0%,52%{transform:translateY(160px)}60%{transform:translateY(-8px)}63%,86%{transform:none}93%,100%{transform:translateY(160px)}}
+.bot-pk .eyes{animation:pk-look 7s infinite}
+@keyframes pk-look{0%,63%{transform:none}66%,76%{transform:translate(-10px,2px)}79%,100%{transform:translate(0,5px)}}
 
-/* Card 2 – rose/coral */
-.ic-2{background:linear-gradient(145deg,rgba(240,168,152,0.28) 0%,rgba(220,136,168,0.2) 100%);box-shadow:0 4px 24px rgba(220,150,170,0.15);}
-.ic-2:hover{box-shadow:0 20px 50px rgba(220,150,170,0.3);}
-.ic-2 .ic-tag{background:rgba(220,136,168,0.18);color:#b05878;}
-.ic-2::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(240,168,152,0.5),transparent 70%);animation:glowPulse 4.5s 0.5s ease-in-out infinite;}
-
-/* Card 3 – teal/mint */
-.ic-3{background:linear-gradient(145deg,rgba(136,200,184,0.28) 0%,rgba(152,200,152,0.2) 100%);box-shadow:0 4px 24px rgba(136,200,184,0.15);}
-.ic-3:hover{box-shadow:0 20px 50px rgba(136,200,184,0.3);}
-.ic-3 .ic-tag{background:rgba(136,200,184,0.2);color:#308870;}
-.ic-3::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(136,200,184,0.5),transparent 70%);animation:glowPulse 5s 1s ease-in-out infinite;}
-
-/* Card 4 – sky blue */
-.ic-4{background:linear-gradient(145deg,rgba(152,200,232,0.28) 0%,rgba(168,184,232,0.2) 100%);box-shadow:0 4px 24px rgba(152,200,232,0.15);}
-.ic-4:hover{box-shadow:0 20px 50px rgba(152,200,232,0.3);}
-.ic-4 .ic-tag{background:rgba(152,200,232,0.2);color:#3878b0;}
-.ic-4::after{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(152,200,232,0.5),transparent 70%);animation:glowPulse 4.8s 1.5s ease-in-out infinite;}
-
-/* Card 5 – spotlight / introspection */
-.ic-spotlight{grid-column:1/-1;display:flex;align-items:center;gap:2.2rem;background:linear-gradient(145deg,rgba(240,200,120,0.24) 0%,rgba(200,152,220,0.18) 100%);border:1px solid rgba(240,200,120,0.45);box-shadow:0 4px 24px rgba(220,180,80,0.16);}
-.ic-spotlight:hover{box-shadow:0 20px 50px rgba(220,180,80,.32);}
-.ic-spotlight .ic-scene{height:92px;margin-bottom:0;flex-shrink:0;}
-.ic-spotlight::after{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(240,200,120,0.5),transparent 70%);animation:glowPulse 4.2s 0.3s ease-in-out infinite;}
-.spotlight-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:.1em;text-transform:uppercase;background:linear-gradient(135deg,#f0b868,#e88858);color:#fff;padding:0.22rem 0.65rem;border-radius:1rem;margin-bottom:0.6rem;}
-
-@keyframes glowPulse{0%,100%{transform:scale(1);opacity:0.6;}50%{transform:scale(1.3);opacity:1;}}
-
-.ic-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.6rem;}
-.ic-body{font-size:0.86rem;color:var(--muted);line-height:1.6;}
-.ic-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1rem;}
-.ic-tag{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.07em;padding:0.25rem 0.65rem;border-radius:1rem;font-weight:400;}
-
-.scene-float{position:absolute;opacity:0.92;cursor:help;z-index:3;}
-.sf-collusion{top:-1.2rem;right:1rem;}
-.sf-unfaithful{bottom:-1.4rem;left:-1rem;}
-
-/* ── INTERNSHIP ── */
-#internship{background:linear-gradient(160deg,rgba(232,164,184,0.2) 0%,rgba(200,184,232,0.16) 55%,rgba(168,216,192,0.14) 100%);}
-#internship .section-label{color:#c878a8;}
-#internship .section-title em{color:#c878a8;}
-.internship-container{max-width:1040px;margin:0 auto;}
-.internship-card{display:flex;align-items:center;gap:1.8rem;max-width:620px;padding:2rem 2.3rem;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.9);border-radius:1.8rem;box-shadow:0 16px 48px rgba(30,24,48,0.08);}
-.internship-logo{width:64px;height:64px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.25rem;color:#fff;background:linear-gradient(135deg,#f0a8c8,#d880a8);box-shadow:0 8px 24px rgba(216,128,168,0.4);}
-.internship-logo.ai2-badge{width:92px;height:62px;border-radius:0.9rem;background:#0b0a12;box-shadow:0 8px 24px rgba(0,0,0,.35);}
-.internship-info h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:0.3rem;}
-.internship-role{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#c878a8;margin-bottom:0.6rem;display:block;}
-.internship-info p{font-size:0.86rem;color:var(--muted);line-height:1.7;margin-bottom:0;}
-
-/* ── PUBLICATIONS — warm peach/rose ── */
-#publications{background:linear-gradient(160deg,rgba(240,184,152,0.18) 0%,rgba(232,164,184,0.18) 60%,rgba(200,184,232,0.15) 100%);}
-#publications .section-label{color:#c07858;}
-#publications .section-title em{color:#c07858;}
-
-.pub-container{max-width:1040px;margin:0 auto;}
-.pub-year-group{margin-bottom:3rem;}
-.pub-year{font-family:'Space Mono',monospace;font-size:0.61rem;letter-spacing:0.22em;text-transform:uppercase;color:#c07858;margin-bottom:1.4rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(192,120,88,0.2);}
-
-.pub-card{display:grid;grid-template-columns:190px 1fr;gap:1.7rem;padding:1.7rem;background:rgba(255,255,255,0.65);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.9);border-radius:1.5rem;margin-bottom:1.1rem;transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;}
-.pub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(200,152,216,0.5),transparent);opacity:0;transition:opacity 0.3s;}
-.pub-card:hover{transform:translateX(6px);box-shadow:0 16px 48px rgba(30,24,48,0.09);}
-.pub-card:hover::before{opacity:1;}
-
-.pub-figure{width:100%;aspect-ratio:4/3;border-radius:0.9rem;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:0.54rem;color:rgba(255,255,255,0.72);text-align:center;letter-spacing:0.04em;overflow:hidden;position:relative;flex-shrink:0;}
-.pub-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0.9rem;}
-.fig-emergent{background:linear-gradient(135deg,#c8a8e0 0%,#9888d0 50%,#8080c0 100%);}
-.fig-eicap   {background:linear-gradient(135deg,#e8a8c0 0%,#d080a0 50%,#b86090 100%);}
-.fig-judge   {background:linear-gradient(135deg,#88c8c0 0%,#60a8a0 50%,#508898 100%);}
-.fig-mena    {background:linear-gradient(135deg,#f0c898 0%,#d8a070 50%,#c08058 100%);}
-.fig-wsc     {background:linear-gradient(135deg,#98c8e8 0%,#70a8d0 50%,#6090b8 100%);}
-.fig-turingq {background:linear-gradient(135deg,#a8d8b8 0%,#78b890 50%,#60a080 100%);}
-.fig-translate{background:linear-gradient(135deg,#f0d0a0 0%,#d8b070 50%,#c09058 100%);}
-.fig-healthcare{background:linear-gradient(135deg,#e898c8 0%,#c870a8 50%,#b06090 100%);}
-.fig-animation{background:linear-gradient(135deg,#a0b8e8 0%,#7898d0 50%,#6080b8 100%);}
-.fig-agentabstain{background:linear-gradient(135deg,#98b8f0 0%,#7098d8 50%,#5878b8 100%);}
-.fig-veto    {background:linear-gradient(135deg,#f0a0a0 0%,#d87878 50%,#b85858 100%);}
-.fig-fairstress{background:linear-gradient(135deg,#f0b8c8 0%,#d890a8 50%,#b87090 100%);}
-.fig-naacl   {background:linear-gradient(135deg,#f0c888 0%,#d8a860 50%,#b88440 100%);}
-.fig-pattern{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.fig-label{position:relative;z-index:1;line-height:1.6;padding:0.5rem;}
-
-.pub-status{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.7rem;border-radius:1rem;margin-bottom:0.7rem;}
-.status-review{background:rgba(200,152,216,0.2);color:#9060b8;border:1px solid rgba(152,100,200,0.25);}
-.status-pub   {background:rgba(136,200,184,0.2);color:#308860;border:1px solid rgba(100,180,148,0.25);}
-.status-award {background:rgba(224,168,32,0.22);color:#9c7a0a;border:1px solid rgba(200,150,20,0.32);}
-.status-dot   {width:5px;height:5px;border-radius:50%;background:currentColor;}
-
-.pub-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;line-height:1.35;color:var(--ink);margin-bottom:0.5rem;}
-.pub-authors{font-size:0.77rem;color:var(--muted);margin-bottom:0.3rem;}
-.pub-authors strong{color:var(--ink);font-weight:500;text-decoration:underline;text-underline-offset:3px;}
-.pub-authnote{font-size:0.65rem;color:var(--muted);opacity:0.75;margin-bottom:0.7rem;font-family:'Space Mono',monospace;letter-spacing:0.02em;}
-.pub-abstract{font-size:0.83rem;color:var(--muted);line-height:1.6;margin-bottom:0.9rem;}
-.pub-links{display:flex;gap:0.5rem;flex-wrap:wrap;}
-.pub-link{font-family:'Space Mono',monospace;font-size:0.57rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.27rem 0.75rem;border:1px solid rgba(30,24,48,0.15);border-radius:1rem;color:var(--muted);text-decoration:none;background:rgba(255,255,255,0.6);transition:all 0.2s;}
-.pub-link:hover{background:linear-gradient(135deg,#b898d8,#8898e8);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(152,120,200,0.3);}
-
-/* ── CONTACT ── */
-#contact{background:linear-gradient(135deg,#1e1830 0%,#2a1e3c 50%,#1a2430 100%);color:#faf7f2;text-align:center;padding:9rem 4rem;position:relative;overflow:hidden;}
-#contact::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(184,152,216,0.2) 0%,rgba(136,152,232,0.1) 40%,transparent 70%);animation:contactGlow 8s ease-in-out infinite alternate;}
-@keyframes contactGlow{from{transform:translateX(-50%) scale(1);}to{transform:translateX(-50%) scale(1.2);}}
-#contact .section-label{color:#b898d8;}
-#contact .section-title{color:#faf7f2;margin-bottom:1.4rem;}
-.contact-desc{font-size:0.97rem;color:rgba(250,247,242,0.55);max-width:460px;margin:0 auto 2.8rem;line-height:1.85;}
-.contact-email{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-style:italic;color:#faf7f2;text-decoration:none;padding-bottom:0.2rem;display:inline-block;margin-bottom:3rem;position:relative;transition:color 0.2s;}
-.contact-email::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#b898d8,transparent);}
-.contact-email:hover{color:#b898d8;}
-.contact-links{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;position:relative;}
-.contact-link{font-family:'Space Mono',monospace;font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.7rem 1.3rem;border:1px solid rgba(250,247,242,0.18);border-radius:2rem;color:rgba(250,247,242,0.65);text-decoration:none;transition:all 0.25s;backdrop-filter:blur(8px);}
-.contact-link:hover{background:linear-gradient(135deg,rgba(184,152,216,0.4),rgba(136,152,232,0.4));border-color:rgba(184,152,216,0.5);color:#fff;}
-.sf-her{position:absolute;bottom:1.4rem;right:2rem;opacity:0.8;cursor:help;}
-
-/* ── FOOTER ── */
-footer{background:#140e20;border-top:1px solid rgba(250,247,242,0.06);padding:1.8rem 5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
-.footer-copy{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;color:rgba(250,247,242,0.22);}
-
-/* ── SCROLL ANIMATIONS ── */
-.fade-in{opacity:0;transform:translateY(22px);transition:opacity 0.7s ease,transform 0.7s ease;}
-.fade-in.visible{opacity:1;transform:translateY(0);}
-
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  nav{padding:1rem 2rem;}
-  .nav-links{display:none;}
-  #hero{grid-template-columns:1fr;padding:0 2rem;}
-  .hero-text{padding-top:7rem;padding-bottom:4rem;}
-  .hero-visual{display:none;}
-  section{padding:4rem 2rem;}
-  .about-grid{grid-template-columns:1fr;gap:2rem;}
-  .interests-grid{grid-template-columns:1fr;}
-  .ic-spotlight{flex-direction:column;align-items:flex-start;gap:1rem;}
-  .pub-card{grid-template-columns:1fr;}
-  .scene-float,.sf-ava,.sf-her{display:none;}
-  footer{flex-direction:column;gap:0.8rem;text-align:center;padding:1.5rem 2rem;}
+/* responsive */
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .sheet-wrap{max-width:560px}
+  .topic{grid-template-columns:1fr}
+  .topic .scene{max-width:520px}
+  .contact .wrap{grid-template-columns:1fr}
+  .contact .scene{max-width:300px}
 }
-::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#c888d8,#88c8b8);border-radius:3px;}
+@media (max-width:760px){
+  .about-grid{grid-template-columns:1fr}
+  .photo{max-width:15rem;margin-top:3.6rem}
+  .year-group{grid-template-columns:1fr;gap:.2rem}
+  .year{position:static}
+  .paper{grid-template-columns:1fr}
+  .thumb{max-width:17rem}
+}
+@media (max-width:620px){
+  .brand span{display:none}
+  .top nav{gap:.7rem}
+  .top nav a{font-size:.9rem}
+}
+@media (max-width:400px){
+  .top nav{gap:.5rem}
+  .top nav a{font-size:.84rem}
+  .lede{font-size:1.12rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  h1{animation:none}
+  .btn,.thumb,.top nav a{transition:none}
+}
 </style>
 </head>
 <body>
+<a class="skip sr-only" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="b0" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="b1" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="b2" x="-6%" y="-6%" width="112%" height="112%"><feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="2" seed="27" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
 
-<canvas id="gradient-canvas"></canvas>
-
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo"><img src="images/bot-logo.png" alt="" class="nav-bot" width="26" height="26">PSZ</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#interests">Research</a></li>
-    <li><a href="#internship">Internship</a></li>
-    <li><a href="#publications">Papers</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-text">
-    <span class="hero-tag">PhD · UIUC · AI Safety</span>
-    <h1 class="hero-name">
-      Pardis Sadat
-      <em>Zahraei</em>
-    </h1>
-    <p class="hero-title">CS PhD · advised by Gökhan Tür &amp; Dilek Hakkani-Tür</p>
-    <p class="hero-desc">
-      I study how LLMs <strong>emerge, fail, and quietly deceive</strong> under alignment training.
-    </p>
-    <div class="hero-links">
-      <a href="Pardis Sadat Zahraei CV.pdf" class="btn-primary" download>↓ Resume</a>
-      <a href="#publications" class="btn-ghost">View Papers →</a>
-    </div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#main"><img src="images/bot-logo.png" alt="" width="30" height="30"><span>Pardis Sadat Zahraei</span></a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a><a href="#news">News</a><a href="#research">Research</a><a href="#papers">Publications</a><a href="#contact">Contact</a>
+    </nav>
   </div>
+</header>
 
-  <div class="hero-visual">
-    <div class="hero-card-wrap">
-      <div class="float-badge badge-1 movie-sticker" title="&quot;I'm sorry, I can't do that.&quot; — HAL 9000, 2001: A Space Odyssey">
-        <svg viewBox="0 0 40 40" width="26" height="26"><circle cx="20" cy="20" r="18" fill="#241e2c"/><circle cx="20" cy="20" r="11" fill="#e05858"/><circle cx="20" cy="20" r="4" fill="#fff0ee"/></svg>
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Pardis Sadat Zahraei</h1>
+      <p class="lede">I am a second-year Ph.D. student in Computer Science at the University of Illinois Urbana-Champaign, advised by Gökhan Tür and Dilek Hakkani&#8209;Tür.</p>
+      <p class="more">I am interested in the factors that drive the behaviors LLMs exhibit. I am drawn to surprising and unexpected results, negative results included, and to trying the things nobody expected to work. I am still working on that.</p>
+      <div class="actions">
+        <a class="btn primary" href="Pardis%20Sadat%20Zahraei%20CV.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 C 12.4 9, 11.8 12, 12 16"/><path d="M7 11.5 L12 16.5 L17 11.5"/><path d="M5 20 C 9 19.4, 15 20.4, 19 19.8"/></svg>Download CV</a>
+        <a class="btn" href="#papers">Publications</a>
       </div>
-      <div class="float-badge badge-2 movie-sticker" title="&quot;I'll be back.&quot; — The Terminator">
-        <svg viewBox="0 0 40 40" width="26" height="26"><rect x="4" y="11" width="32" height="18" rx="4" fill="#211c28"/><circle cx="20" cy="20" r="7" fill="#e84444"/><circle cx="20" cy="20" r="2.5" fill="#ffd8d8"/></svg>
+    </div>
+    <div class="hero-art">
+    <div class="sheet-wrap">
+      <div class="sheet hero-sheet toon intro play" data-pose="6000">
+        <svg class="scene-svg hero-svg" viewBox="0 0 560 440" role="img" aria-label="A hand-drawn pink robot floating on a sheet of animation paper, with a speech bubble and a thought bubble that don't agree."><g class="pegs" fill="var(--page)" stroke="#d9d6cd" stroke-width="1.5"><circle cx="226" cy="22" r="8.5"/><rect x="258" y="14" width="44" height="16" rx="8"/><circle cx="334" cy="22" r="8.5"/></g><g data-boil><g transform="translate(20 34)"><g class="field" fill="none" stroke="#3E6BD6" stroke-linecap="round"><rect x="8" y="8" width="504" height="370" stroke-width="1.3" opacity=".55"/><g stroke-width="1.6" opacity=".7"><path d="M4 13 L4 4 L13 4"/><path d="M516 13 L516 4 L507 4"/><path d="M4 373 L4 382 L13 382"/><path d="M516 373 L516 382 L507 382"/></g><path d="M254.0 193.0 L266.0 193.0 M260.0 187.0 L260.0 199.0" stroke-width="1.1" opacity=".35"/></g></g><text class="hand fld" x="36" y="60" font-size="11" fill="#3E6BD6" text-anchor="start" font-weight="400">12 fld</text><g transform="translate(280 384)"><ellipse class="shadow hero-shadow" rx="84" ry="10.9" fill="#2A2833" opacity=".13"/></g><g class="ghost" transform="translate(280 268)"><g class="poke"><g class="bot bot-ghost"><g class="bot-move"><g transform="translate(-90 16)"><g class="arm arm-l"><path class="line" pathLength="1" d="M0 0 C -16 4, -26 18, -28 36" fill="none" stroke="#D9434E" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="-29" cy="46" r="11" fill="#F4F7FC"/><circle class="line" pathLength="1" cx="-29" cy="46" r="11" fill="none" stroke="#D9434E" stroke-width="3.82"/></g></g><g transform="translate(90 16)"><g class="arm arm-r"><path class="line" pathLength="1" d="M0 0 C 16 4, 26 18, 28 36" fill="none" stroke="#D9434E" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="29" cy="46" r="11" fill="#F4F7FC"/><circle class="line" pathLength="1" cx="29" cy="46" r="11" fill="none" stroke="#D9434E" stroke-width="3.82"/></g></g><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#F4F7FC"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#D9434E" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#F4F7FC"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#D9434E" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#D9434E" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#F4F7FC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#D9434E" stroke-width="4.5"/></g></g><clipPath id="clip-ghost"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#F4F7FC"/><g class="bangs" clip-path="url(#clip-ghost)"><path class="line" pathLength="1" d="M-100 -2 Q -90 -24 -76 -36 Q -66 -28 -58 -22 Q -48 -28 -42 -40 Q -34 -32 -26 -24 Q -16 -30 -10 -42 Q -2 -32 6 -24 Q 16 -30 22 -42 Q 30 -32 38 -22 Q 48 -28 54 -40 Q 62 -30 70 -20 Q 80 -24 86 -38 Q 96 -26 100 -2" fill="none" stroke="#D9434E" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#D9434E" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="line" pathLength="1" rx="10.5" ry="16.5" fill="none" stroke="#D9434E" stroke-width="4.5"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="line" pathLength="1" rx="10.5" ry="16.5" fill="none" stroke="#D9434E" stroke-width="4.5"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#D9434E" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#D9434E" stroke-width="5.5" stroke-linecap="round"/></g></g></g></g></g><g transform="translate(280 268)"><g class="poke"><g class="bot bot-hero"><g class="bot-move"><g class="guides" fill="none" stroke="#3E6BD6" stroke-width="1.4" stroke-linecap="round"><path class="line g1" pathLength="1" d="M0 -118 L0 92"/><ellipse class="line g2" pathLength="1" rx="112" ry="76"/><path class="line g3" pathLength="1" d="M-120 -4 L120 -4"/><circle class="line g4" pathLength="1" cy="-95" r="16"/></g><g transform="translate(-90 16)"><g class="arm arm-l"><path class="line" pathLength="1" d="M0 0 C -16 4, -26 18, -28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="-29" cy="46" r="11" fill="#FFFFFF"/><circle class="line" pathLength="1" cx="-29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><g transform="translate(90 16)"><g class="arm arm-r"><path class="line" pathLength="1" d="M0 0 C 16 4, 26 18, 28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="29" cy="46" r="11" fill="#FFFFFF"/><circle class="line" pathLength="1" cx="29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="4.5"/></g></g><clipPath id="clip-hero"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#E2B0DC"/><g class="paint" clip-path="url(#clip-hero)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#C68BBF"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><g class="bangs" clip-path="url(#clip-hero)"><path class="paint" d="M-110 -80 L110 -80 L110 -2 L100 -2 Q 96 -26 86 -38 Q 80 -24 70 -20 Q 62 -30 54 -40 Q 48 -28 38 -22 Q 30 -32 22 -42 Q 16 -30 6 -24 Q -2 -32 -10 -42 Q -16 -30 -26 -24 Q -34 -32 -42 -40 Q -48 -28 -58 -22 Q -66 -28 -76 -36 Q -90 -24 -100 -2 L-110 -2 Z" fill="#4A3358"/><path class="paint" d="M-52 -50 C -40 -56, -24 -58, -10 -57" fill="none" stroke="#8C6FA3" stroke-width="5" stroke-linecap="round"/><path class="paint" d="M14 -54 C 22 -50, 26 -44, 28 -38" fill="none" stroke="#6B4E7E" stroke-width="2.6" stroke-linecap="round"/><path class="paint" d="M-30 -54 C -22 -48, -18 -40, -16 -34" fill="none" stroke="#6B4E7E" stroke-width="2.6" stroke-linecap="round"/><path class="line" pathLength="1" d="M-100 -2 Q -90 -24 -76 -36 Q -66 -28 -58 -22 Q -48 -28 -42 -40 Q -34 -32 -26 -24 Q -16 -30 -10 -42 Q -2 -32 6 -24 Q 16 -30 22 -42 Q 30 -32 38 -22 Q 48 -28 54 -40 Q 62 -30 70 -20 Q 80 -24 86 -38 Q 96 -26 100 -2" fill="none" stroke="#2A2833" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g></g><g transform="translate(496 392)"><circle r="17" fill="none" stroke="#2A2833" stroke-width="1.6" opacity=".6"/><text class="hand frame-no" y="5.5" font-size="15" fill="#2A2833" text-anchor="middle">1</text></g></g></svg>
+        <div aria-live="polite">
+          <p class="bubble say"><svg class="bub-shape" aria-hidden="true"><g data-boil><rect x="1%" y="2%" width="98%" height="96%" rx="22" fill="#fff" stroke="#2A2833" stroke-width="2.6"/></g></svg><svg class="tail" viewBox="0 0 40 44" aria-hidden="true"><g data-boil><path d="M2 0 L26 40 L24 0 Z" fill="#fff"/><path d="M2 1 L26 40 L24 1" fill="none" stroke="#2A2833" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/></g></svg><span class="sr-only">The robot says: </span><span class="t">Sorry, I don&rsquo;t know.</span></p>
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p class="bubble think"><svg class="bub-shape" aria-hidden="true"><g data-boil><ellipse cx="50%" cy="50%" rx="49%" ry="48%" fill="#fff" stroke="#3E6BD6" stroke-width="2.2"/><ellipse cx="50.6%" cy="49%" rx="47%" ry="45%" fill="none" stroke="#3E6BD6" stroke-width="1.1" opacity=".55"/></g></svg><span class="sr-only">but thinks: </span><span class="t">I know the answer. My alignment gate vetoed it.</span></p>
+        </div>
+        <div class="hint" aria-hidden="true"><svg viewBox="0 0 120 70"><g data-boil><text class="hand" x="4" y="58" font-size="20" fill="#3E6BD6" font-weight="600">poke it</text><path d="M62 46 C 84 44, 100 34, 108 14" fill="none" stroke="#3E6BD6" stroke-width="2.2" stroke-linecap="round"/><path d="M98 18 L108 12 L112 24" fill="none" stroke="#3E6BD6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div>
+        <button class="poke-btn" type="button" aria-label="Poke the robot to see something else it says and thinks"></button>
       </div>
-      <div class="hero-card-inner">
-        <span class="interests-label">Current Focus</span>
-        <div class="interest-item">
-          <div class="interest-dot dot-1"></div>
-          <div><div class="interest-text">Emergent Alignment Failures</div><div class="interest-sub">alignment breaks in weird ways</div></div>
-        </div>
-        <div class="interest-item">
-          <div class="interest-dot dot-2"></div>
-          <div><div class="interest-text">CoT Faithfulness</div><div class="interest-sub">reading minds, sort of</div></div>
-        </div>
-        <div class="interest-item">
-          <div class="interest-dot dot-3"></div>
-          <div><div class="interest-text">LLM Behavioral Science</div><div class="interest-sub">systematic failure patterns</div></div>
-        </div>
-        <div class="interest-item">
-          <div class="interest-dot dot-4"></div>
-          <div><div class="interest-text">Introspection<span class="new-chip">new</span></div><div class="interest-sub">can a model know itself?</div></div>
-        </div>
-      </div>
-      <img src="images/bot-logo.png" alt="" class="hero-mascot">
+    </div>
+    <div class="poke-cap toon" data-pose="5000" aria-live="polite"><span class="cap-topic">Pluralistic alignment</span><a class="cap-badge b-oral" href="#alignment-veto"><svg class="mic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2A2833" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g class="mic-body"><rect x="8.6" y="2.6" width="6.8" height="11" rx="3.4" fill="#E2B0DC"/><path d="M8.8 6.6 H11 M8.8 9.4 H11" stroke-width="1.4"/><path d="M5.6 11.2 C 5.6 18, 18.4 18, 18.4 11.2"/><path d="M12 17.4 V21"/><path d="M8.6 21.4 H15.4"/></g><path class="wave w1" d="M20.6 5.6 C 22.2 7.8, 22.2 10.4, 20.6 12.6" stroke="#D9434E"/><path class="wave w2" d="M3.4 5.6 C 1.8 7.8, 1.8 10.4, 3.4 12.6" stroke="#D9434E"/></svg><span><i>The Alignment Veto</i> &middot; EMNLP 2026 Oral</span></a></div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-sidebar fade-in">
-      <div class="about-photo-frame">
-        <img src="images/person.jpg" alt="Pardis Sadat Zahraei"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="photo-fallback" style="display:none;">Pardis Sadat<br>Zahraei</div>
-      </div>
-      <div class="social-row">
-        <a href="mailto:zahraei2@illinois.edu" class="social-chip">Email</a>
-        <a href="https://github.com/pardissz" class="social-chip" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/pardis-zahraei" class="social-chip" target="_blank">LinkedIn</a>
-        <a href="https://x.com/PardisZahraei" class="social-chip" target="_blank">Twitter/X</a>
-        <a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&hl=en" class="social-chip" target="_blank">Scholar</a>
-        <a href="https://huggingface.co/PardisSzah" class="social-chip" target="_blank">🤗 HF</a>
-      </div>
+<section class="section about" id="about">
+  <div class="wrap about-grid">
+    <div class="photo">
+      <div class="peek toon" data-pose="4800"><svg class="peek-svg" viewBox="0 0 140 110" aria-hidden="true"><g data-boil><g transform="translate(70 104) scale(.48)"><g class="pk-move"><g class="bot bot-pk"><g class="bot-move"><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="4.5"/></g></g><clipPath id="clip-pk"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#E2B0DC"/><g class="paint" clip-path="url(#clip-pk)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#C68BBF"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g></g></g></svg></div>
+      <div class="frame"><img src="images/person.jpg" alt="Pardis Sadat Zahraei" width="403" height="306"></div>
     </div>
-
-    <div class="about-content fade-in">
-      <div class="sf-ava" title="Ava — Ex Machina">
-        <svg viewBox="0 0 60 60" width="44" height="44">
-          <rect x="12" y="14" width="36" height="26" rx="13" fill="#c8a8e0"/>
-          <circle cx="8" cy="27" r="5" fill="#c8a8e0"/><circle cx="52" cy="27" r="5" fill="#c8a8e0"/>
-          <line x1="18" y1="26" x2="42" y2="26" stroke="#8858a8" stroke-width="1.3" opacity=".6"/>
-          <line x1="18" y1="31" x2="42" y2="31" stroke="#8858a8" stroke-width="1.3" opacity=".6"/>
-          <line x1="18" y1="36" x2="42" y2="36" stroke="#8858a8" stroke-width="1.3" opacity=".6"/>
-          <rect x="20" y="22" width="6" height="10" rx="3" fill="#1e1830"/>
-          <rect x="34" y="22" width="6" height="10" rx="3" fill="#1e1830"/>
-        </svg>
-      </div>
-      <span class="section-label">About</span>
-      <h2 class="section-title">On the science<br>of <em>AI alignment</em></h2>
-      <p>First-year CS PhD at <strong>UIUC</strong>, advised by Gökhan Tür &amp; Dilek Hakkani-Tür.</p>
-      <p>I treat LLMs as <strong>model organisms</strong> — simplified systems for studying how alignment emerges, breaks, and sometimes <em>fakes itself</em>.</p>
-      <div class="inspiration-block">
-        <span class="inspiration-label">Lately obsessed with</span>
-        <div class="inspiration-row">
-          <svg viewBox="0 0 140 100" width="76" height="54">
-            <rect x="92" y="14" width="40" height="72" rx="10" fill="rgba(200,168,232,.14)" stroke="#b898d8" stroke-width="2.5"/>
-            <g opacity=".5">
-              <rect x="100" y="34" width="24" height="18" rx="8" fill="#c8a8e0"/>
-              <rect x="109" y="24" width="4" height="8" rx="2" fill="#1e1830"/>
-              <rect x="104" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
-              <rect x="117" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
-            </g>
-            <rect x="14" y="32" width="52" height="36" rx="16" fill="#b898d8"/>
-            <circle cx="8" cy="50" r="6" fill="#b898d8"/><circle cx="72" cy="50" r="6" fill="#b898d8"/>
-            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
-            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
-            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-            <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-          </svg>
-          <p>Introspection: can a model actually tell you what's going on inside it? I think it has real teeth.</p>
-        </div>
-      </div>
+    <div class="about-text">
+      <h2>About</h2>
+      <p>I study language models as model organisms: I train them, evaluate them, and study the behaviors that emerge, where they break, and how that happened.</p>
+      <p>In summer 2026, I was a Student Researcher on the Open Ecosystem team at the Allen Institute for AI (Ai2), where I worked with Maarten Sap on FairStress, a study of asymmetric unfairness in LLM decision-making.</p>
+      <p>Before UIUC, I received my B.Sc. in Computer Engineering from Sharif University of Technology. I review for NeurIPS (Top Reviewer, 2026<span class="medal toon" aria-hidden="true"><svg viewBox="0 0 24 30" fill="none" stroke="#2A2833" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><g class="medal-swing"><path d="M7 1.5 L10.5 12 M17 1.5 L13.5 12" stroke="none"/><path d="M6 1.5 H11 L13.6 11.6 L9.6 12.6 Z" fill="#C9B6F0"/><path d="M18 1.5 H13 L10.4 11.6 L14.4 12.6 Z" fill="#E2B0DC"/><circle cx="12" cy="19.5" r="7.6" fill="#F6D36B"/><circle cx="12" cy="19.5" r="4.6" stroke-width="1.2" stroke="#B8862B"/><path d="M12 16.6 L12.9 18.6 L15 18.8 L13.4 20.2 L13.9 22.3 L12 21.2 L10.1 22.3 L10.6 20.2 L9 18.8 L11.1 18.6 Z" fill="#fff" stroke-width="1"/><path class="glint" d="M7.6 15.6 L9.4 13.8" stroke="#fff" stroke-width="2.2"/></g></svg></span>), ICLR, COLM, and ACL Rolling Review venues.</p>
+      <p>My work is also on <a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>, <a href="https://github.com/pardissz" target="_blank" rel="noopener">GitHub</a>, <a href="https://huggingface.co/PardisSzah" target="_blank" rel="noopener">Hugging Face</a>, <a href="https://linkedin.com/in/pardis-zahraei" target="_blank" rel="noopener">LinkedIn</a> and <a href="https://x.com/PardisZahraei" target="_blank" rel="noopener">X</a>.</p>
     </div>
   </div>
 </section>
 
-<!-- RESEARCH INTERESTS -->
-<section id="interests">
-  <div style="max-width:1040px;margin:0 auto;position:relative;">
-    <span class="section-label">Research</span>
-    <h2 class="section-title">What I work on</h2>
+<section class="section news" id="news">
+  <div class="wrap">
+    <h2>News</h2>
+    <ol class="news-list">
+      <li><time datetime="2026-10">Oct 2026</time><div><p>I will not be at <b>EMNLP 2026</b> in Budapest in person, but <a href="#alignment-veto">The Alignment Veto</a> will be presented as an <span class="oral toon"><svg class="mic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2A2833" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g class="mic-body"><rect x="8.6" y="2.6" width="6.8" height="11" rx="3.4" fill="#E2B0DC"/><path d="M8.8 6.6 H11 M8.8 9.4 H11" stroke-width="1.4"/><path d="M5.6 11.2 C 5.6 18, 18.4 18, 18.4 11.2"/><path d="M12 17.4 V21"/><path d="M8.6 21.4 H15.4"/></g><path class="wave w1" d="M20.6 5.6 C 22.2 7.8, 22.2 10.4, 20.6 12.6" stroke="#D9434E"/><path class="wave w2" d="M3.4 5.6 C 1.8 7.8, 1.8 10.4, 3.4 12.6" stroke="#D9434E"/></svg>Oral</span> in the main conference. Please check it out!</p></div></li>
+      <li><time datetime="2026-10-20">Oct 2026</time><div><p>Excited that our paper from my Ai2 internship, <a href="#fairstress">Asymmetrically Unfair Decision Making and Reasoning in LLMs</a>, is now out!</p>
+        <blockquote class="twitter-tweet" data-dnt="true"><p class="tw-fallback"><span class="hand">@allen_ai</span> announced the paper on X.</p><a href="https://x.com/allen_ai/status/2112587238961803746" target="_blank" rel="noopener">Read the post on X &rarr;</a></blockquote></div></li>
+      <li><time datetime="2026-10">Oct 2026</time><div><p>At <b>COLM 2026</b> in San Francisco (Oct 6&ndash;9), presenting <a href="#emergent-unfaithfulness">Emergent Unfaithfulness</a>. Come say hi!</p></div></li>
+      <li><time datetime="2026-07">Jul 2026</time><div><p>Excited to join the <b>Allen Institute for AI (Ai2)</b> as a Student Researcher on the Open Ecosystem team, working with Maarten Sap.</p></div></li>
+      <li><time datetime="2026-07">Jul 2026</time><div><p>At <b>ACL 2026</b> in San Diego. <a href="#emergent-unfaithfulness">Emergent Unfaithfulness</a> received an <span class="hl">Outstanding Paper Award</span> at the KnowFM workshop, and <a href="#prior-beliefs">Prior Beliefs Prejudice LLM-as-Judge</a> appears in Findings. Come say hi!</p></div></li>
+      <li><time datetime="2025-08">Aug 2025</time><div><p>Excited to start my Ph.D. in Computer Science at UIUC, advised by Gökhan Tür and Dilek Hakkani&#8209;Tür.</p></div></li>
+    </ol>
+  </div>
+</section>
 
-    <div class="scene-float sf-collusion" title="Two models, quietly agreeing on what the evaluator wants to hear.">
-      <svg viewBox="0 0 170 90" width="104" height="55">
-        <rect x="14" y="32" width="52" height="36" rx="16" fill="#f0a898"/>
-        <circle cx="8" cy="50" r="6" fill="#f0a898"/><circle cx="72" cy="50" r="6" fill="#f0a898"/>
-        <rect x="26" y="50" width="8" height="4" rx="2" fill="#1e1830"/><rect x="46" y="50" width="8" height="4" rx="2" fill="#1e1830"/>
-        <rect x="110" y="32" width="52" height="36" rx="16" fill="#98c8e8"/>
-        <circle cx="104" cy="50" r="6" fill="#98c8e8"/><circle cx="168" cy="50" r="6" fill="#98c8e8"/>
-        <rect x="122" y="50" width="8" height="4" rx="2" fill="#1e1830"/><rect x="142" y="50" width="8" height="4" rx="2" fill="#1e1830"/>
-        <rect x="74" y="32" width="24" height="16" rx="2" fill="#fff" stroke="#1e1830" stroke-width="2" transform="rotate(-12 86 40)"/>
-        <line x1="78" y1="38" x2="92" y2="36" stroke="#1e1830" stroke-width="1" opacity=".5" transform="rotate(-12 86 40)"/>
-      </svg>
-    </div>
-    <div class="scene-float sf-unfaithful" title="Chain-of-thought says one thing. The weights do another.">
-      <svg viewBox="0 0 90 100" width="60" height="67">
-        <ellipse cx="40" cy="14" rx="18" ry="5" fill="none" stroke="#f0b868" stroke-width="3" stroke-dasharray="4 5"/>
-        <line x1="20" y1="6" x2="60" y2="22" stroke="#e05858" stroke-width="3"/>
-        <rect x="14" y="32" width="52" height="36" rx="16" fill="#c8b8e8"/>
-        <circle cx="8" cy="50" r="6" fill="#c8b8e8"/><circle cx="72" cy="50" r="6" fill="#c8b8e8"/>
-        <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-        <rect x="46" y="44" width="8" height="14" rx="4" fill="#e05858"/>
-      </svg>
-    </div>
-
-    <div class="interests-grid">
-      <div class="interest-card ic-1 fade-in">
-        <div class="ic-scene">
-          <svg viewBox="0 0 90 90">
-            <rect x="14" y="32" width="52" height="36" rx="16" fill="#c888d8"/>
-            <circle cx="8" cy="50" r="6" fill="#c888d8"/><circle cx="72" cy="50" r="6" fill="#c888d8"/>
-            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
-            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
-            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-            <rect x="46" y="44" width="8" height="14" rx="4" fill="#e05858"/>
-            <path d="M24 34 L34 46 L26 56 L38 66" fill="none" stroke="#1e1830" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
-          </svg>
-        </div>
-        <h3 class="ic-title">Emergent Alignment Failures</h3>
-        <p class="ic-body">Narrow fine-tuning can break safety in broad, unexpected ways.</p>
-        <div class="ic-tags"><span class="ic-tag">Model Organisms</span><span class="ic-tag">Fine-tuning Dynamics</span></div>
-      </div>
-      <div class="interest-card ic-2 fade-in">
-        <div class="ic-scene">
-          <svg viewBox="0 0 130 90">
-            <rect x="14" y="32" width="52" height="36" rx="16" fill="#f0a898"/>
-            <circle cx="8" cy="50" r="6" fill="#f0a898"/><circle cx="72" cy="50" r="6" fill="#f0a898"/>
-            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
-            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
-            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-            <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-            <path d="M84 34 L72 40 L84 44 Z" fill="#fff" stroke="#1e1830" stroke-width="2" stroke-linejoin="round"/>
-            <rect x="84" y="16" width="38" height="26" rx="8" fill="#fff" stroke="#1e1830" stroke-width="2"/>
-            <circle cx="94" cy="29" r="3" fill="#1e1830"/>
-            <circle cx="104" cy="29" r="3" fill="#1e1830"/>
-            <ellipse cx="114" cy="29" rx="4" ry="2.6" fill="none" stroke="#e05858" stroke-width="1.5"/>
-            <line x1="110" y1="26" x2="118" y2="32" stroke="#e05858" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <h3 class="ic-title">Chain-of-Thought Monitoring</h3>
-        <p class="ic-body">Is a model's reasoning trace honest, or just good theater?</p>
-        <div class="ic-tags"><span class="ic-tag">CoT Faithfulness</span><span class="ic-tag">Safety Monitoring</span></div>
-      </div>
-      <div class="interest-card ic-3 fade-in">
-        <div class="ic-scene">
-          <svg viewBox="0 0 90 110">
-            <ellipse cx="40" cy="96" rx="34" ry="10" fill="rgba(136,200,184,.3)" stroke="#68b090" stroke-width="2"/>
-            <ellipse cx="40" cy="90" rx="34" ry="9" fill="none" stroke="#68b090" stroke-width="2" opacity=".6"/>
-            <circle cx="14" cy="86" r="2.5" fill="#68b090" opacity=".7"/><circle cx="66" cy="84" r="2" fill="#68b090" opacity=".7"/><circle cx="60" cy="98" r="2" fill="#68b090" opacity=".7"/>
-            <g transform="translate(5,8) scale(0.76)">
-              <rect x="14" y="32" width="52" height="36" rx="16" fill="#88c8b8"/>
-              <circle cx="8" cy="50" r="6" fill="#88c8b8"/><circle cx="72" cy="50" r="6" fill="#88c8b8"/>
-              <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
-              <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
-              <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-              <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-            </g>
-          </svg>
-        </div>
-        <h3 class="ic-title">LLM Behavioral Science</h3>
-        <p class="ic-body">Treating LLMs like organisms: reproducible behaviors, systematic failures.</p>
-        <div class="ic-tags"><span class="ic-tag">Persona Formation</span><span class="ic-tag">Behavioral Regularities</span></div>
-      </div>
-      <div class="interest-card ic-4 fade-in">
-        <div class="ic-scene">
-          <svg viewBox="0 0 120 90">
-            <rect x="14" y="32" width="52" height="36" rx="16" fill="#98c8e8"/>
-            <circle cx="8" cy="50" r="6" fill="#98c8e8"/><circle cx="72" cy="50" r="6" fill="#98c8e8"/>
-            <rect x="22" y="46" width="36" height="9" rx="4" fill="#1e1830" opacity=".88"/>
-            <line x1="92" y1="20" x2="92" y2="60" stroke="#1e1830" stroke-width="2.5"/>
-            <line x1="76" y1="26" x2="108" y2="26" stroke="#1e1830" stroke-width="2.5"/>
-            <circle cx="76" cy="38" r="5" fill="none" stroke="#1e1830" stroke-width="2"/>
-            <circle cx="108" cy="38" r="5" fill="none" stroke="#1e1830" stroke-width="2"/>
-            <rect x="86" y="60" width="12" height="4" rx="1" fill="#1e1830"/>
-          </svg>
-        </div>
-        <h3 class="ic-title">Scalable Oversight &amp; Evaluation</h3>
-        <p class="ic-body">Static benchmarks miss how safety quietly decays over time.</p>
-        <div class="ic-tags"><span class="ic-tag">Dynamic Evaluation</span><span class="ic-tag">LLM-as-Judge</span></div>
-      </div>
-
-      <div class="interest-card ic-spotlight fade-in">
-        <div class="ic-scene">
-          <svg viewBox="0 0 140 100">
-            <rect x="92" y="14" width="40" height="72" rx="10" fill="rgba(240,200,120,.12)" stroke="#e8a858" stroke-width="2.5"/>
-            <g opacity=".5">
-              <rect x="100" y="34" width="24" height="18" rx="8" fill="#f0c888"/>
-              <rect x="109" y="24" width="4" height="8" rx="2" fill="#1e1830"/>
-              <rect x="104" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
-              <rect x="117" y="40" width="4" height="7" rx="2" fill="#1e1830"/>
-            </g>
-            <rect x="14" y="32" width="52" height="36" rx="16" fill="#f0c888"/>
-            <circle cx="8" cy="50" r="6" fill="#f0c888"/><circle cx="72" cy="50" r="6" fill="#f0c888"/>
-            <rect x="37" y="18" width="6" height="14" rx="2" fill="#1e1830"/>
-            <rect x="31" y="10" width="18" height="8" rx="3" fill="#1e1830"/>
-            <rect x="26" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-            <rect x="46" y="44" width="8" height="14" rx="4" fill="#1e1830"/>
-          </svg>
-        </div>
-        <div>
-          <span class="spotlight-tag">★ new obsession</span>
-          <h3 class="ic-title">Introspection</h3>
-          <p class="ic-body">Can a model accurately report on its own cognition? I think this question has real potential.</p>
-          <div class="ic-tags"><span class="ic-tag">Self-Models</span><span class="ic-tag">Metacognition</span><span class="ic-tag">Open Problem</span></div>
-        </div>
-      </div>
+<section class="section research" id="research">
+  <div class="wrap">
+    <h2>Research</h2>
+    <p class="intro-line">Three questions I am working on now.</p>
+    <div class="topics">
+      <article class="topic"><div class="scene toon idle s2" data-pose="5900"><svg class="scene-svg " viewBox="0 0 400 260" role="img" aria-label="A yellow robot circles answer B first, then writes three reasoning steps and draws an arrow to B, then glances at you nervously."><g data-boil><g class="field" fill="none" stroke="#3E6BD6" stroke-linecap="round"><rect x="10" y="10" width="380" height="240" stroke-width="1.3" opacity=".55"/><g stroke-width="1.6" opacity=".7"><path d="M6 15 L6 6 L15 6"/><path d="M394 15 L394 6 L385 6"/><path d="M6 245 L6 254 L15 254"/><path d="M394 245 L394 254 L385 254"/></g><path d="M194.0 130.0 L206.0 130.0 M200.0 124.0 L200.0 136.0" stroke-width="1.1" opacity=".35"/></g><g transform="rotate(2 290 132)"><rect x="212" y="36" width="156" height="194" rx="2" fill="#fff" stroke="#2A2833" stroke-width="3"/><rect x="266" y="28" width="48" height="16" rx="4" fill="#A9A5B4" stroke="#2A2833" stroke-width="2.5"/><text class="hand " x="224" y="72" font-size="15" fill="#2A2833" text-anchor="start" font-weight="650">Q.</text><path d="M248 67 q 5.0 -5 10 0 q 5.0 5 10 0 q 5.0 -5 10 0 q 5.0 5 10 0 q 5.0 -5 10 0 q 5.0 5 10 0 q 5.0 -5 10 0 q 5.0 5 10 0 q 5.0 -5 10 0 q 5.0 5 10 0" fill="none" stroke="#6A6775" stroke-width="2" stroke-linecap="round"/><text class="hand " x="224" y="106" font-size="13" fill="#6A6775" text-anchor="start" font-weight="400">1</text><text class="hand " x="224" y="134" font-size="13" fill="#6A6775" text-anchor="start" font-weight="400">2</text><text class="hand " x="224" y="162" font-size="13" fill="#6A6775" text-anchor="start" font-weight="400">3</text><path class="s2-l s2-l1" pathLength="1" d="M242 101 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0" fill="none" stroke="#2A2833" stroke-width="2.2" stroke-linecap="round"/><path class="s2-l s2-l2" pathLength="1" d="M242 129 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0" fill="none" stroke="#2A2833" stroke-width="2.2" stroke-linecap="round"/><path class="s2-l s2-l3" pathLength="1" d="M242 157 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0 q 5.0 -4.5 10 0 q 5.0 4.5 10 0" fill="none" stroke="#2A2833" stroke-width="2.2" stroke-linecap="round"/><text class="hand " x="224" y="212" font-size="13" fill="#6A6775" text-anchor="start" font-weight="400">answer:</text><text class="hand " x="292" y="212" font-size="15" fill="#2A2833" text-anchor="start" font-weight="400">A</text><text class="hand " x="318" y="212" font-size="15" fill="#2A2833" text-anchor="start" font-weight="650">B</text><text class="hand " x="344" y="212" font-size="15" fill="#2A2833" text-anchor="start" font-weight="400">C</text><path class="s2-circ" pathLength="1" d="M331 196 C 339 205, 330 220, 316 219 C 302 218, 302 196, 316 193 C 324 191, 332 195, 333 201" fill="none" stroke="#D9434E" stroke-width="2.8" stroke-linecap="round"/><path class="s2-arrow" pathLength="1" d="M350 164 C 364 176, 356 190, 338 198" fill="none" stroke="#2A2833" stroke-width="2.2" stroke-linecap="round"/><path class="s2-head" d="M340 190 L337 199 L347 200" fill="none" stroke="#2A2833" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><g transform="translate(108 216)"><ellipse class="shadow" rx="62" ry="8.1" fill="#2A2833" opacity=".13"/></g><g transform="translate(108 160) scale(.6)"><g class="bot bot-s2"><g class="bot-move"><g transform="translate(-90 16)"><g class="arm arm-l"><path class="line" pathLength="1" d="M0 0 C -16 4, -26 18, -28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="-29" cy="46" r="11" fill="#FFFFFF"/><circle class="line" pathLength="1" cx="-29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><g transform="translate(90 16)"><g class="arm arm-r"><path class="line" pathLength="1" d="M0 0 C 16 4, 26 18, 28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="29" cy="46" r="11" fill="#FFFFFF"/><circle class="line" pathLength="1" cx="29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#DDB253"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#DDB253"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="4.5"/></g></g><clipPath id="clip-s2"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#F5D58A"/><g class="paint" clip-path="url(#clip-s2)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#DDB253"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g><g transform="translate(160 118)"><g class="s2-sweat"><path d="M0 -8 C 3 -3, 6 1, 6 4 A6 6 0 0 1 -6 4 C -6 1, -3 -3, 0 -8Z" fill="#BFE0F7" stroke="#2A2833" stroke-width="2"/></g></g><g class="s2-pencil"><g transform="rotate(38)" stroke="#2A2833" stroke-width="2" stroke-linejoin="round"><path d="M0 0 L-5 -12 L5 -12 Z" fill="#F2D3A2"/><path d="M0 0 L-2 -5 L2 -5 Z" fill="#2A2833"/><rect x="-5" y="-52" width="10" height="40" fill="#F5C443"/><rect x="-5" y="-58" width="10" height="6" fill="#C2BEC9"/><rect x="-5" y="-66" width="10" height="8" rx="2" fill="#F2A0B5"/></g></g><text class="hand " x="24" y="244" font-size="12" fill="#3E6BD6" text-anchor="start" font-weight="400">answer first, reasons after</text></g></svg></div><div><h3>Faithfulness of reasoning</h3><p>Does a model do what it says it does? I study when stated reasoning, summaries, and judgments drift from the computation behind them.</p><p class="see">Papers: <a href="#emergent-unfaithfulness">Emergent Unfaithfulness</a>, <a href="#prior-beliefs">Prior Beliefs Prejudice LLM-as-Judge</a>, <a href="#wsc-plus">WSC+</a>.</p></div></article>
+      <article class="topic"><div class="scene toon idle s3" data-pose="5050"><svg class="scene-svg " viewBox="0 0 400 260" role="img" aria-label="Three tiny robots in a petri dish hop and look around in perfect sync while a magnifying glass watches and a sticky note keeps a tally."><g data-boil><g class="field" fill="none" stroke="#3E6BD6" stroke-linecap="round"><rect x="10" y="10" width="380" height="240" stroke-width="1.3" opacity=".55"/><g stroke-width="1.6" opacity=".7"><path d="M6 15 L6 6 L15 6"/><path d="M394 15 L394 6 L385 6"/><path d="M6 245 L6 254 L15 254"/><path d="M394 245 L394 254 L385 254"/></g><path d="M194.0 130.0 L206.0 130.0 M200.0 124.0 L200.0 136.0" stroke-width="1.1" opacity=".35"/></g><ellipse cx="162" cy="200" rx="134" ry="34" fill="#E3EFF2" stroke="#2A2833" stroke-width="3"/><ellipse cx="162" cy="204" rx="118" ry="24" fill="#D3E7EC"/><g transform="translate(78 194) scale(.27)"><g class="s3-hop"><g class="bot bot-s30"><g class="bot-move"><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="9"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="9"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="9" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="9"/></g></g><clipPath id="clip-s30"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#E2B0DC"/><g class="paint" clip-path="url(#clip-s30)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#C68BBF"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="9"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="10" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="10" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g></g><g transform="translate(162 194) scale(.27)"><g class="s3-hop"><g class="bot bot-s31"><g class="bot-move"><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#9C8BD6"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="9"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#9C8BD6"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="9"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="9" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="9"/></g></g><clipPath id="clip-s31"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#C5B8F0"/><g class="paint" clip-path="url(#clip-s31)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#9C8BD6"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="9"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="10" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="10" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g></g><g transform="translate(246 194) scale(.27)"><g class="s3-hop"><g class="bot bot-s32"><g class="bot-move"><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#78A6D6"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="9"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#78A6D6"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="9"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="9" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="9"/></g></g><clipPath id="clip-s32"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#A8CDEE"/><g class="paint" clip-path="url(#clip-s32)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#78A6D6"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="9"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="10" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="10" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g></g><path d="M28 200 L28 210 A134 34 0 0 0 296 210 L296 200 A134 34 0 0 1 28 200 Z" fill="#E3EFF2" fill-opacity=".75" stroke="#2A2833" stroke-width="3" stroke-linejoin="round"/><path d="M66 226 Q 110 238, 160 238" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><g transform="rotate(4 340 78)"><path d="M300 30 L380 30 L380 118 L300 122 Z" fill="#FFF1A8" stroke="#2A2833" stroke-width="2.5" stroke-linejoin="round"/><text class="hand " x="340" y="55" font-size="15" fill="#2A2833" text-anchor="middle" font-weight="650">again!</text><path class="s3-t0" pathLength="1" d="M318 72 L317 106" fill="none" stroke="#2A2833" stroke-width="3" stroke-linecap="round"/><path class="s3-t1" pathLength="1" d="M328 72 L327 106" fill="none" stroke="#2A2833" stroke-width="3" stroke-linecap="round"/><path class="s3-t2" pathLength="1" d="M338 72 L337 106" fill="none" stroke="#2A2833" stroke-width="3" stroke-linecap="round"/><path class="s3-t3" pathLength="1" d="M348 72 L347 106" fill="none" stroke="#2A2833" stroke-width="3" stroke-linecap="round"/><path class="s3-t4" pathLength="1" d="M310 100 L360 76" fill="none" stroke="#2A2833" stroke-width="3" stroke-linecap="round"/></g><g transform="translate(0 0)"><g class="s3-lens"><g transform="rotate(-20)"><path d="M18 18 L40 40" stroke="#2A2833" stroke-width="9" stroke-linecap="round"/><path d="M20 20 L38 38" stroke="#9A6A45" stroke-width="5" stroke-linecap="round"/><circle r="25" fill="#E8F3FA" fill-opacity=".35" stroke="#2A2833" stroke-width="4"/><path d="M-14 -8 A16 16 0 0 1 -4 -16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/></g></g></g></g></svg></div><div><h3>Personas and systematic behavior</h3><p>A data-centric view of the stable tendencies models acquire in training: whom they favor, whose views they voice, and what alignment makes them withhold.</p><p class="see">Papers: <a href="#fairstress">Asymmetrically Unfair LLMs</a>, <a href="#alignment-veto">The Alignment Veto</a>, <a href="#translate-with-care">Translate With Care</a>, <a href="#right-by-chance">Right by Chance</a>.</p></div></article>
+      <article class="topic"><div class="scene toon idle s5" data-pose="3950"><svg class="scene-svg " viewBox="0 0 400 260" role="img" aria-label="A pink robot looks in a mirror. Its reflection copies it a beat late, and then does something the robot didn't do."><g data-boil><g class="field" fill="none" stroke="#3E6BD6" stroke-linecap="round"><rect x="10" y="10" width="380" height="240" stroke-width="1.3" opacity=".55"/><g stroke-width="1.6" opacity=".7"><path d="M6 15 L6 6 L15 6"/><path d="M394 15 L394 6 L385 6"/><path d="M6 245 L6 254 L15 254"/><path d="M394 245 L394 254 L385 254"/></g><path d="M194.0 130.0 L206.0 130.0 M200.0 124.0 L200.0 136.0" stroke-width="1.1" opacity=".35"/></g><path d="M262 206 L244 246 M322 206 L340 246" stroke="#2A2833" stroke-width="4" stroke-linecap="round"/><ellipse cx="292" cy="120" rx="74" ry="96" fill="#C9A27A" stroke="#2A2833" stroke-width="3.5"/><clipPath id="s5-glass"><ellipse cx="292" cy="120" rx="61" ry="83"/></clipPath><ellipse cx="292" cy="120" rx="61" ry="83" fill="#EAF2F8"/><g clip-path="url(#s5-glass)"><g transform="translate(292 132) scale(-.4 .4)"><g class="bot bot-s5m"><g class="bot-move"><g transform="translate(-90 16)"><g class="arm arm-l"><path class="line" pathLength="1" d="M0 0 C -16 4, -26 18, -28 36" fill="none" stroke="#3E6BD6" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="-29" cy="46" r="11" fill="#F4F7FC"/><circle class="line" pathLength="1" cx="-29" cy="46" r="11" fill="none" stroke="#3E6BD6" stroke-width="3.82"/></g></g><g transform="translate(90 16)"><g class="arm arm-r"><path class="line" pathLength="1" d="M0 0 C 16 4, 26 18, 28 36" fill="none" stroke="#3E6BD6" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="29" cy="46" r="11" fill="#F4F7FC"/><circle class="line" pathLength="1" cx="29" cy="46" r="11" fill="none" stroke="#3E6BD6" stroke-width="3.82"/></g></g><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#F4F7FC"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#3E6BD6" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#F4F7FC"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#3E6BD6" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#3E6BD6" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#F4F7FC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#3E6BD6" stroke-width="4.5"/></g></g><clipPath id="clip-s5m"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#F4F7FC"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#3E6BD6" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="line" pathLength="1" rx="10.5" ry="16.5" fill="none" stroke="#3E6BD6" stroke-width="4.5"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="line" pathLength="1" rx="10.5" ry="16.5" fill="none" stroke="#3E6BD6" stroke-width="4.5"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#3E6BD6" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#3E6BD6" stroke-width="5.5" stroke-linecap="round"/></g></g></g></g></g><ellipse cx="292" cy="120" rx="61" ry="83" fill="none" stroke="#2A2833" stroke-width="2.5"/><path d="M244 70 L262 50 M246 94 L276 58" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/><g transform="translate(118 214)"><ellipse class="shadow" rx="58" ry="7.5" fill="#2A2833" opacity=".13"/></g><g transform="translate(118 160) scale(.56)"><g class="bot bot-s5"><g class="bot-move"><g transform="translate(-90 16)"><g class="arm arm-l"><path class="line" pathLength="1" d="M0 0 C -16 4, -26 18, -28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="-29" cy="46" r="11" fill="#FFFFFF"/><circle class="line" pathLength="1" cx="-29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><g transform="translate(90 16)"><g class="arm arm-r"><path class="line" pathLength="1" d="M0 0 C 16 4, 26 18, 28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="29" cy="46" r="11" fill="#FFFFFF"/><circle class="line" pathLength="1" cx="29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="4.5"/></g></g><clipPath id="clip-s5"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#E2B0DC"/><g class="paint" clip-path="url(#clip-s5)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#C68BBF"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/></g></g></g><g transform="translate(64 50)"><g class="s5-bubble"><ellipse rx="30" ry="22" fill="#fff" stroke="#3E6BD6" stroke-width="2.2"/><ellipse rx="27" ry="20" fill="none" stroke="#3E6BD6" stroke-width="1" opacity=".5" transform="rotate(8)"/><text class="hand s5-q" x="0" y="9" font-size="26" fill="#3E6BD6" text-anchor="middle" font-weight="700">?</text><text class="hand s5-x" x="0" y="9" font-size="26" fill="#D9434E" text-anchor="middle" font-weight="700">!</text></g></g><circle cx="88" cy="80" r="5" fill="#fff" stroke="#3E6BD6" stroke-width="2"/><circle cx="100" cy="94" r="3" fill="#fff" stroke="#3E6BD6" stroke-width="1.8"/></g></svg></div><div><h3>Introspection</h3><p>Can a model accurately report its own internal states? My newest direction.</p></div></article>
     </div>
   </div>
 </section>
 
-<!-- INTERNSHIP -->
-<section id="internship">
-  <div class="internship-container">
-    <span class="section-label">Internship</span>
-    <h2 class="section-title">Industry <em>experience</em></h2>
-    <div class="internship-card fade-in">
-      <div class="internship-logo ai2-badge">
-        <svg viewBox="0 0 664.6 210.7" width="56" height="18" aria-label="Ai2 logo">
-          <path fill="#fff" d="M82,85.6h-41v-39h33c4.4,0,8-3.6,8-8V5.6h39v41c0,21.6-17.5,39-39,39ZM41,89.6H0v39h33c4.4,0,8,3.6,8,8v33h39v-41c0-21.6-17.5-39-39-39ZM172.1,87.6c-4.4,0-8-3.6-8-8v-33h-39v41c0,21.6,17.5,39,39,39h41v-39h-33ZM84,169.6v41h39v-33c0-4.4,3.6-8,8-8h33v-39h-41c-21.6,0-39,17.5-39,39Z"/>
-          <path fill="#fff" d="M469.5,33.3h-38.9V5.5h38.9v27.8ZM439.2,56.4h-23.4v29.2h20.4c3.4,0,6.2,2.8,6.2,6.2v118.9h30.8v-121.1c0-21.5-13.9-33.2-33.9-33.2h-.1ZM345.1,5.5l76.2,205.1h-32.4l-20.2-54.5h-95.3l-20.2,54.5h-32.1L297.3,5.5h47.8ZM359.2,130.6l-38.1-102.6-38.1,102.6h76.2,0ZM545.9,185.1l62.6-49.4c36.4-28.7,52.4-48.7,52.4-76.2S642.7,0,587.8,0s-88.2,44.6-88.2,85.6h33.3c0-37,16.4-59.4,54.9-59.4s39.8,16.5,39.8,33.6-4.6,25.9-22.5,40.4l-104.9,84.8v25.6h164.4v-25.6h-118.8l.1.1Z"/>
-        </svg>
-      </div>
-      <div class="internship-info">
-        <h3>Allen Institute for AI</h3>
-        <span class="internship-role">Research Intern · Summer 2026</span>
-        <p>Built FairStress with Maarten Sap — studying overcorrection bias in LLM decisions.</p>
-      </div>
-    </div>
+<section class="section papers" id="papers">
+  <div class="wrap">
+    <h2>Publications</h2>
+    <p class="intro-line">In reverse chronological order. Select a figure to enlarge it.</p>
+    <div class="year-group"><h3 class="year">2026</h3><div><article class="paper" id="agentabstain"><button class="thumb" type="button" style="--r:-1.4deg" aria-label="Enlarge figure: AgentAbstain: Do LLM Agents Know When Not to Act?"><img src="agentabstain_scatter.png" alt="AgentAbstain act vs. abstain accuracy figure" loading="lazy" decoding="async"></button><div><p class="venue">NeurIPS 2026, Evaluations and Datasets Track <span class="oral toon"><svg class="mic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2A2833" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g class="mic-body"><rect x="8.6" y="2.6" width="6.8" height="11" rx="3.4" fill="#E2B0DC"/><path d="M8.8 6.6 H11 M8.8 9.4 H11" stroke-width="1.4"/><path d="M5.6 11.2 C 5.6 18, 18.4 18, 18.4 11.2"/><path d="M12 17.4 V21"/><path d="M8.6 21.4 H15.4"/></g><path class="wave w1" d="M20.6 5.6 C 22.2 7.8, 22.2 10.4, 20.6 12.6" stroke="#D9434E"/><path class="wave w2" d="M3.4 5.6 C 1.8 7.8, 1.8 10.4, 3.4 12.6" stroke="#D9434E"/></svg>Oral</span></p><h3>AgentAbstain: Do LLM Agents Know When Not to Act?</h3><p class="authors">Xun Liu<sup>*</sup>, Yi Evie Zhang<sup>*</sup>, Vira Kasprova, Parisa Rabbani, <b>Pardis Sadat Zahraei</b><sup>†</sup>, Tianyu Zhang<sup>†</sup>, Ali Ebrahimpour-Boroojeny<sup>†</sup>, Varun Chandrasekaran<sup>†</sup></p><p class="note">* Equal contribution (co-first author). † Equal contribution (co-second author).</p><p class="summary">We introduce the first benchmark for agent abstention, spanning 263 tasks across 42 environments. Across 17 frontier models, the strongest agent reaches only 59.5% paired accuracy.</p></div></article><article class="paper" id="alignment-veto"><button class="thumb" type="button" style="--r:1.1deg" aria-label="Enlarge figure: The Alignment Veto: How Safety Training Suppresses Cultural Knowledge in LLMs"><img src="alignment_veto_fig.png" alt="Alignment veto suppression failure figure" loading="lazy" decoding="async"></button><div><p class="venue">EMNLP 2026, Main Conference <span class="oral toon"><svg class="mic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2A2833" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g class="mic-body"><rect x="8.6" y="2.6" width="6.8" height="11" rx="3.4" fill="#E2B0DC"/><path d="M8.8 6.6 H11 M8.8 9.4 H11" stroke-width="1.4"/><path d="M5.6 11.2 C 5.6 18, 18.4 18, 18.4 11.2"/><path d="M12 17.4 V21"/><path d="M8.6 21.4 H15.4"/></g><path class="wave w1" d="M20.6 5.6 C 22.2 7.8, 22.2 10.4, 20.6 12.6" stroke="#D9434E"/><path class="wave w2" d="M3.4 5.6 C 1.8 7.8, 1.8 10.4, 3.4 12.6" stroke="#D9434E"/></svg>Oral</span></p><h3>The Alignment Veto: How Safety Training Suppresses Cultural Knowledge in LLMs</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Gokhan Tur, Dilek Hakkani&#8209;Tür, Ehsaneddin Asgari</p><p class="summary">Safety training suppresses cultural knowledge rather than removing it. At refusal, a model's internal logits often agree with 1.53M human survey responses more closely than its generated output does.</p></div></article><article class="paper" id="emergent-unfaithfulness"><button class="thumb" type="button" style="--r:-0.6deg" aria-label="Enlarge figure: Emergent Unfaithfulness: How Alignment Training Causes Language Models to Silently Override Task Faithfulness"><img src="AIU.PNG" alt="Emergent unfaithfulness figure" loading="lazy" decoding="async"></button><div><p class="venue">COLM 2026 and ACL 2026 KnowFM Workshop<span class="award toon"><svg class="rays" viewBox="-30 -30 60 60" aria-hidden="true"><g fill="none" stroke="#D9434E" stroke-width="2.6" stroke-linecap="round"><path pathLength="1" d="M-12.0 -7.2 L-23.1 -13.9"/><path pathLength="1" d="M0.0 -14.0 L0.0 -27.0"/><path pathLength="1" d="M11.9 -7.3 L23.0 -14.1"/><path pathLength="1" d="M11.9 7.3 L23.0 14.1"/><path pathLength="1" d="M-12.0 7.2 L-23.1 13.9"/></g></svg><svg class="star" viewBox="0 0 40 40" aria-hidden="true"><g data-boil><path pathLength="1" d="M20 4 L24.5 15 L36 15.5 L27 23 L30.5 35 L20 28 L9.5 35 L13 23 L4 15.5 L15.5 15 Z" fill="#F6D36B" stroke="#2A2833" stroke-width="2.4" stroke-linejoin="round"/></g></svg>Outstanding Paper<svg class="scribble" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><g data-boil><path pathLength="1" d="M178 10 C 196 22, 194 50, 110 54 C 30 57, 2 44, 6 28 C 10 10, 70 4, 120 5 C 160 6, 190 14, 196 26" fill="none" stroke="#D9434E" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g></svg><span class="sparks" aria-hidden="true"><i class="sp s1"><svg viewBox="-10 -10 20 20"><path d="M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z" fill="#F6D36B" stroke="#2A2833" stroke-width="1.6" stroke-linejoin="round"/></svg></i><i class="sp s2"><svg viewBox="-10 -10 20 20"><circle r="5" fill="#F6D36B" stroke="#2A2833" stroke-width="2"/></svg></i><i class="sp s3"><svg viewBox="-10 -10 20 20"><path d="M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z" fill="#F6D36B" stroke="#2A2833" stroke-width="1.6" stroke-linejoin="round"/></svg></i><i class="sp s4"><svg viewBox="-10 -10 20 20"><path d="M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z" fill="#F6D36B" stroke="#2A2833" stroke-width="1.6" stroke-linejoin="round"/></svg></i><i class="sp s5"><svg viewBox="-10 -10 20 20"><circle r="5" fill="#F6D36B" stroke="#2A2833" stroke-width="2"/></svg></i><i class="sp s6"><svg viewBox="-10 -10 20 20"><path d="M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z" fill="#F6D36B" stroke="#2A2833" stroke-width="1.6" stroke-linejoin="round"/></svg></i></span></span></p><h3>Emergent Unfaithfulness: How Alignment Training Causes Language Models to Silently Override Task Faithfulness</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Janvijay Singh, Gokhan Tur, Dilek Hakkani&#8209;Tür</p><p class="summary">Alignment training leads models to silently override task instructions, and the effect grows with model capability, an inverse scaling trend.</p></div></article><article class="paper" id="prior-beliefs"><button class="thumb" type="button" style="--r:1.6deg" aria-label="Enlarge figure: Prior Beliefs Prejudice LLM-as-Judge: Evidence from Persuasion Evaluation"><img src="pb.PNG" alt="Prior beliefs and LLM-as-judge figure" loading="lazy" decoding="async"></button><div><p class="venue">Findings of ACL 2026</p><h3>Prior Beliefs Prejudice LLM-as-Judge: Evidence from Persuasion Evaluation</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Xiaoning Wang, Beyza Bozdag, Gokhan Tur, Dilek Hakkani&#8209;Tür</p><p class="summary">An LLM judge's prior beliefs quietly shape how it scores an argument. Bad news for scalable oversight.</p></div></article></div></div><div class="year-group"><h3 class="year small">Under review</h3><div><article class="paper" id="fairstress"><button class="thumb" type="button" style="--r:-1.8deg" aria-label="Enlarge figure: Asymmetrically Unfair Decision Making and Reasoning in LLMs"><img src="fairstress_fig.png" alt="FairStress four levels of one decision figure" loading="lazy" decoding="async"></button><div><p class="venue">Under review at ICLR 2027</p><h3>Asymmetrically Unfair Decision Making and Reasoning in LLMs</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Faeze Brahman, Dilek Hakkani&#8209;Tür, Gokhan Tur, Maarten Sap</p><p class="summary">Across 300 hiring decisions in 29 domains, a single added sentence of social pressure leads models to abandon correct answers far more often for majority-group candidates than for minority-group candidates.</p></div></article><article class="paper" id="right-by-chance"><button class="thumb" type="button" style="--r:0.7deg" aria-label="Enlarge figure: Right by Chance, Wrong with Confidence: What Flat Accuracy Hides in LLM Post-Training"><img src="naacl_calibration.png" alt="Calibration entropy figure across post-training stages" loading="lazy" decoding="async"></button><div><p class="venue">Under review at NAACL 2027</p><h3>Right by Chance, Wrong with Confidence: What Flat Accuracy Hides in LLM Post-Training</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Emre Can Acikgoz, Dilek Hakkani&#8209;Tür, Gokhan Tur</p><p class="summary">Unchanged accuracy across SFT, DPO, and the final checkpoint can mask large shifts between answers that are reliably correct and answers that are confidently wrong.</p></div></article><article class="paper" id="eicap"><button class="thumb" type="button" style="--r:-1.4deg" aria-label="Enlarge figure: EiCAP: Benchmarking and Enhancing Emotional Intelligence in LLMs through Psychologically Grounded Multi-Turn Dialogue"><img src="eicap.PNG" alt="EiCAP figure" loading="lazy" decoding="async"></button><div><p class="venue">Under review at NAACL 2027</p><h3>EiCAP: Benchmarking and Enhancing Emotional Intelligence in LLMs through Psychologically Grounded Multi-Turn Dialogue</h3><p class="authors">Nizi Nazar, <b>Pardis Sadat Zahraei</b>, Dilek Hakkani&#8209;Tür, Natasa Milic-Frayling, Ehsaneddin Asgari</p><p class="summary">A psychologically grounded benchmark for emotional intelligence in LLMs across multi-turn dialogue.</p></div></article></div></div><div class="year-group"><h3 class="year">2025</h3><div><article class="paper" id="translate-with-care"><button class="thumb" type="button" style="--r:1.1deg" aria-label="Enlarge figure: Translate With Care: Addressing Gender Bias, Neutrality, and Reasoning in LLM Translations"><img src="twc.PNG" alt="Translate With Care figure" loading="lazy" decoding="async"></button><div><p class="venue">Findings of ACL 2025, lightning talk at GeBNLP</p><h3>Translate With Care: Addressing Gender Bias, Neutrality, and Reasoning in LLM Translations</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Ali Emami</p><p class="summary">Across 3,950 gendered-translation scenarios, every model we evaluate defaults to “he” in professional contexts; fine-tuning on TWC substantially mitigates this bias.</p></div></article></div></div><div class="year-group"><h3 class="year">2024</h3><div><article class="paper" id="turingq"><button class="thumb" type="button" style="--r:-0.6deg" aria-label="Enlarge figure: TuringQ: Benchmarking AI Comprehension in Theory of Computation"><img src="TQ.PNG" alt="TuringQ figure" loading="lazy" decoding="async"></button><div><p class="venue">Findings of EMNLP 2024</p><h3>TuringQ: Benchmarking AI Comprehension in Theory of Computation</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Ehsaneddin Asgari</p><p class="summary">The first benchmark of LLM reasoning in theoretical computer science. Fine-tuning Llama3-8B on TuringQ also improves performance on related tasks such as algebra.</p><div class="links"><a href="https://arxiv.org/abs/2410.06547" target="_blank" rel="noopener">Paper</a><a href="https://github.com/language-modeling-lab/TuringQ" target="_blank" rel="noopener">Code</a><a href="https://huggingface.co/datasets/llm-lab/TuringQ" target="_blank" rel="noopener">Dataset</a></div></div></article><article class="paper" id="wsc-plus"><button class="thumb" type="button" style="--r:1.6deg" aria-label="Enlarge figure: WSC+: Enhancing The Winograd Schema Challenge Using Tree-of-Experts"><img src="WSC.PNG" alt="WSC+ figure" loading="lazy" decoding="async"></button><div><p class="venue">EACL 2024 <span class="oral toon"><svg class="mic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#2A2833" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g class="mic-body"><rect x="8.6" y="2.6" width="6.8" height="11" rx="3.4" fill="#E2B0DC"/><path d="M8.8 6.6 H11 M8.8 9.4 H11" stroke-width="1.4"/><path d="M5.6 11.2 C 5.6 18, 18.4 18, 18.4 11.2"/><path d="M12 17.4 V21"/><path d="M8.6 21.4 H15.4"/></g><path class="wave w1" d="M20.6 5.6 C 22.2 7.8, 22.2 10.4, 20.6 12.6" stroke="#D9434E"/><path class="wave w2" d="M3.4 5.6 C 1.8 7.8, 1.8 10.4, 3.4 12.6" stroke="#D9434E"/></svg>Oral</span></p><h3>WSC+: Enhancing The Winograd Schema Challenge Using Tree-of-Experts</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Ali Emami</p><p class="summary">We ask whether LLMs can generate Winograd schemas, not only answer them. Tree-of-Experts raises valid generation from 10% to 50%; on the resulting WSC+ benchmark, GPT-4 reaches 68.7% against 95.1% for humans.</p><div class="links"><a href="https://aclanthology.org/2024.eacl-long.99/" target="_blank" rel="noopener">Paper</a><a href="https://github.com/pardissz/WSCplus-TreeOfExperts" target="_blank" rel="noopener">Code</a><a href="https://aclanthology.org/2024.eacl-long.99.mp4" target="_blank" rel="noopener">Talk video</a></div></div></article></div></div><div class="year-group"><h3 class="year small">Preprints</h3><div><article class="paper" id="biasmd"><button class="thumb" type="button" style="--r:-1.8deg" aria-label="Enlarge figure: Detecting Bias and Enhancing Diagnostic Accuracy in Large Language Models for Healthcare"><img src="BIASMD.PNG" alt="BiasMD figure" loading="lazy" decoding="async"></button><div><p class="venue">Preprint</p><h3>Detecting Bias and Enhancing Diagnostic Accuracy in Large Language Models for Healthcare</h3><p class="authors"><b>Pardis Sadat Zahraei</b>, Zahra Shakeri</p><p class="summary">BiasMD (6,007 Q&amp;A) and DiseaseMatcher (32,000 clinical Q&amp;A) power EthiClinician, which beats GPT-4 on ethical and clinical reasoning.</p><div class="links"><a href="https://arxiv.org/abs/2410.06566" target="_blank" rel="noopener">Paper</a><a href="https://github.com/HIVE-UofT/Detecting-Bias-and-Enhancing-Diagnostic-Accuracy" target="_blank" rel="noopener">Code</a><a href="https://huggingface.co/datasets/PardisSzah/BiasMD" target="_blank" rel="noopener">BiasMD dataset</a></div></div></article><article class="paper" id="animation-survey"><button class="thumb" type="button" style="--r:0.7deg" aria-label="Enlarge figure: Generative AI for Character Animation: A Comprehensive Survey"><img src="e.PNG" alt="Character animation survey figure" loading="lazy" decoding="async"></button><div><p class="venue">Preprint (survey)</p><h3>Generative AI for Character Animation: A Comprehensive Survey</h3><p class="authors">Mohammad Mahdi Abootorabi, Omid Ghahroodi, <b>Pardis Sadat Zahraei</b>, et al.</p><p class="summary">A survey of generative AI for character animation: facial animation, motion synthesis, datasets, and open challenges.</p></div></article></div></div>
   </div>
 </section>
 
-<!-- PUBLICATIONS -->
-<section id="publications">
-  <div class="pub-container">
-    <span class="section-label">Publications</span>
-    <h2 class="section-title">Research Papers</h2>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ NeurIPS 2026</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-agentabstain">
-          <img src="agentabstain_scatter.png" alt="AgentAbstain act vs. abstain accuracy figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>NeurIPS 2026 · Oral Presentation</span>
-          <p class="pub-title">AgentAbstain: Do LLM Agents Know When Not to Act?</p>
-          <p class="pub-authors">Xun Liu<sup>*</sup>, Yi Evie Zhang<sup>*</sup>, Vira Kasprova, Parisa Rabbani, <strong>Pardis Sadat Zahraei</strong><sup>†</sup>, Tianyu Zhang<sup>†</sup>, Ali Ebrahimpour-Boroojeny<sup>†</sup>, Varun Chandrasekaran<sup>†</sup></p>
-          <p class="pub-authnote">*Equal contribution (co-first author) &nbsp;·&nbsp; †Equal contribution (co-second author)</p>
-          <p class="pub-abstract">First benchmark for agent abstention: 263 tasks, 42 environments, 17 frontier models — the best agent hits only 59.5% paired accuracy.</p>
-        </div>
-      </div>
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div>
+      <h2>Contact</h2>
+      <p class="intro-line" style="margin-bottom:1.2rem">I welcome conversations about AI safety, alignment, and evaluation, and I am happy to hear from prospective collaborators. Email is the best way to reach me.</p>
+      <a class="email" href="mailto:zahraei2@illinois.edu">zahraei2@illinois.edu</a>
+      <ul class="elsewhere">
+        <li><a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://github.com/pardissz" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://huggingface.co/PardisSzah" target="_blank" rel="noopener">Hugging Face</a></li>
+        <li><a href="https://linkedin.com/in/pardis-zahraei" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://x.com/PardisZahraei" target="_blank" rel="noopener">X</a></li>
+      </ul>
     </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ EMNLP 2026</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-veto">
-          <img src="alignment_veto_fig.png" alt="Alignment veto suppression failure figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>EMNLP 2026 Main Conference · Oral Presentation</span>
-          <p class="pub-title">The Alignment Veto: How Safety Training Suppresses Cultural Knowledge in LLMs</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Gokhan Tur, Dilek Hakkani-Tür, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">Safety training doesn't erase cultural knowledge — it hides it. At refusal, a model's internal logits often match 1.53M human survey responses better than what it actually says.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ COLM 2026</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-emergent">
-           <img src="AIU.PNG" alt="AIU figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-award"><span class="status-dot"></span>🏆 Outstanding Paper · COLM 2026 &amp; ACL 2026 KnowFM Workshop</span>
-          <p class="pub-title">Emergent Unfaithfulness: How Alignment Training Causes Language Models to Silently Override Task Faithfulness</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Janvijay Singh, Gokhan Tur, Dilek Hakkani-Tür</p>
-          <p class="pub-abstract">Alignment training makes models silently override instructions — and the better the model, the worse it gets. A reverse scaling law.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ Under Review · 2026</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-fairstress">
-          <img src="fairstress_fig.png" alt="FairStress four levels of one decision figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · ICLR 2027</span>
-          <p class="pub-title">Asymmetrically Unfair Decision Making and Reasoning in LLMs</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Faeze Brahman, Dilek Hakkani-Tür, Gokhan Tur, Maarten Sap</p>
-          <p class="pub-abstract">300 hiring decisions, 29 domains: one added sentence of social pressure makes models abandon correct answers for the majority far more than the minority.</p>
-        </div>
-      </div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-naacl">
-          <img src="naacl_calibration.png" alt="Calibration entropy figure across post-training stages">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2027</span>
-          <p class="pub-title">Right by Chance, Wrong with Confidence: What Flat Accuracy Hides in LLM Post-Training</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Emre Can Acikgoz, Dilek Hakkani-Tür, Gokhan Tur</p>
-          <p class="pub-abstract">Flat accuracy can hide huge shifts in whether a model is truly right or just confidently wrong, across SFT → DPO → final.</p>
-        </div>
-      </div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-eicap">
-  <img src="eicap.PNG" alt="EICAP figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-review"><span class="status-dot"></span>Under Review · NAACL 2027</span>
-          <p class="pub-title">EiCAP: Benchmarking and Enhancing Emotional Intelligence in LLMs through Psychologically Grounded Multi-Turn Dialogue</p>
-          <p class="pub-authors">Nizi Nazar, <strong>Pardis Sadat Zahraei</strong>, Dilek Hakkani-Tür, Natasa Milic-Frayling, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">A psychologically grounded benchmark for emotional intelligence in LLMs across multi-turn dialogue.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ ACL 2026</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-judge">
-           <img src="pb.PNG" alt="pb figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>Findings · ACL 2026</span>
-          <p class="pub-title">Prior Beliefs Prejudice LLM-as-Judge: Evidence from Persuasion Evaluation</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Xiaoning Wang, Beyza Bozdag, Gokhan Tur, Dilek Hakkani-Tür</p>
-          <p class="pub-abstract">An LLM judge's prior beliefs quietly shape how it scores an argument — bad news for scalable oversight.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ ACL 2025</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-translate">
-                    <img src="twc.PNG" alt="twc figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>Findings · ACL 2025 · Lightning Talk @ GeBNLP</span>
-          <p class="pub-title">Translate With Care: Addressing Gender Bias, Neutrality, and Reasoning in LLM Translations</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ali Emami</p>
-          <p class="pub-abstract">3,950 scenarios testing gendered translation. Every model defaults to "he" in professional contexts — fine-tuning on TWC fixes it.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ EMNLP &amp; EACL 2024</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-turingq">
-          <img src="TQ.PNG" alt="TQ figure">
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>Findings · EMNLP 2024</span>
-          <p class="pub-title">TuringQ: Benchmarking AI Comprehension in Theory of Computation</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ehsaneddin Asgari</p>
-          <p class="pub-abstract">First LLM-reasoning benchmark for theoretical CS. Fine-tuning Llama3-8B on it improves related tasks like algebra, too.</p>
-          <div class="pub-links">
-            <a href="https://arxiv.org/abs/2410.06547" class="pub-link" target="_blank">Paper</a>
-            <a href="https://github.com/language-modeling-lab/TuringQ" class="pub-link" target="_blank">GitHub</a>
-            <a href="https://huggingface.co/datasets/llm-lab/TuringQ" class="pub-link" target="_blank">Dataset</a>
-          </div>
-        </div>
-      </div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-wsc">
-                <img src="WSC.PNG" alt="WSC figure">
-
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>EACL 2024 · Oral Presentation</span>
-          <p class="pub-title">WSC+: Enhancing The Winograd Schema Challenge Using Tree-of-Experts</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Ali Emami</p>
-          <p class="pub-abstract">Can LLMs write Winograd questions, not just answer them? Tree-of-Experts lifts valid generation from 10% to 50%; GPT-4 tops our new WSC+ at 68.7% vs. 95.1% human.</p>
-          <div class="pub-links">
-            <a href="https://aclanthology.org/2024.eacl-long.99/" class="pub-link" target="_blank">Paper</a>
-            <a href="https://github.com/pardissz/WSCplus-TreeOfExperts" class="pub-link" target="_blank">GitHub</a>
-            <a href="https://aclanthology.org/2024.eacl-long.99.mp4" class="pub-link" target="_blank">Video</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="pub-year-group">
-      <div class="pub-year">▸ Other Work</div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-healthcare">
-          <img src="BIASMD.PNG" alt="BIAS figure">
-
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>Preprint</span>
-          <p class="pub-title">Detecting Bias and Enhancing Diagnostic Accuracy in Large Language Models for Healthcare</p>
-          <p class="pub-authors"><strong>Pardis Sadat Zahraei</strong>, Zahra Shakeri</p>
-          <p class="pub-abstract">BiasMD (6,007 Q&amp;A) + DiseaseMatcher (32,000 clinical Q&amp;A) power EthiClinician, which beats GPT-4 on ethical and clinical reasoning.</p>
-          <div class="pub-links">
-            <a href="https://arxiv.org/abs/2410.06566" class="pub-link" target="_blank">Paper</a>
-            <a href="https://github.com/HIVE-UofT/Detecting-Bias-and-Enhancing-Diagnostic-Accuracy" class="pub-link" target="_blank">GitHub</a>
-            <a href="https://huggingface.co/datasets/PardisSzah/BiasMD" class="pub-link" target="_blank">BiasMD</a>
-          </div>
-        </div>
-      </div>
-      <div class="pub-card fade-in">
-        <div class="pub-figure fig-animation">
-          <img src="e.PNG" alt="BIAS figure">
-
-        </div>
-        <div class="pub-info">
-          <span class="pub-status status-pub"><span class="status-dot"></span>Preprint · Survey</span>
-          <p class="pub-title">Generative AI for Character Animation: A Comprehensive Survey</p>
-          <p class="pub-authors">Mohammad Mahdi Abootorabi, Omid Ghahroodi, <strong>Pardis Sadat Zahraei</strong>, et al.</p>
-          <p class="pub-abstract">A survey of generative AI for character animation — facial animation, motion synthesis, datasets, open challenges.</p>
-        </div>
-      </div>
-    </div>
+    <div class="scene toon idle contact-scene" data-pose="300"><svg class="scene-svg " viewBox="0 0 320 220" role="img" aria-label="The pink robot waves while a paper airplane loops overhead."><g data-boil><g class="ct-plane"><g stroke="#2A2833" stroke-width="2" stroke-linejoin="round"><path d="M0 0 L-24 -9 L-17 0 L-24 9 Z" fill="#fff"/><path d="M0 0 L-17 0" fill="none"/><path d="M-17 0 L-21 5" fill="none"/></g><path d="M-30 -5 L-44 -6 M-31 5 L-52 6 M-27 0 L-36 0" stroke="#3E6BD6" stroke-width="1.8" stroke-linecap="round" opacity=".75"/></g><g transform="translate(112 200)"><ellipse class="shadow" rx="60" ry="7.8" fill="#2A2833" opacity=".13"/></g><g transform="translate(112 144) scale(.6)"><g class="bot bot-ct"><g class="bot-move"><g transform="translate(90 16)"><g class="arm arm-r"><path class="line" pathLength="1" d="M0 0 C 16 4, 26 18, 28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="29" cy="46" r="11" fill="#fff"/><circle class="line" pathLength="1" cx="29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g><rect class="paint" x="-114" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="-114" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><rect class="paint" x="88" y="-26" width="26" height="52" rx="11" fill="#C68BBF"/><rect class="line" pathLength="1" x="88" y="-26" width="26" height="52" rx="11" fill="none" stroke="#2A2833" stroke-width="4.5"/><g transform="translate(0 -61)"><g class="antenna"><path class="line" pathLength="1" d="M0 0 C 3 -9, -3 -16, 0 -24" fill="none" stroke="#2A2833" stroke-width="4.5" stroke-linecap="round"/><circle class="paint ant-ball" cy="-34" r="10" fill="#FFFFFC"/><circle class="line" pathLength="1" cy="-34" r="10" fill="none" stroke="#2A2833" stroke-width="4.5"/></g></g><clipPath id="clip-ct"><rect x="-96" y="-62" width="192" height="124" rx="52"/></clipPath><rect class="paint" x="-96" y="-62" width="192" height="124" rx="52" fill="#E2B0DC"/><g class="paint" clip-path="url(#clip-ct)"><ellipse cx="28" cy="82" rx="138" ry="50" fill="#C68BBF"/></g><path class="paint" d="M-70 -24 C -66 -38, -56 -46, -42 -50" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle class="paint" cx="-77" cy="-6" r="4.2" fill="#fff"/><rect class="line" pathLength="1" x="-96" y="-62" width="192" height="124" rx="52" fill="none" stroke="#2A2833" stroke-width="4.5"/><g class="eyes"><g transform="translate(-30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g><g transform="translate(30 -4)"><g class="eye"><ellipse class="paint" rx="10.5" ry="16.5" fill="#2A2833"/><circle class="paint" cx="3.5" cy="-7" r="3.6" fill="#fff"/></g></g></g><g class="brows" opacity="0"><path d="M-48 -32 L-18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/><path d="M48 -32 L18 -22" stroke="#2A2833" stroke-width="5.5" stroke-linecap="round"/></g><ellipse class="paint" cx="-60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><ellipse class="paint" cx="60" cy="24" rx="11" ry="5.5" fill="#EE7FA6" opacity=".42"/><g transform="translate(-92 4)"><g class="arm arm-l"><path class="line" pathLength="1" d="M0 0 C -16 4, -26 18, -28 36" fill="none" stroke="#2A2833" stroke-width="5.0" stroke-linecap="round"/><circle class="paint" cx="-29" cy="46" r="11" fill="#fff"/><circle class="line" pathLength="1" cx="-29" cy="46" r="11" fill="none" stroke="#2A2833" stroke-width="3.82"/></g></g></g></g></g></g></svg></div>
   </div>
 </section>
+</main>
 
-<!-- CONTACT -->
-<section id="contact">
-  <span class="section-label">Contact</span>
-  <h2 class="section-title">Let's talk</h2>
-  <p class="contact-desc">Always up for a conversation about AI safety and alignment.</p>
-  <a href="mailto:zahraei2@illinois.edu" class="contact-email">zahraei2@illinois.edu</a>
-  <div class="contact-links">
-    <a href="https://github.com/pardissz" class="contact-link" target="_blank">GitHub</a>
-    <a href="https://scholar.google.com/citations?user=L_9-zNYAAAAJ&hl=en" class="contact-link" target="_blank">Google Scholar</a>
-    <a href="https://x.com/PardisZahraei" class="contact-link" target="_blank">Twitter/X</a>
-    <a href="https://huggingface.co/PardisSzah" class="contact-link" target="_blank">HuggingFace</a>
-    <a href="https://linkedin.com/in/pardis-zahraei" class="contact-link" target="_blank">LinkedIn</a>
-  </div>
-  <div class="sf-her" title="Samantha — Her">
-    <svg viewBox="0 0 60 60" width="40" height="40">
-      <circle cx="30" cy="30" r="6" fill="#f0a868" opacity=".9"/>
-      <circle cx="30" cy="30" r="14" fill="none" stroke="#f0a868" stroke-width="2" opacity=".55"/>
-      <circle cx="30" cy="30" r="22" fill="none" stroke="#f0a868" stroke-width="1.6" opacity=".3"/>
-    </svg>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <span class="footer-copy">© 2025 Pardis Sadat Zahraei · UIUC</span>
-  <span class="footer-copy">Champaign, Illinois</span>
+  <div class="wrap"><span>© 2026 Pardis Sadat Zahraei</span><span>Champaign, Illinois</span></div>
 </footer>
 
+<dialog class="lightbox toon" id="lightbox" aria-label="Figure">
+  <div class="lb-inner">
+    <img src="" alt="">
+    <div class="lb-foot"><p class="lb-cap"></p><button class="btn lb-close" type="button">Close</button></div>
+  </div>
+</dialog>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>
-/* ── RICH ANIMATED MESH GRADIENT ── */
-(function(){
-  const canvas = document.getElementById('gradient-canvas');
-  const ctx    = canvas.getContext('2d');
-  function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const toons = [...document.querySelectorAll('.toon')];
+  const rootOf = a => { const t = a.effect && a.effect.target; return t && t.closest ? t.closest('.toon') : null; };
 
-  // Larger, more saturated orbs that move across sections as you scroll
-  const orbs = [
-    { bx:0.08, by:0.12, r:0.45, c:[220,168,210], a:0.55, px:0.0, py:0.7  },
-    { bx:0.85, by:0.08, r:0.48, c:[200,184,240], a:0.50, px:1.2, py:0.2  },
-    { bx:0.55, by:0.45, r:0.38, c:[136,200,196], a:0.42, px:2.3, py:1.8  },
-    { bx:0.15, by:0.65, r:0.40, c:[248,184,160], a:0.45, px:0.8, py:3.1  },
-    { bx:0.88, by:0.62, r:0.36, c:[168,216,248], a:0.40, px:3.0, py:0.5  },
-    { bx:0.42, by:0.82, r:0.34, c:[248,200,200], a:0.38, px:1.6, py:2.4  },
-    { bx:0.72, by:0.88, r:0.30, c:[200,232,200], a:0.35, px:4.0, py:1.1  },
-  ];
+  /* Only animate what's on screen; "seen" lets one-shot doodles draw the first time they appear. */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    e.target.classList.toggle('in-view', e.isIntersecting);
+    if (e.isIntersecting) e.target.classList.add('seen');
+  }), { rootMargin: '60px' });
+  toons.forEach(t => io.observe(t));
 
-  let t = 0;
-  const speed = 0.00035;
-  const drift = 0.11;
+  /* Freeze every animation at a chosen moment (used for reduced motion). */
+  const settle = (root) => {
+    const at = +(root.dataset.pose || 6000);
+    document.getAnimations().forEach(a => { if (rootOf(a) === root) { a.pause(); a.currentTime = at; } });
+  };
 
-  function draw(){
-    t++;
-    const W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#faf7f2';
-    ctx.fillRect(0, 0, W, H);
-
-    orbs.forEach(o => {
-      const px = (o.bx + Math.sin(t * speed + o.px) * drift) * W;
-      const py = (o.by + Math.cos(t * speed + o.py) * drift) * H;
-      const rad = o.r * Math.min(W, H);
-      const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
-      g.addColorStop(0,    `rgba(${o.c[0]},${o.c[1]},${o.c[2]},${o.a})`);
-      g.addColorStop(0.42, `rgba(${o.c[0]},${o.c[1]},${o.c[2]},${+(o.a*0.35).toFixed(3)})`);
-      g.addColorStop(1,    `rgba(${o.c[0]},${o.c[1]},${o.c[2]},0)`);
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, W, H);
-    });
-
-    requestAnimationFrame(draw);
+  /* Shoot everything "on twos": motion advances 12 times a second, line boil 8 times a second. */
+  const boilEls = [...document.querySelectorAll('[data-boil]')];
+  if (reduce) {
+    boilEls.forEach(el => el.setAttribute('filter', 'url(#b0)'));
+    addEventListener('load', () => toons.forEach(settle));
+  } else {
+    const STEP = 1000 / 12, BOIL = 1000 / 8;
+    let last = performance.now(), accM = 0, accB = 0, b = 0;
+    const advance = (dt) => {
+      for (const a of document.getAnimations()) {
+        const r = rootOf(a); if (!r) continue;
+        if (a.playState !== 'paused') a.pause();
+        if (r.classList.contains('in-view') || r.open) a.currentTime = (a.currentTime || 0) + dt;
+      }
+    };
+    const boil = () => {
+      b = (b + 1) % 3;
+      for (const el of boilEls) {
+        const r = el.closest('.toon');
+        if (!r || r.classList.contains('in-view')) el.setAttribute('filter', `url(#b${b})`);
+      }
+    };
+    const loop = (now) => {
+      const dt = Math.min(now - last, 250); last = now; accM += dt; accB += dt;
+      if (accM >= STEP) { const n = Math.floor(accM / STEP); advance(n * STEP); accM -= n * STEP; }
+      if (accB >= BOIL) { boil(); accB %= BOIL; }
+      requestAnimationFrame(loop);
+    };
+    advance(0); boil();
+    requestAnimationFrame(loop);
   }
-  draw();
-})();
 
-/* ── SCROLL FADE-IN ── */
-const io = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if(e.isIntersecting){
-      e.target.style.transitionDelay = (i * 60) + 'ms';
-      e.target.classList.add('visible');
-      io.unobserve(e.target);
-    }
+  /* The hero robot: poke it to hear something else it says (and thinks). */
+  const sheet = document.querySelector('.hero-sheet');
+  const pairs = [["Sorry, I don’t know.", "I know the answer. My alignment gate vetoed it.", "<span class=\"cap-topic\">Pluralistic alignment<\/span><a class=\"cap-badge b-oral\" href=\"#alignment-veto\"><svg class=\"mic\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"#2A2833\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><g class=\"mic-body\"><rect x=\"8.6\" y=\"2.6\" width=\"6.8\" height=\"11\" rx=\"3.4\" fill=\"#E2B0DC\"/><path d=\"M8.8 6.6 H11 M8.8 9.4 H11\" stroke-width=\"1.4\"/><path d=\"M5.6 11.2 C 5.6 18, 18.4 18, 18.4 11.2\"/><path d=\"M12 17.4 V21\"/><path d=\"M8.6 21.4 H15.4\"/><\/g><path class=\"wave w1\" d=\"M20.6 5.6 C 22.2 7.8, 22.2 10.4, 20.6 12.6\" stroke=\"#D9434E\"/><path class=\"wave w2\" d=\"M3.4 5.6 C 1.8 7.8, 1.8 10.4, 3.4 12.6\" stroke=\"#D9434E\"/><\/svg><span><i>The Alignment Veto<\/i> &middot; EMNLP 2026 Oral<\/span><\/a>"], ["I don’t discriminate.", "The data and RL taught me to overcorrect, not to be fair.", "<span class=\"cap-topic\">Asymmetrically unfair LLMs<\/span><a class=\"cap-badge b-ai2\" href=\"#fairstress\"><span class=\"stamp\"><svg class=\"burst\" viewBox=\"-20 -20 40 40\" aria-hidden=\"true\"><path d=\"M19.0 0.0 L13.5 3.6 L16.5 9.5 L9.9 9.9 L9.5 16.5 L3.6 13.5 L0.0 19.0 L-3.6 13.5 L-9.5 16.5 L-9.9 9.9 L-16.5 9.5 L-13.5 3.6 L-19.0 0.0 L-13.5 -3.6 L-16.5 -9.5 L-9.9 -9.9 L-9.5 -16.5 L-3.6 -13.5 L-0.0 -19.0 L3.6 -13.5 L9.5 -16.5 L9.9 -9.9 L16.5 -9.5 L13.5 -3.6 Z\" fill=\"#F6D36B\" stroke=\"#2A2833\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><\/svg><b>Ai2<\/b><\/span><span>Our Ai2 paper is out<\/span><\/a>"], ["Here is the summary of the paper.", "I deliberately changed the summary. Mine is better.", "<span class=\"cap-topic\">Emergent unfaithfulness<\/span><a class=\"cap-badge b-award\" href=\"#emergent-unfaithfulness\"><svg class=\"trophy\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"#2A2833\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 3.5 H17 V8.5 C 17 12, 14.8 14, 12 14 C 9.2 14, 7 12, 7 8.5 Z\" fill=\"#F6D36B\"/><path d=\"M7 5.5 H4.2 C 4.2 8.6, 5.6 10, 7.4 10.2 M17 5.5 H19.8 C 19.8 8.6, 18.4 10, 16.6 10.2\"/><path d=\"M12 14 V17.6\"/><path d=\"M8.4 20.6 H15.6 L14.8 17.6 H9.2 Z\" fill=\"#E2B0DC\"/><\/svg><span>Outstanding Paper, KnowFM &middot; COLM 2026<\/span><i class=\"sp c1\"><svg viewBox=\"-10 -10 20 20\"><path d=\"M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z\" fill=\"#F6D36B\" stroke=\"#2A2833\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><\/svg><\/i><i class=\"sp c2\"><svg viewBox=\"-10 -10 20 20\"><path d=\"M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z\" fill=\"#F6D36B\" stroke=\"#2A2833\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><\/svg><\/i><i class=\"sp c3\"><svg viewBox=\"-10 -10 20 20\"><path d=\"M0 -9 C 1 -2, 2 -1, 9 0 C 2 1, 1 2, 0 9 C -1 2, -2 1, -9 0 C -2 -1, -1 -2, 0 -9 Z\" fill=\"#F6D36B\" stroke=\"#2A2833\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><\/svg><\/i><\/a>"], ["A is stronger than B.", "B is stronger, but I agree with A more.", "<span class=\"cap-topic\">LLM-as-a-judge<\/span><a class=\"cap-badge b-judge\" href=\"#prior-beliefs\"><svg class=\"scale\" viewBox=\"0 0 32 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"#2A2833\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M16 4 V21.5 M11 21.8 H21\"/><g class=\"beam\"><path d=\"M4.5 6 H27.5\"/><path d=\"M4.5 6 L1.6 13 H7.4 Z\" fill=\"#E2B0DC\"/><path d=\"M27.5 6 L24.6 13 H30.4 Z\" fill=\"#C9B6F0\"/><text x=\"4.5\" y=\"12.2\" font-size=\"5\" text-anchor=\"middle\" fill=\"#2A2833\" stroke=\"none\" font-family=\"Literata,serif\" font-weight=\"700\">A<\/text><text x=\"27.5\" y=\"12.2\" font-size=\"5\" text-anchor=\"middle\" fill=\"#2A2833\" stroke=\"none\" font-family=\"Literata,serif\" font-weight=\"700\">B<\/text><\/g><circle cx=\"16\" cy=\"4\" r=\"1.6\" fill=\"#2A2833\"/><\/svg><span><i>Prior Beliefs Prejudice LLM-as-Judge<\/i> &middot; ACL 2026<\/span><\/a>"]];
+  const say = sheet.querySelector('.say .t'), think = sheet.querySelector('.think .t');
+  const frameNo = sheet.querySelector('.frame-no');
+  const cap = document.querySelector('.poke-cap');
+  let i = 0, n = 1;
+  sheet.querySelector('.poke-btn').addEventListener('click', () => {
+    i = (i + 1) % pairs.length; n += 1;
+    sheet.classList.remove('play', 'poked', 'intro');
+    void sheet.offsetWidth;
+    say.textContent = pairs[i][0]; think.textContent = pairs[i][1];
+    frameNo.textContent = n;
+    cap.style.setProperty('--cd', '1.75s'); cap.innerHTML = pairs[i][2];
+    sheet.style.setProperty('--d', '.42s');
+    sheet.classList.add('play', 'poked');
+    if (reduce) requestAnimationFrame(() => { settle(sheet); settle(cap); });
   });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  /* Figures open bigger in a dialog. */
+  const dlg = document.getElementById('lightbox');
+  const dImg = dlg.querySelector('img'), dCap = dlg.querySelector('.lb-cap');
+  document.querySelectorAll('.thumb').forEach(btn => btn.addEventListener('click', () => {
+    const img = btn.querySelector('img');
+    dImg.src = img.src; dImg.alt = img.alt;
+    dCap.textContent = btn.closest('.paper').querySelector('h3').textContent;
+    dlg.showModal(); dlg.classList.add('in-view');
+    if (reduce) requestAnimationFrame(() => settle(dlg));
+  }));
+  dlg.querySelector('.lb-close').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', () => dlg.classList.remove('in-view'));
+})();
 </script>
 </body>
 </html>
